@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+
+  if !code
+    h2 Welcome
+    button <a href="/authorize">Log In</a>
+  else
+    p Greetings!
+    p Parts of auth code "#{code}"
+    a(href="/") Home
+    
