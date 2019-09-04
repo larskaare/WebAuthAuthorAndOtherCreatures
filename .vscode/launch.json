@@ -15,6 +15,12 @@
             "request": "launch",
             "name": "www ex-2",
             "program": "${workspaceFolder}/ex-2/bin/www"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "www ex-3",
+            "program": "${workspaceFolder}/ex-3/bin/www"
         }
     ]
 }
