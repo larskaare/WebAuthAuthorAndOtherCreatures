@@ -5,9 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+        "type": "node",
+        "request": "launch",
+        "name": "www ex-1",
+        "program": "${workspaceFolder}/ex-1/bin/www"
+        },
+        {
             "type": "node",
             "request": "launch",
-            "name": "Launch Application www",
+            "name": "www ex-2",
             "program": "${workspaceFolder}/ex-2/bin/www"
         }
     ]
