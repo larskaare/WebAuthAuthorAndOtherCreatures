@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+
+  if !code
+    h2 Welcome
+    button <a href="/authorize">Log In</a>
+  else
+    p Greetings!
+    p Parts of auth code "#{code}"
+    br
+    JWT Token Info
+    ol
+      li Token Expire #{tokenInfo.exp}
+      li Issued to #{tokenInfo.given_name} #{tokenInfo.family_name}
+      li Token scope "#{tokenInfo.scp}"
+    p
+    a(href="/mail") Mail:Inbox
+    p
+    a(href="/") Home

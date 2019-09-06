@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p
+  p
+  ul
+   each mail in newMails
+    li=mail
+  p
+  a(href="/") Home
