@@ -3,11 +3,12 @@ var router = express.Router();
 var request = require('then-request');
 var __ = require('underscore');
 var logHelper = require('../src/logHelper');
+var authUtil = require('../src/authutils');
 
 var logger = logHelper.createAppLogger();
 
 /* GET root of mail page. */
-router.get('/', function(req, res) {
+router.get('/', authUtil.ensureAuthenticated,function(req, res) {
 
     logger.warn('Got request to hit MS Graph for new emails');
 

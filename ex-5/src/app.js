@@ -1,29 +1,124 @@
 var createError = require('http-errors');
 var express = require('express');
 var expressSession = require('express-session');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var passport = require('passport');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var requestLogger = require('morgan');
 var randomstring = require('randomstring');
-var url = require('url');
-var __ = require('underscore');
-var qs = require('qs');
-var request = require('then-request');
-var querystring = require('querystring');
-var moment = require('moment');
 var logHelper = require('./logHelper');
+var config = require('../config/config.js');
 
-var logger = logHelper.createAppLogger();
-logger.warn('Logger started, NODE_ENV=' + process.env.NODE_ENV);
+var log = logHelper.createAppLogger();
+log.warn('Logger started, NODE_ENV=' + process.env.NODE_ENV);
+
+// set up database for express session
+// var MongoStore = require('connect-mongo')(expressSession);
+// var mongoose = require('mongoose');
+
+var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+
+//
+// Functions to serialize and deserialize users for session mgmt
+//
+
+passport.serializeUser(function(user, done) {
+    done(null, user.oid);
+});
+  
+passport.deserializeUser(function(oid, done) {
+    findByOid(oid, function (err, user) {
+        done(err, user);
+    });
+});
+  
+// array to hold logged in users
+var users = [];
+  
+var findByOid = function(oid, fn) {
+    for (var i = 0, len = users.length; i < len; i++) {
+        var user = users[i];
+        log.info('we are using user: ' + user.oid);
+        if (user.oid === oid) {
+            return fn(null, user);
+        }
+    }
+    return fn(null, null);
+};
+
+//-----------------------------------------------------------------------------
+// Use the OIDCStrategy within Passport.
+// 
+// Strategies in passport require a `verify` function, which accepts credentials
+// (in this case, the `oid` claim in id_token), and invoke a callback to find
+// the corresponding user object.
+// 
+// The following are the accepted prototypes for the `verify` function
+// (1) function(iss, sub, done)
+// (2) function(iss, sub, profile, done)
+// (3) function(iss, sub, profile, access_token, refresh_token, done)
+// (4) function(iss, sub, profile, access_token, refresh_token, params, done)
+// (5) function(iss, sub, profile, jwtClaims, access_token, refresh_token, params, done)
+// (6) prototype (1)-(5) with an additional `req` parameter as the first parameter
+//
+// To do prototype (6), passReqToCallback must be set to true in the config.
+//-----------------------------------------------------------------------------
+passport.use(new OIDCStrategy({
+    identityMetadata: config.creds.identityMetadata,
+    clientID: config.creds.clientID,
+    responseType: config.creds.responseType,
+    responseMode: config.creds.responseMode,
+    redirectUrl: config.creds.redirectUrl,
+    allowHttpForRedirectUrl: config.creds.allowHttpForRedirectUrl,
+    clientSecret: config.creds.clientSecret,
+    validateIssuer: config.creds.validateIssuer,
+    isB2C: config.creds.isB2C,
+    issuer: config.creds.issuer,
+    passReqToCallback: config.creds.passReqToCallback,
+    scope: config.creds.scope,
+    loggingLevel: config.creds.loggingLevel,
+    nonceLifetime: config.creds.nonceLifetime,
+    nonceMaxAmount: config.creds.nonceMaxAmount,
+    useCookieInsteadOfSession: config.creds.useCookieInsteadOfSession,
+    cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
+    clockSkew: config.creds.clockSkew,
+},
+function(iss, sub, profile, accessToken, refreshToken, done) {
+    if (!profile.oid) {
+        return done(new Error('No oid found'), null);
+    }
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+        findByOid(profile.oid, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                // "Auto-registration"
+                users.push(profile);
+                return done(null, profile);
+            }
+            return done(null, user);
+        });
+    });
+}
+));
 
 var indexRouter = require('../routes/index');
 var mailRouter = require('../routes/mail');
+var userInfoRouter = require('../routes/userinformation');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
+// app.use(express.logger());
+app.use(methodOverride());
+app.use(cookieParser());
+
 
 // Define logging for middleware
 if (process.env.NODE_ENV !== 'production') {
@@ -32,124 +127,122 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(requestLogger('common'));
 }
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(expressSession({ secret: 'keyboard doggie', resave: true, saveUninitialized: false }));
-app.use(express.static(path.join(__dirname, '../public')));
+// set up session middleware
+// if (config.useMongoDBSessionStore) {
+//     mongoose.connect(config.databaseUri);
+//     app.use(express.session({
+//         secret: 'secret',
+//         cookie: {maxAge: config.mongoDBSessionMaxAge * 1000},
+//         store: new MongoStore({
+//             mongooseConnection: mongoose.connection,
+//             clear_interval: config.mongoDBSessionMaxAge
+//         })
+//     }));
+// } else {
+app.use(expressSession({ secret: 'you will never guess it', resave: true, saveUninitialized: false }));
+// }
+
+app.use(bodyParser.urlencoded({ extended : true }));
+
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(app.router);
+app.use(express.static(__dirname + '/../public'));
+
+
+//-----------------------------------------------------------------------------
+// Set up the route controller
+//
+// 1. For 'login' route and 'returnURL' route, use `passport.authenticate`. 
+// This way the passport middleware can redirect the user to login page, receive
+// id_token etc from returnURL.
+//
+// 2. For the routes you want to check if user is already logged in, use 
+// `ensureAuthenticated`. It checks if there is an user stored in session, if not
+// it will call `passport.authenticate` to ask for user to log in.
+//-----------------------------------------------------------------------------
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login');
+}
 
 app.use('/', indexRouter);
 app.use('/mail', mailRouter);
+app.use('/userinfo', userInfoRouter);
 
-
-/*
-    Adding config for authentication
-*/
-
-var authServer = {
-    authorizationEndpoint: 'https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/authorize',
-    tokenEndpoint: 'https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/token'
-};
-
-var client = {
-    'client_id': 'cab2507d-e7d1-46fd-9580-ea7de0cd02ea',
-    'client_secret': process.env.CLIENT_SECRET,
-    'redirect_uris': ['http://localhost:3000/callback']
-};
-
-var state = null;
-var scope = null;
-var access_token = null;
-
-app.get('/authorize', function(req, res) {
-
-    state = randomstring.generate();
-    scope = 'openid profile email Mail.Read  User.Read';
-
-    var authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
-        response_type: 'code',
-        client_id: client.client_id,
-        redirect_uri: client.redirect_uris[0],
-        state: state,
-        scope: scope
-    });
-
-    logger.debug('Redirect to ' + authorizeUrl);
-    res.redirect(authorizeUrl);
-
+app.get('/', function(req, res) {
+    res.render('index', { user: req.user });
 });
 
-app.get('/callback', function(req, res){
+// '/account' is only available to logged in user
+app.get('/account', ensureAuthenticated, function(req, res) {
+    res.render('account', { user: req.user });
+});
 
-    if (req.query.error) {
-        res.render('error', {error: req.query.error});
-        return;
-    }
-
-    if (req.query.state != state) {
-        logger.error('State DOES NOT MATCH: expected ' + state + ' got ' + req.query.state);
-        res.render('error', {error: 'State value did not match'});
-        return;
-    }
-
-    var code = req.query.code;
-    logger.debug('Got authorization code ' + code);
-
-
-    //We have an auth code, let's exchange that for an access token
-    //Constructing the request for access token
-
-    var form_data = qs.stringify({
-        grant_type: 'authorization_code',
-        code: code,
-        scope: scope,
-        redirect_uri: client.redirect_uris[0]
+app.get('/login',
+    function(req, res, next) {
+        passport.authenticate('azuread-openidconnect', 
+            { 
+                response: res,                          // required
+                resourceURL: config.resourceURL,        // optional. Provide a value if you want to specify the resource.
+                customState: randomstring.generate(),   // optional. Provide a value if you want to provide custom state value.
+                failureRedirect: '/' 
+            }
+        )(req, res, next);
+    },
+    function(req, res) {
+        log.info('Login was called in the Sample');
+        res.redirect('/');
     });
 
-    var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + encodeClientCredentials(client.client_id, client.client_secret)
-    };
+// 'GET returnURL'
+// `passport.authenticate` will try to authenticate the content returned in
+// query (such as authorization code). If authentication fails, user will be
+// redirected to '/' (home page); otherwise, it passes to the next middleware.
+app.get('/auth/openid/return',
+    function(req, res, next) {
+        passport.authenticate('azuread-openidconnect', 
+            { 
+                response: res,                      // required
+                failureRedirect: '/'  
+            }
+        )(req, res, next);
+    },
+    function(req, res) {
+        log.info('We received a return from AzureAD.');
+        res.redirect('/');
+    });
 
-    request('POST', authServer.tokenEndpoint, {
-        body: form_data,
-        headers: headers
-    }).done((tokenRes => {
 
-        if (tokenRes.statusCode >= 200 && tokenRes.statusCode < 300) {
-            var body = JSON.parse(tokenRes.getBody());
+// 'POST returnURL'
+// `passport.authenticate` will try to authenticate the content returned in
+// body (such as authorization code). If authentication fails, user will be
+// redirected to '/' (home page); otherwise, it passes to the next middleware.
+app.post('/auth/openid/return',
+    function(req, res, next) {
+        passport.authenticate('azuread-openidconnect', 
+            { 
+                response: res,                      // required
+                failureRedirect: '/'  
+            }
+        )(req, res, next);
+    },
+    function(req, res) {
+        log.info('We received a return from AzureAD.');
+        res.redirect('/');
+    });
 
-            access_token = body.access_token;
-            logger.debug('We go access token '+ access_token);
-
-            //extracting some information from the token
-            //selecting payload part of token and decode base64
-            const payloadStr = Buffer.from(access_token.split('.')[1], 'base64');   
-            const payLoad = JSON.parse(payloadStr);
-
-            var tokenInfo = {};
-            //Multiply ith 1000 since JS uses milliseconds since Epoch - Unix seconds
-            tokenInfo.exp = moment(payLoad.exp * 1000).format('MMMM Do YYYY, h:mm:ss a'); 
-            tokenInfo.given_name = payLoad.given_name;
-            tokenInfo.family_name = payLoad.family_name;
-            tokenInfo.scp = payLoad.scp;
-
-            logger.info(payLoad.exp);
-
-            //Storing access token in session 
-            req.session.access_token = access_token;           
-            
-            res.render('index', { title: 'Authenticated and access', code: code.substr(1,10), tokenInfo: tokenInfo });
-
-        } else {
-
-            logger.debug('We did not get access token ' + tokenRes.statusCode + tokenRes.body);
-            res.render('index', { title: 'Authenticated and NO access?' });
-
-        }
-    }));
-
+// 'logout' route, logout from passport, and destroy the session with AAD.
+app.get('/logout', function(req, res){
+    req.session.destroy(function(err) {
+        req.logOut();
+        res.redirect(config.destroySessionUrl);
+    });
 });
+  
+
 
 
 // catch 404 and forward to error handler
@@ -169,26 +262,5 @@ app.use(function(err, req, res) {
 
 });
 
-// Utility function to build a proper request url
-var buildUrl = function(base, options, hash) {
-    var newUrl = url.parse(base, true);
-    delete newUrl.search;
-    if (!newUrl.query) {
-        newUrl.query = {};
-    }
-    __.each(options, function(value, key) {
-        newUrl.query[key] = value;
-    });
-    if (hash) {
-        newUrl.hash = hash;
-    }
-
-    return url.format(newUrl);
-};
-
-//Utility function to encode client credentials to base64
-var encodeClientCredentials = function(clientId, clientSecret) {
-    return new Buffer.from(querystring.escape(clientId) + ':' + querystring.escape(clientSecret)).toString('base64');
-};
 
 module.exports = app;
