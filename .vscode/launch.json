@@ -27,6 +27,12 @@
             "request": "launch",
             "name": "www ex-4",
             "program": "${workspaceFolder}/ex-4/bin/www"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "www ex-5",
+            "program": "${workspaceFolder}/ex-5/src/www.js"
         }
     ]
     ]
