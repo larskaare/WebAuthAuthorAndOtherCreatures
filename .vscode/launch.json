@@ -33,6 +33,12 @@
             "request": "launch",
             "name": "www ex-5",
             "program": "${workspaceFolder}/ex-5/src/www.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "www ex-6",
+            "program": "${workspaceFolder}/ex-6/src/www.js"
         }
     ]
     ]
