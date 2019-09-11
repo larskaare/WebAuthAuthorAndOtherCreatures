@@ -5,16 +5,17 @@ var __ = require('underscore');
 var logHelper = require('../src/logHelper');
 var authUtil = require('../src/authutils');
 
-var logger = logHelper.createAppLogger();
+var logger = logHelper.createLogger();
+
 
 /* GET root of mail page. */
 router.get('/', authUtil.ensureAuthenticated,function(req, res) {
 
-    logger.warn('Got request to hit MS Graph for new emails');
+    logger.info('Got request to hit MS Graph for new emails');
 
     // Prepare header with auth and bearer token
     var headers = {
-        'Authorization': 'Bearer ' + req.session.access_token
+        'Authorization': 'Bearer ' + req.user.accessToken
     };
 
     // Prepare and send request to graph api on messages in inBox

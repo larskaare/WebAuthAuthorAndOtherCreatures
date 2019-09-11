@@ -1,70 +1,92 @@
+//
+// Gathering log definers in a helper library
+// Create logger is for logging outside the express middleware
+// Express logger config defines express middleware logging levels 
+//
 
-const winston = require('winston');
-const {createLogger, format} = require('winston');
-const appConfig = require('../config/config.js').appConfig;
+var bunyan = require('bunyan');
+var config = require('../config/config.js');
 
-// Utility function to create application logger
-exports.createAppLogger = function () {
 
-    const {timestamp, printf, colorize, json } = format;
-
+//Logger for non middleware
+exports.createLogger = function(){
 
     switch (process.env.NODE_ENV) {
-    case 'production':
-        return createLogger({
-            level: appConfig.logLevel.production,
-            format: format.combine(
-                colorize(),
-                timestamp({format:'YYYY-MM-DD HH:mm:ss'}),
-                json()
-            ),
-            transports: [
-                new (winston.transports.Console)({'timestamp':true,'colorize':true}),
-            ]
-        });
-    case 'debug':
-        return createLogger({
-            level: appConfig.logLevel.debug,
-            format: format.combine(
-                colorize(),
-                timestamp({format:'YYYY-MM-DD HH:mm:ss'}),
-                printf(info => {
-                    return `${info.timestamp} [${info.level}] : ${JSON.stringify(info.message)}`;
-                })
-            ),
-            transports: [
-                new (winston.transports.Console)({'timestamp':true,'colorize':true}),
-            ]
-        });
+
     case 'development':
-        return createLogger({
-            level: appConfig.logLevel.development,
-            format: format.combine(
-                colorize(),
-                timestamp({format:'YYYY-MM-DD HH:mm:ss'}),
-                printf(info => {
-                    return `${info.timestamp} [${info.level}] : ${JSON.stringify(info.message)}`;
-                })
-            ),
-            transports: [
-                new (winston.transports.Console)({'timestamp':true,'colorize':true}),
-            ]
-        });
-    default:
-        return createLogger({
-            level: 'emerg',
-            format: format.combine(
-                colorize(),
-                timestamp({format:'YYYY-MM-DD HH:mm:ss'}),
-                printf(info => {
-                    return `${info.timestamp} [${info.level}] : ${JSON.stringify(info.message)}`;
-                })
-            ),
-            transports: [
-                new (winston.transports.Console)({'timestamp':true,'colorize':true}),
-            ]
+        return bunyan.createLogger({
+            name: 'AADemo',
+            stream: process.stdout,
+            level: config.appConfig.logLevel.development       
         });
 
+    case 'debug':
+        return bunyan.createLogger({
+            name: 'AADemo',
+            stream: process.stdout,
+            level: config.appConfig.logLevel.debug       
+        });
+
+    case 'production':
+        return bunyan.createLogger({
+            name: 'AADemo',
+            stream: process.stdout,
+            level: config.appConfig.logLevel.production       
+        });
+
+    default:
+        return bunyan.createLogger({
+            name: 'AADemo',
+            stream: process.stdout,
+            level: config.appConfig.logLevel.development       
+        });
     }
 
 };
+
+//Environmental aware config for the middleware
+exports.expressLoggerConfig = function() {
+    
+    switch (process.env.NODE_ENV) {
+
+    case 'development':
+        return {name: 'DEVELOPMENT',
+            streams: [{
+                level: config.appConfig.logLevel.development,
+                stream: process.stdout
+            }],
+            excludes: ['req-headers', 'user-agent','res-headers','response-hrtime','req','res','body']
+        };
+
+    case 'production':
+        return {name: 'PRODUCTION',
+            streams: [{
+                level: config.appConfig.logLevel.production,
+                stream: process.stdout
+            }],
+            excludes: ['req-headers', 'user-agent','res-headers','response-hrtime','req','res']
+        };
+
+    case 'debug':
+        return {name: 'DEBUG',
+            streams: [{
+                level: config.appConfig.logLevel.debug,
+                stream: process.stdout
+            }],
+            // excludes: ['req-headers', 'user-agent','res-headers','response-hrtime','req','res']
+        };
+
+    default :
+        return {name: process.env.NODE_ENV,
+            streams: [{
+                level: 'warn',
+                stream: process.stdout
+            }],
+            excludes: ['req-headers', 'user-agent','res-headers','response-hrtime','req','res']
+        };
+                                                    
+    }
+
+    
+};
+

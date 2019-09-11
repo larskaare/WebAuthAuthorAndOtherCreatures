@@ -6,13 +6,14 @@ var methodOverride = require('method-override');
 var passport = require('passport');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var requestLogger = require('morgan');
 var randomstring = require('randomstring');
 var logHelper = require('./logHelper');
 var config = require('../config/config.js');
 
-var log = logHelper.createAppLogger();
-log.warn('Logger started, NODE_ENV=' + process.env.NODE_ENV);
+var log = logHelper.createLogger();
+
+
+log.info('Logger started, NODE_ENV=' + process.env.NODE_ENV);
 
 // set up database for express session
 // var MongoStore = require('connect-mongo')(expressSession);
@@ -86,6 +87,10 @@ passport.use(new OIDCStrategy({
     clockSkew: config.creds.clockSkew,
 },
 function(iss, sub, profile, accessToken, refreshToken, done) {
+    
+    //Storing access token in profile, the user object in req
+    profile.accessToken = accessToken;
+    
     if (!profile.oid) {
         return done(new Error('No oid found'), null);
     }
@@ -112,20 +117,14 @@ var userInfoRouter = require('../routes/userinformation');
 
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
-// app.use(express.logger());
 app.use(methodOverride());
 app.use(cookieParser());
 
-
 // Define logging for middleware
-if (process.env.NODE_ENV !== 'production') {
-    app.use(requestLogger('dev'));
-} else {
-    app.use(requestLogger('common'));
-}
+app.use(require('express-bunyan-logger')(logHelper.expressLoggerConfig()));
+
 
 // set up session middleware
 // if (config.useMongoDBSessionStore) {
@@ -148,7 +147,6 @@ app.use(bodyParser.urlencoded({ extended : true }));
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(app.router);
 app.use(express.static(__dirname + '/../public'));
 
 
@@ -191,11 +189,13 @@ app.get('/login',
                 failureRedirect: '/' 
             }
         )(req, res, next);
-    },
-    function(req, res) {
-        log.info('Login was called in the Sample');
-        res.redirect('/');
-    });
+    }
+    //,
+    // function(req, res) {
+    //     log.info('Login requested');
+    //     res.redirect('/');
+    // }
+);
 
 // 'GET returnURL'
 // `passport.authenticate` will try to authenticate the content returned in
@@ -211,7 +211,7 @@ app.get('/auth/openid/return',
         )(req, res, next);
     },
     function(req, res) {
-        log.info('We received a return from AzureAD.');
+        log.info('Get request from Azure AD to our returnURL');
         res.redirect('/');
     });
 
@@ -230,19 +230,21 @@ app.post('/auth/openid/return',
         )(req, res, next);
     },
     function(req, res) {
-        log.info('We received a return from AzureAD.');
+        log.info('Post request from Azure AD to our returnURL');
         res.redirect('/');
     });
 
 // 'logout' route, logout from passport, and destroy the session with AAD.
 app.get('/logout', function(req, res){
-    req.session.destroy(function(err) {
+    req.session.destroy(function() {
+        log.info('Logout requested');
         req.logOut();
         res.redirect(config.destroySessionUrl);
     });
 });
-  
 
+//Error logging for middleware
+app.use(require('express-bunyan-logger').errorLogger(logHelper.expressLoggerConfig()));
 
 
 // catch 404 and forward to error handler
@@ -261,6 +263,5 @@ app.use(function(err, req, res) {
     res.render('error');
 
 });
-
 
 module.exports = app;
