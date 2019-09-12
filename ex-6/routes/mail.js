@@ -15,7 +15,7 @@ router.get('/', authUtil.ensureAuthenticated,function(req, res) {
 
     // Prepare header with auth and bearer token
     var headers = {
-        'Authorization': 'Bearer ' + req.user.accessToken
+        'Authorization': 'Bearer ' + req.user.authInfo.access_token
     };
 
     // Prepare and send request to graph api on messages in inBox

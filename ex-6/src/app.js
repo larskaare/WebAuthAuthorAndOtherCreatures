@@ -86,10 +86,17 @@ passport.use(new OIDCStrategy({
     cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
     clockSkew: config.creds.clockSkew,
 },
-function(iss, sub, profile, accessToken, refreshToken, done) {
+function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, done) {
     
-    //Storing access token in profile, the user object in req
-    profile.accessToken = accessToken;
+    //Extracting various authorization relevant
+    //information and storing on user object which
+    //follows req thorugh the middleware.
+    profile.authInfo = {access_token: info.accessToken,
+        scope: info.scope,
+        groups: jwtClaims.groups,
+        roles: jwtClaims.roles
+        
+    };
     
     if (!profile.oid) {
         return done(new Error('No oid found'), null);
@@ -103,9 +110,9 @@ function(iss, sub, profile, accessToken, refreshToken, done) {
             if (!user) {
                 // "Auto-registration"
                 users.push(profile);
-                return done(null, profile);
+                return done(null, profile, info);
             }
-            return done(null, user);
+            return done(null, user, info);
         });
     });
 }
@@ -161,10 +168,7 @@ app.use(express.static(__dirname + '/../public'));
 // `ensureAuthenticated`. It checks if there is an user stored in session, if not
 // it will call `passport.authenticate` to ask for user to log in.
 //-----------------------------------------------------------------------------
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
-}
+
 
 app.use('/', indexRouter);
 app.use('/mail', mailRouter);
