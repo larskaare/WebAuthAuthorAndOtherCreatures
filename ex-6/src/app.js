@@ -91,7 +91,8 @@ function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, don
     //Extracting various authorization relevant
     //information and storing on user object which
     //follows req thorugh the middleware.
-    profile.authInfo = {access_token: info.accessToken,
+    profile.authInfo = {
+        access_token: accessToken,
         scope: info.scope,
         groups: jwtClaims.groups,
         roles: jwtClaims.roles
