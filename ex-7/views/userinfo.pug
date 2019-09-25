@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+
+  h2 User information
+  p
+  p #{user.displayName} is authenticated
+  p Access token expire date and time: #{user._json.exp} (#{tokenExpDate})
+  p Token scope : #{user.authInfo.scope}
+  p Groups in claim : #{user.authInfo.groups}
+  p Roles in claim : #{user.authInfo.roles}
+  p
+  a(href='/') Home sweet home
+  
+    

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p
+  p
+  if newMails
+   ul
+    each mail in newMails
+     li=mail
+  else
+   p
+  a(href="/") Home
