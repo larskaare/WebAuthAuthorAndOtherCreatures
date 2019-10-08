@@ -24,7 +24,7 @@
     "passport": "^0.4.0",
     "passport-azure-ad": "^4.1.0",
     "pug": "^2.0.4",
-    "qs": "^6.8.0",
+    "qs": "^6.9.0",
     "randomstring": "^1.1.5",
     "then-request": "^6.0.2",
     "underscore": "^1.9.1",
