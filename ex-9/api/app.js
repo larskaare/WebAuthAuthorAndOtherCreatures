@@ -9,7 +9,8 @@ var indexRouter = require('./routes/index');
 var app = express();
 
 var corsOptions = {
-    origin: 'http://localhost',
+    origin: 'http://localhost:3000',
+    methods: "GET",
     optionsSuccessStatus: 200 
   }
 

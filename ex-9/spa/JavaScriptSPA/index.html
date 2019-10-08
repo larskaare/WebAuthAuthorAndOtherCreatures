@@ -148,6 +148,7 @@
         }
         xmlHttp.open("GET", theUrl, true); // true for asynchronous
         xmlHttp.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xmlHttp.send();
     }
 
 
@@ -160,6 +161,7 @@
         };
 
         myMSALObj.acquireTokenSilent(requestEchoObj).then(function (tokenResponse) {
+            document.getElementById("json").innerHTML = '';
             callEcho('http://localhost:3100',tokenResponse.accessToken, function(data){
                 document.getElementById("json").innerHTML = JSON.stringify(data, null, 2); 
             });
