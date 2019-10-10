@@ -66,7 +66,7 @@ exports.creds = {
     // (2) if you want to get access_token for graph api, use the graph api url like 'https://graph.microsoft.com/mail.read'
     // scope: ['profile', 'offline_access', 'https://graph.microsoft.com/mail.read'],
     
-    scope: ['profile', 'openid', 'offline_access',
+    scope: ['profile', 'openid', 
         'https://graph.microsoft.com/mail.read'], 
     // Optional, 'error', 'warn' or 'info'
     loggingLevel: 'info',
@@ -94,7 +94,3 @@ exports.databaseUri = 'mongodb://localhost/OIDCStrategy';
   
 // How long you want to keep session in mongoDB.
 exports.mongoDBSessionMaxAge = 24 * 60 * 60;  // 1 day (unit is second)
-
-//Defines at which point we will ask for a new access token. The value is diff between exp and now
-//Standard exp is 3600 which means that 3590 will refresh after 10 seconds ...
-exports.diffSecondsBeforeRefresh = 3540;

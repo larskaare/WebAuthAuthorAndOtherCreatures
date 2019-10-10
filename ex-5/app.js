@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var expressSession = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var requestLogger = require('morgan');
@@ -8,12 +9,16 @@ var url = require('url');
 var __ = require('underscore');
 const winston = require('winston');
 const {createLogger, format} = require('winston');
+var qs = require('qs');
+var request = require('then-request');
+var querystring = require('querystring');
+var moment = require('moment');
 
 var logger = createAppLogger();
 logger.warn('Logger started, NODE_ENV=' + process.env.NODE_ENV);
 
-
 var indexRouter = require('./routes/index');
+var mailRouter = require('./routes/mail');
 
 var app = express();
 
@@ -31,9 +36,11 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(expressSession({ secret: 'keyboard doggie', resave: true, saveUninitialized: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/mail', mailRouter);
 
 
 /*
@@ -53,12 +60,13 @@ var client = {
 
 var state = null;
 var scope = null;
+var access_token = null;
 
 app.get('/authorize', function(req, res) {
 
     state = randomstring.generate();
-    scope = 'openid';
-    
+    scope = 'openid profile email Mail.Read  User.Read';
+
     var authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
         response_type: 'code',
         client_id: client.client_id,
@@ -66,38 +74,83 @@ app.get('/authorize', function(req, res) {
         state: state,
         scope: scope
     });
-    
+
     logger.debug('Redirect to ' + authorizeUrl);
     res.redirect(authorizeUrl);
-    
+
 });
 
 
 app.get('/callback', function(req, res){
-	
+
     if (req.query.error) {
         res.render('error', {error: req.query.error});
         return;
     }
-	
+
     if (req.query.state != state) {
-        logger.err('State DOES NOT MATCH: expected ' + state + ' got ' + req.query.state);
+        logger.error('State DOES NOT MATCH: expected ' + state + ' got ' + req.query.state);
         res.render('error', {error: 'State value did not match'});
         return;
     }
 
     var code = req.query.code;
-
     logger.debug('Got autorization code ' + code);
 
-    var title = '';
-    if (code) {
-        title = 'Authenticated' ;
-    } else {
-        title = 'Express';
-    }
-    res.render('index', { title: title, code: code.substr(1,10) });    
-    
+
+    //We have an auth code, let's exchange that for an access token
+    //Constructing the request for access token
+
+    var form_data = qs.stringify({
+        grant_type: 'authorization_code',
+        code: code,
+        scope: scope,
+        redirect_uri: client.redirect_uris[0]
+    });
+
+    var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + encodeClientCredentials(client.client_id, client.client_secret)
+    };
+
+    request('POST', authServer.tokenEndpoint, {
+        body: form_data,
+        headers: headers
+    }).done((tokenRes => {
+
+        if (tokenRes.statusCode >= 200 && tokenRes.statusCode < 300) {
+            var body = JSON.parse(tokenRes.getBody());
+
+            access_token = body.access_token;
+            logger.debug('We go access token '+ access_token);
+
+            //extracting some information from the token
+            //selecting payload part of token and decode base64
+            const payloadStr = Buffer.from(access_token.split('.')[1], 'base64');   
+            const payLoad = JSON.parse(payloadStr);
+
+            var tokenInfo = {};
+            //Multiply ith 1000 since JS uses milliseconds since Epoch - Unix seconds
+            tokenInfo.exp = moment(payLoad.exp * 1000).format('MMMM Do YYYY, h:mm:ss a'); 
+            tokenInfo.given_name = payLoad.given_name;
+            tokenInfo.family_name = payLoad.family_name;
+            tokenInfo.scp = payLoad.scp;
+
+            logger.info(payLoad.exp);
+
+            //Storing access token in session 
+            req.session.access_token = access_token;           
+            
+            res.render('index', { title: 'Authenticated and access', code: code.substr(1,10), tokenInfo: tokenInfo });
+
+        } else {
+
+            logger.debug('We did not get access token ' + tokenRes.statusCode + tokenRes.body);
+            res.render('index', { title: 'Authenticated and NO access?' });
+
+        }
+    }));
+
 });
 
 
@@ -131,14 +184,19 @@ var buildUrl = function(base, options, hash) {
     if (hash) {
         newUrl.hash = hash;
     }
-	
+
     return url.format(newUrl);
+};
+
+//Utility function to encode client credentials to base64
+var encodeClientCredentials = function(clientId, clientSecret) {
+    return new Buffer.from(querystring.escape(clientId) + ':' + querystring.escape(clientSecret)).toString('base64');
 };
 
 // Utility function to create application logger
 function createAppLogger(){
     const {timestamp, printf, colorize, json } = format;
-    
+
 
     switch (process.env.NODE_ENV) {
     case 'production':
@@ -196,7 +254,7 @@ function createAppLogger(){
             ]
         });
 
-    }   
+    }
 
 }
 

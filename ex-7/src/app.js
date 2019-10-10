@@ -9,7 +9,6 @@ var cookieParser = require('cookie-parser');
 var randomstring = require('randomstring');
 var logHelper = require('./logHelper');
 var config = require('../config/config.js');
-var authUtil = require('../src/authutils');
 
 var log = logHelper.createLogger();
 
@@ -67,8 +66,7 @@ var findByOid = function(oid, fn) {
 //
 // To do prototype (6), passReqToCallback must be set to true in the config.
 //-----------------------------------------------------------------------------
-
-var strategy = new OIDCStrategy({
+passport.use(new OIDCStrategy({
     identityMetadata: config.creds.identityMetadata,
     clientID: config.creds.clientID,
     responseType: config.creds.responseType,
@@ -86,7 +84,7 @@ var strategy = new OIDCStrategy({
     nonceMaxAmount: config.creds.nonceMaxAmount,
     useCookieInsteadOfSession: config.creds.useCookieInsteadOfSession,
     cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
-    clockSkew: config.creds.clockSkew
+    clockSkew: config.creds.clockSkew,
 },
 function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, done) {
     
@@ -95,8 +93,6 @@ function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, don
     //follows req thorugh the middleware.
     profile.authInfo = {
         access_token: accessToken,
-        access_token_exp: jwtClaims.exp,
-        refresh_token: refreshToken,
         scope: info.scope,
         groups: jwtClaims.groups,
         roles: jwtClaims.roles
@@ -121,9 +117,7 @@ function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, don
         });
     });
 }
-);
-
-passport.use(strategy);
+));
 
 var indexRouter = require('../routes/index');
 var mailRouter = require('../routes/mail');
@@ -138,6 +132,7 @@ app.use(cookieParser());
 
 // Define logging for middleware
 app.use(require('express-bunyan-logger')(logHelper.expressLoggerConfig()));
+
 
 // set up session middleware
 // if (config.useMongoDBSessionStore) {
@@ -160,13 +155,6 @@ app.use(bodyParser.urlencoded({ extended : true }));
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
-
-//Adding func to the middleware which refreshed access token if we are
-//close to the expire time
-app.use(function(req, res, next) {
-    return authUtil.considerRefresh(req, res, next);
-});
-
 app.use(express.static(__dirname + '/../public'));
 
 

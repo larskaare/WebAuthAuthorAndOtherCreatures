@@ -4,10 +4,8 @@ block content
   h1= title
   p
   p
-  if newMails
-   ul
-    each mail in newMails
-     li=mail
-  else
-   p
+  ul
+   each mail in newMails
+    li=mail
+  p
   a(href="/") Home

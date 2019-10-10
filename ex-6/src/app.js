@@ -86,18 +86,10 @@ passport.use(new OIDCStrategy({
     cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
     clockSkew: config.creds.clockSkew,
 },
-function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, done) {
+function(iss, sub, profile, accessToken, refreshToken, done) {
     
-    //Extracting various authorization relevant
-    //information and storing on user object which
-    //follows req thorugh the middleware.
-    profile.authInfo = {
-        access_token: accessToken,
-        scope: info.scope,
-        groups: jwtClaims.groups,
-        roles: jwtClaims.roles
-        
-    };
+    //Storing access token in profile, the user object in req
+    profile.accessToken = accessToken;
     
     if (!profile.oid) {
         return done(new Error('No oid found'), null);
@@ -111,9 +103,9 @@ function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, don
             if (!user) {
                 // "Auto-registration"
                 users.push(profile);
-                return done(null, profile, info);
+                return done(null, profile);
             }
-            return done(null, user, info);
+            return done(null, user);
         });
     });
 }
@@ -169,7 +161,10 @@ app.use(express.static(__dirname + '/../public'));
 // `ensureAuthenticated`. It checks if there is an user stored in session, if not
 // it will call `passport.authenticate` to ask for user to log in.
 //-----------------------------------------------------------------------------
-
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login');
+}
 
 app.use('/', indexRouter);
 app.use('/mail', mailRouter);
@@ -177,6 +172,11 @@ app.use('/userinfo', userInfoRouter);
 
 app.get('/', function(req, res) {
     res.render('index', { user: req.user });
+});
+
+// '/account' is only available to logged in user
+app.get('/account', ensureAuthenticated, function(req, res) {
+    res.render('account', { user: req.user });
 });
 
 app.get('/login',

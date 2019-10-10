@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+
+  if !user
+    h2 Welcome!
+    a(href='/login') Log In
+  else
+    p Greetings! #{user.displayName}
+    p
+    a(href='/userinfo') User information
+    p
+    a(href='/mail') Show inbox
+   
+  
+    

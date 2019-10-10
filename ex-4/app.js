@@ -1,6 +1,5 @@
 var createError = require('http-errors');
 var express = require('express');
-var expressSession = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var requestLogger = require('morgan');
@@ -17,8 +16,8 @@ var moment = require('moment');
 var logger = createAppLogger();
 logger.warn('Logger started, NODE_ENV=' + process.env.NODE_ENV);
 
+
 var indexRouter = require('./routes/index');
-var mailRouter = require('./routes/mail');
 
 var app = express();
 
@@ -36,11 +35,9 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(expressSession({ secret: 'keyboard doggie', resave: true, saveUninitialized: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/mail', mailRouter);
 
 
 /*
@@ -65,7 +62,7 @@ var access_token = null;
 app.get('/authorize', function(req, res) {
 
     state = randomstring.generate();
-    scope = 'openid profile email Mail.Read  User.Read';
+    scope = 'openid';
 
     var authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
         response_type: 'code',
@@ -104,7 +101,6 @@ app.get('/callback', function(req, res){
     var form_data = qs.stringify({
         grant_type: 'authorization_code',
         code: code,
-        scope: scope,
         redirect_uri: client.redirect_uris[0]
     });
 
@@ -138,9 +134,6 @@ app.get('/callback', function(req, res){
 
             logger.info(payLoad.exp);
 
-            //Storing access token in session 
-            req.session.access_token = access_token;           
-            
             res.render('index', { title: 'Authenticated and access', code: code.substr(1,10), tokenInfo: tokenInfo });
 
         } else {

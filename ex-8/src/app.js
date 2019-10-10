@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var randomstring = require('randomstring');
 var logHelper = require('./logHelper');
 var config = require('../config/config.js');
+var authUtil = require('../src/authutils');
 
 var log = logHelper.createLogger();
 
@@ -66,7 +67,8 @@ var findByOid = function(oid, fn) {
 //
 // To do prototype (6), passReqToCallback must be set to true in the config.
 //-----------------------------------------------------------------------------
-passport.use(new OIDCStrategy({
+
+var strategy = new OIDCStrategy({
     identityMetadata: config.creds.identityMetadata,
     clientID: config.creds.clientID,
     responseType: config.creds.responseType,
@@ -84,12 +86,22 @@ passport.use(new OIDCStrategy({
     nonceMaxAmount: config.creds.nonceMaxAmount,
     useCookieInsteadOfSession: config.creds.useCookieInsteadOfSession,
     cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
-    clockSkew: config.creds.clockSkew,
+    clockSkew: config.creds.clockSkew
 },
-function(iss, sub, profile, accessToken, refreshToken, done) {
+function(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, info, done) {
     
-    //Storing access token in profile, the user object in req
-    profile.accessToken = accessToken;
+    //Extracting various authorization relevant
+    //information and storing on user object which
+    //follows req thorugh the middleware.
+    profile.authInfo = {
+        access_token: accessToken,
+        access_token_exp: jwtClaims.exp,
+        refresh_token: refreshToken,
+        scope: info.scope,
+        groups: jwtClaims.groups,
+        roles: jwtClaims.roles
+        
+    };
     
     if (!profile.oid) {
         return done(new Error('No oid found'), null);
@@ -103,13 +115,15 @@ function(iss, sub, profile, accessToken, refreshToken, done) {
             if (!user) {
                 // "Auto-registration"
                 users.push(profile);
-                return done(null, profile);
+                return done(null, profile, info);
             }
-            return done(null, user);
+            return done(null, user, info);
         });
     });
 }
-));
+);
+
+passport.use(strategy);
 
 var indexRouter = require('../routes/index');
 var mailRouter = require('../routes/mail');
@@ -124,7 +138,6 @@ app.use(cookieParser());
 
 // Define logging for middleware
 app.use(require('express-bunyan-logger')(logHelper.expressLoggerConfig()));
-
 
 // set up session middleware
 // if (config.useMongoDBSessionStore) {
@@ -147,6 +160,13 @@ app.use(bodyParser.urlencoded({ extended : true }));
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
+
+//Adding func to the middleware which refreshed access token if we are
+//close to the expire time
+app.use(function(req, res, next) {
+    return authUtil.considerRefresh(req, res, next);
+});
+
 app.use(express.static(__dirname + '/../public'));
 
 
@@ -161,10 +181,7 @@ app.use(express.static(__dirname + '/../public'));
 // `ensureAuthenticated`. It checks if there is an user stored in session, if not
 // it will call `passport.authenticate` to ask for user to log in.
 //-----------------------------------------------------------------------------
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
-}
+
 
 app.use('/', indexRouter);
 app.use('/mail', mailRouter);
@@ -172,11 +189,6 @@ app.use('/userinfo', userInfoRouter);
 
 app.get('/', function(req, res) {
     res.render('index', { user: req.user });
-});
-
-// '/account' is only available to logged in user
-app.get('/account', ensureAuthenticated, function(req, res) {
-    res.render('account', { user: req.user });
 });
 
 app.get('/login',

@@ -45,7 +45,7 @@ exports.creds = {
     issuer: null,
   
     // Required to set to true if the `verify` function has 'req' as the first parameter
-    passReqToCallback: false,
+    passReqToCallback: true,
   
     // Recommended to set to true. By default we save state in express session, if this option is set to true, then
     // we encrypt state and save it in cookie instead. This option together with { session: false } allows your app
@@ -65,7 +65,9 @@ exports.creds = {
     // (1) if you want to receive refresh_token, use 'offline_access' scope
     // (2) if you want to get access_token for graph api, use the graph api url like 'https://graph.microsoft.com/mail.read'
     // scope: ['profile', 'offline_access', 'https://graph.microsoft.com/mail.read'],
-    scope: ['profile', 'openid', 'https://graph.microsoft.com/mail.read'], 
+    
+    scope: ['profile', 'openid', 'offline_access',
+        'https://graph.microsoft.com/mail.read'], 
     // Optional, 'error', 'warn' or 'info'
     loggingLevel: 'info',
   
@@ -92,3 +94,7 @@ exports.databaseUri = 'mongodb://localhost/OIDCStrategy';
   
 // How long you want to keep session in mongoDB.
 exports.mongoDBSessionMaxAge = 24 * 60 * 60;  // 1 day (unit is second)
+
+//Defines at which point we will ask for a new access token. The value is diff between exp and now
+//Standard exp is 3600 which means that 3590 will refresh after 10 seconds ...
+exports.diffSecondsBeforeRefresh = 3540;
