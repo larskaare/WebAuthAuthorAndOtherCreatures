@@ -59,15 +59,15 @@
 					<section style="text-align: left;">
 						<h3>Workshop objectives </h3>
 						<ul>
-							<li>a basic introduction to modern web A&A</li>
-							<li>knowledge to do raw debug</li>
-							<li>practical experience with A&A scenarios </li>
-							<li>insight into constraints and security issues</li>
+							<li>a basic introduction to modern web A&A (oAuth2)</li>
+							<li>specs, protocols, grants & flows</li>
+							<li>practical experience with a few A&A scenarios </li>
+							<li>insight into threat modelling and good security practices</li>
 						</ul>
 					</section>
 				</section>
 				
-				<!-- Outlines part-->
+<!-- Outlines part-->
 				<section>
 					<section>
 						<h1>Outline</h1>
@@ -85,15 +85,50 @@
 					</section>
 				</section>
 
+<!-- Disclaimer part-->
 				<section>
 					<h1>Disclaimer</h1>
-					<p>The more I learn about the topic the more I realize how complex it is. I am not an expert - in fact I not sure what an expert in this field is. I want to share what I think I know. I assume that quite a few of you know some of these topics a lot better than me. We would really appreciate your insight! Sharing is caring!</p>
+					<p>The more I learn about the topic the more I realize how complex it is. I am not an expert - in fact I am not even sure what an expert in this field is. I want to share what I think I know. I assume that quite a few of you know some of these topics a lot better than me. We would really appreciate your insight! Sharing is caring!</p>
 				</section>
 				
+<!-- Pre-requisites part-->
 				<section>
-					<h1>Pre-Requisites</h1>
+					<section>
+						<h1>Pre-Requisites</h1>
+
+					</section>
+					<section>
+						<h2>Roles</h2>
+						<ul>
+							<li>Valid Equinor Software Developer On-Boarding</li>
+							<li>Valid role <strong>Application Developer (Azure Active Directory)</strong> - apply in AccessIT</li>
+							<li>Valid role <strong>Radix Playground User (OMNIA RADIX)</strong> - apply in AccessIT</li>
+						</ul>					
+					</section>
+					<section>
+							<h2>Skills</h2>
+							<p>Helpful knowledge:
+								<ul>
+									<li><a href="https://httpwg.org/specs/" target="_blank">HTTP</a></li>
+									<li>JavaScript/Node.js</li>
+									<li>Docker</li>
+								</ul>
+							</p>					
+					</section>
+					<section>
+							<h2>Software</h2>
+							<small>Installed and verified to work software</small></br>
+								<ul>
+									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a></li>
+									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
+									<li>Git, account in github.com</li>
+									<li>(<a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a>)</li>
+									<li>(Docker)</li>
+								</ul>
+					</section>	
 				</section>
 
+<!-- The practicalities & useful links part -->
 				<section>
 					<section>
 						<h1>Practicalities</h1>
@@ -101,15 +136,171 @@
 					</section>
 					<section>
 							<h1>Useful links</h1>
+							<small>
+								<ul>
+									<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/" target="_blank">Microsoft Identity Platform</a></li>
+									<li><a href="https://oauth.net/2/" target="_blank">oAuth2.net</a></li>
+									<li><a href="https://tools.ietf.org/html/rfc6749" target="_blank">The OAuth Authorization Framework (rfc 6749)</a></li>
+									<li><a href="https://openid.net/connect/" target="_blank">OpenID Connect</a></li>
+								</ul>
+							</small>
 						</section>
 		
 				</section>
 
+<!-- The basic of A&A -->
 				<section>
-					<h1>The basics of A&A</h1>
+					<section>
+						<h1>The basics of A&A</h1>
+					</section>
+					<section>
+						<h3>Authentication vs. Authorization</h3>
+						<p>Authentication = </br>is the mechanism to verify the identity of a user</p>
+						<p>Authorization = </br>is the mechanism to verify access to a resource</p>
+					</section>
+					<section>
+						<h3>oAuth2</h3>
+						<blockquote style="font-size: 80%">
+						The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. </blockquote>
+						<small>oAuth2 is a <strong>delegation protocol</strong>, a means of letting someone who controls a resource to let application access the resource ont their behalf (without impersonating).</small>
+					</section>
+					<section style="font-size: 75%">
+						<h3>Roles</h3>
+						<p><div style="color:yellow">resource owner</div>
+						An entity capable of granting access to a protected resource.
+						When the resource owner is a person, it is referred to as an
+						end-user.
+						</p>
+						<p><div style="color:yellow">resource server</div>
+						The server hosting the protected resources, capable of accepting
+						and responding to protected resource requests using access tokens.
+						</p>
+						<p><div style="color:yellow">client</div>
+						An application making protected resource requests on behalf of the
+						resource owner and with its authorization.  The term "client" does
+						not imply any particular implementation characteristics (e.g.,
+						whether the application executes on a server, a desktop, or other
+						devices).
+						</p>
+						<p><div style="color:yellow"> authorization server</div>				
+						The server issuing access tokens to the client after successfully
+						authenticating the resource owner and obtaining authorization.
+						</p>
+					</section>
+					<section>
+						<h4>Protocol flow</h4>
+						<pre>
++--------+                               +---------------+
+|        |--(A)- Authorization Request ->|   Resource    |
+|        |                               |     Owner     |
+|        |<-(B)-- Authorization Grant ---|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(C)-- Authorization Grant -->| Authorization |
+| Client |                               |     Server    |
+|        |<-(D)----- Access Token -------|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(E)----- Access Token ------>|    Resource   |
+|        |                               |     Server    |
+|        |<-(F)--- Protected Resource ---|               |
++--------+                               +---------------+
+
+						</pre>
+					</section>
+					<section>
+						<h4 style="text-align: left;">High level oAuth flow</h4>
+						<pre style="font-size: 40%; text-align: left;">
++-- <span style="color:red">Resource</span> --+ +-- <span style="color: yellow;">Client</span> -- + +- <span style="color:yellowgreen">Authorization</span> -+ +--<span style="color:violet"> Protected</span> --+
++    Owner     + +             + +     Server      + +   Resource    +
++--------------+ +-------------+ +-----------------+ +---------------+
+     -                   -                -                     -
+     |  <span style="color:yellow">(A)Client request</span>|                |                     |
+     |      <span style="color:yellow">Authorization</span>|                |                     |
+     |<------------------|                |                     |
+     |- - - - - - - - - - - - - - - - - ->|                     |
+     |                   |                |                     |
+     |<span style="color:red">(B) Resource Owner</span> |                |                     |
+     |<span style="color:red">Grants authorization</span>                |                     |
+     |----------------------------------->|                     |
+     |                   |<- - - - - - - -|                     |
+     |                   |                |                     |
+     |                   |<span style="color:yellow">(C) Client send</span> |                     |
+     |                   |  <span style="color:yellow">Authorization</span> |                     |
+     |                   |          <span style="color:yellow">grant</span> |                     | 
+     |                   |--------------->|                     |
+     |                   |                |                     |
+     |                   | <span style="color:yellowgreen">(D)Autorization</span>|                     |
+     |                   |    <span style="color:yellowgreen">server sends</span>|                     |
+     |                   |    <span style="color:yellowgreen">access token</span>|                     |
+     |                   |<---------------|                     |
+     |                   |                |                     |
+     |                   |<span style="color:yellow">(E)Client sends</span> |                     |
+     |                   |<span style="color:yellow">Access Token</span>    |                     |
+     |                   |------------------------------------->|
+     |                   |                |                     |
+     |                   |                |<span style="color:violet">(F)Protected resource</span>|
+     |                   |                |       <span style="color:violet">sends resource</span>|
+     |                   |<-------------------------------------|
+     |                   |                |                     |
+     -                   -                -                     -                                   
+						</pre>
+					</section>
+
+					<section>
+						<h3>What oAuth is and is not</h3>
+						<ul>
+							<li>Is not Defined outside HTTP</li>
+							<li>Is "requiring" TLS</li>
+							<li>Is not an authentication protocol</li>
+							<li>Is not processing authorization</li>
+							<li>Is not defining user-to-user delegation</li>
+							<li>Is not defining a token format</li>
+							<li>Is not defining crypto methods</li>
+							<li>Is not a single protocol - </br>it supports multiple use cases</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Clients</h3>
+						<ul>
+							<li>Clients are either confidential or public
+								<ul>
+									<li><span style="color:red">Confidential:</span> Clients capable of maintaining the confidentiality of their credentials. (Web apps)</li>
+									<li><span style="color:red">Public:</span> Clients incapable of maintaining the confidentiality of their credentials (SPA, Native) </li>
+								</ul>
+							</li>
+							<li>Clients provide a redirection URI</li>
+						</ul>
+					</section>
+				
+					<section>
+						<h3>Protocol Endpoints</h3>
+						<ul>
+							<li><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner </li>
+							<li><span style="color:red">Token endpoint:</span> used by client to exchange authorization grant for an access token</li>
+							<li><span style="color:red">Redirection endpoint:</span> used by authorization server to return response containing creds to client</li>
+						</ul>
+					</section>
+					
+					<section>
+							<h3>Obtaining authorization - the oauth Dance</h3>
+							<blockquote> To request an access token, the client obtains authorization from the
+									resource owner.  The authorization is expressed in the form of an
+									authorization grant, which the client uses to request the access
+									token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit,
+									resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also
+									provides an extension mechanism for defining additional grant types.</blockquote>
+						</section>
+						
+
 				</section>
 
 			
+
+
 				<section>
 					<section>
 						<h1>Exercise - 1</h1>
@@ -167,7 +358,7 @@
 								<h1>Exercise 6</h1>
 								<h3>Use frameworks</h3>
 								<small>MSAL</small>
-								</br><small>Common problems that must be solved in all eco systems</small>
+								</is><small>Common problems that must be solved in all eco systems</small>
 								</br><small>A bit more robust</small>
 							</section>
 
