@@ -165,7 +165,7 @@
 						<h3>oAuth2</h3>
 						<blockquote style="font-size: 80%">
 						The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. </blockquote>
-						<small>oAuth2 is a <strong>delegation protocol</strong>, a means of letting someone who controls a resource to let application access the resource ont their behalf (without impersonating).</small>
+						<small><a href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of letting someone who controls a resource to let application access the resource ont their behalf (without impersonating).</small>
 					</section>
 					<section style="font-size: 75%">
 						<h3>Roles</h3>
@@ -327,7 +327,14 @@
 					</section>
 					
 					<section>
-						<h3>Front-channel vs. back-channel</h3>
+						<h3>Interaction between actors</h3>
+						<ul>
+							<li><span style="color:red">Back-channel</span>: Communication happening outside the view of the resource owner and the user agent (like browser)</li>
+							<li><span style="color:red">Front-channel</span>: Communication between to parties through an intermediate (the web browser)</li>
+							<li><span style="color:red">Protocol endpoints</span></li>
+						
+						</ul>
+
 					</section>
 
 					<section>
