@@ -31,7 +31,7 @@
 		</script>
 
 		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
+		<script src="lib/js/html5sßhiv.js"></script>
 		<![endif]-->
 	</head>
 
@@ -57,15 +57,18 @@
 					<section>
 						<h1>Objectives</h1>
 					</section>
-					<section style="text-align: left;">
+
+					<section>
 						<h3>Workshop objectives </h3>
+						<blockquote>Enable participants to continue exploring a&a with a bit more confidence</blockquote>
 						<ul>
-							<li>a introduction to some of the basics of modern web A&A</li>
+							<li>a introduction to basics modern web A&A</li>
 							<li>specs, protocols, grants & flows</li>
-							<li>practical experience with a few A&A scenarios </li>
+							<li>hands-on with a few A&A scenarios </li>
 							<li>insight into threat modelling and good security practices</li>
 						</ul>
 					</section>
+
 				</section>
 				
 <!-- Outlines part-->
@@ -96,7 +99,6 @@
 				<section>
 					<section>
 						<h1>Pre-Requisites</h1>
-
 					</section>
 					<section>
 						<h2>Roles</h2>
@@ -156,8 +158,8 @@
 					</section>
 					<section>
 						<h3>Authentication vs. Authorization</h3>
-						<p>Authentication = </br>is the mechanism to verify the identity of a user</p>
-						<p>Authorization = </br>is the mechanism to verify access to a resource</p>
+						<p><span style="color:red">Authentication</span> =</br>is the mechanism to verify the identity of a user</p>
+						<p><span style="color:red">Authorization</span> = </br>is the mechanism to verify access to a resource</p>
 					</section>
 					<section>
 						<h3>oAuth2</h3>
@@ -281,20 +283,23 @@
 					</section>
 
 					<section>
-						<h3>Azure AD issues JWT tokens</h3>
+						<h3>Azure AD (AAD) issues JWT tokens</h3>
 						<small><a href="https://tools.ietf.org/html/rfc7519" target="_blank">JSON Web Token (JWT)(RFC7519)</a></small></br>
-						<div style="font-size:40%; text-align: center;">eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9<span style="color:red">.</span>eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ<span style="color:red">.</span><<br>dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</>
+						<div style="font-size:40%; text-align: center;">eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9<span style="color:red">.</span></br>eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ<span style="color:red">.</span></br>dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</div>
 						<p></p>
-						<code>
-						{
-							"typ": "JWT",
-							"alg": "HS256"
-						  }.{
-							"iss": "joe",
-							"exp": 1300819380,
-							"http://example.com/is_root": true
-						  }.[Signature]
-						</code> 	
+						<pre><code class="hljs">
+{
+  "typ": "JWT",
+  "alg": "HS256"
+}.
+{
+  "iss": "joe",
+  "exp": 1300819380,
+}.
+[Signature]
+						</code> 
+						</pre>	
+						<small>Header, Payload with claims and Signature -  based64 encoded</small>
 
 					</section>
 	
