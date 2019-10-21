@@ -344,7 +344,7 @@
 						
 					<section>
 						<h3> Authorization Code Grant</h3>
-						<pre>
+						<pre style="font-size: 40%;">
 
 +----------+
 | Resource |
@@ -378,7 +378,7 @@
 
 					<section>
 						<h4> Implicit Grant</h4>
-						<pre style="font-size: 50%"> 
+						<pre style="font-size: 40%;">
 +----------+
 | Resource |
 |  Owner   |
@@ -412,12 +412,77 @@
 |         |
 +---------+			   			  	
 Client lives inside browser (user agent)						
-</pre>
+						</pre>
 					</section>
 
 
 					<section>
-						<h1>OpenID Connect</h1>
+						<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
+						<small><span style="color:red">Authentication</span> protocol built on-top of oAuth2</small>
+						
+						<table>
+							<thead>
+								<tr>
+									<td>oAuth2</td>
+									<td>OICD</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Resouce owner</td>
+									<td>User</td>
+								</tr>
+								<tr>
+									<td>Client</td>
+									<td>Relying party</td>
+								</tr>
+								<tr>
+									<td>Authorisation server, Protected resource</td>
+									<td>Identity provider</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+
+					<section>
+						<h2>OpenID Connect (OICD)</h2>
+						<ul style="font-size: 70%";">
+							<li>New <span style="color:red">IDToken</span> received upon sucessfull authentication</li>
+							<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
+							<li>IDToken's are given to client along with Aaccess tokens</li>
+							<li>IDTokens' are signes JWT tokens.</li>
+							<li>ID tokens contains claims such as</li>
+								<ul>
+									<li>iss - issuer of the token</li>
+									<li>sub - subject - user id from identity provider</li>
+									<li>aud - audience - id for relying party</li>
+									<li>exp - expiration time stamp</li>
+								</ul>
+							<li>More documentation on the <a href"https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Example ID Token</h3>
+						<small>Azure AD ID Token <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">claims</a></small>
+						<pre><code class="hljs" style="font-size: 60%;">
+{
+	"typ": "JWT",
+	"alg": "RS256"
+	}.{
+	"aud": "cab2507d-e7d1-46fd-9580-ea7de0cd02ea",
+	"iss": "https://login.microsoftonline.com/../v2.0",
+	"exp": 1571657734,
+	"name": "Jon Doe",
+	"oid": "..",
+	"roles": [
+		"Admin"
+	],
+	"sub": "..",
+	}.[Signature]
+
+						</code> 
+						</pre>	
 					</section>
 
 
@@ -431,19 +496,25 @@ Client lives inside browser (user agent)
 
 				</section>
 
-			
-
-
+<!-- Exercise 1 -->
 				<section>
 					<section>
 						<h1>Exercise - 1</h1>
-						<h2>Raw http flows</h2>
+						<h2>Raw Authorization Code Grant</h2>
 					</section>	
 
-					<section>Useful tools
-						<p>Modern web browser</p>
-						<p>Postman</p>
-
+					<section>
+						<h2>Steps</h2>
+						<ul>
+							<li>Investigate <a href="https://tools.ietf.org/html/rfc6749#section-4.1" target="_blank">spec</a> and doc on <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">Azure</a></li>
+							<li>Register app object in <a href="https://portal.azure.com" target="_blank">Azure AD</a></li>
+							<li>Set-up postman</li>
+							<li>Request authorization code</li>
+							<li>Request an access token</li>
+							<li>Investigate tokens</li>
+							<li>Use access token</li>
+						
+						</ul>
 					</section>
 				</section>
 
