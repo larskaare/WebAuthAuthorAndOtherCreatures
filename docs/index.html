@@ -125,7 +125,7 @@
 									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a></li>
 									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
 									<li>Git, account in github.com</li>
-									<li>(<a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a>)</li>
+									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
 									<li>(Docker)</li>
 								</ul>
 					</section>	
@@ -267,7 +267,7 @@
 					</section>
 
 					<section>
-						<h2>Consent, delegation, users vs. machine, user vs. admin</h2>
+						<h2>Permissions, Consent, delegation, users vs. machine, user vs. admin</h2>
 					</section>
 
 
@@ -511,17 +511,87 @@ Client lives inside browser (user agent)
 
 					<section>
 						<h2>Steps</h2>
-						<ul>
+						<ul style="font-size: 80%;">
+							<li>Clone github repository <a href"https://github.com/larskaare/WebAuthAuthorAndOtherCreatures" target="_blank">https://github.com/larskaare/WebAuthAuthorAndOtherCreatures</a></li>
 							<li>Investigate <a href="https://tools.ietf.org/html/rfc6749#section-4.1" target="_blank">spec</a> and doc on <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">Azure</a></li>
 							<li>Register app object in <a href="https://portal.azure.com" target="_blank">Azure AD</a></li>
 							<li>Set-up postman</li>
 							<li>Request authorization code</li>
 							<li>Request an access token</li>
-							<li>Investigate tokens</li>
+							<li>Explore tokens</li>
 							<li>Use access token</li>
-						
 						</ul>
 					</section>
+					<section>
+						<h3>Register application in Azure AD</h3>
+						<ul style="font-size: 80%;">
+							<li>Navigate to <a href="https://portal.azure.com" target="_blank">portal.azure.com</a> and find Azure Active Directory</li>
+							<li>Select App registrations</br>(App registration vs. Enterprise Applications</li>
+							<li>Register new application</li>
+								<ul>
+									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
+									<li><span style="color:red">Name</span>: (inital)-(aatest) or something else</li>
+									<li><span style="color:red">Type</span>: Single tenant</li>
+									<li><span style="color:red">Redirect uri</span>: http://localhost/auth</li>
+								</ul>
+							<li>Explore options for the new app registration</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Set-up Postman</h3>
+						<ul>
+							<li>Start Postman</li>
+							<li>Import "Azure AD v2.0 Protocols.postman_collection.json"</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Request authorization code</h3>
+						<ul style="font-size: 70%;">
+							<li>Import "Azure AD v2.0 Protocols.postman_collection.json" from EX-1 folder</li>
+							<li>Select "Oauth 2.0 Authorization Code Flow" -> GET Autorization request</li>					
+							<li>Explore "endpoints" for application registration (Azure Portal)"</li>
+							<li>Copy and substitute oAuth2 Authorization endpoint v2 to GET request</li>
+							<li>Copy "client_id" to GET request parameter</li>
+							<li>Change "redirect_url" to "http://localhost/auth" for GET request parameter</li>
+							<li>Look at scope for GET request</li>
+							<li>Copy GET request to clip board and execute from web browser</li>
+							<li>Copy authorization code from "code" parameter in request</li>
+							<li>Explore changig "scope" and "redirect uri" for GET request</li>
+							<li>Why do we have to execute request in web browser?</li>
+							<li>Discuss security considerations</li>
+							<li><span style="color:red">Good practice</span> : remove the localhost redirect from production applications</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Request an access token</h3>
+						<ul style="font-size: 70%;">
+								<li>Select "POST - Token Request - Auth Code" from Postman collection</li>
+								<li>Copy and substitute oAuth2 Token endpoint v2 to POST request</li>
+								<li>Define client secret for application in Azure Portal</li>
+								<li>Update body for POST request <span style="color:red">client_id, redirect_uri, client_secret, code</span><br>(code is from GET request)</li>		
+								<li>Send POST request</li>
+								<li>(Handle SSL "issues")</li>
+								<li>Explore response</li>
+								<li>Discuss security considerations (SSL, secrets, certificates, public vs. confidential client)</li>
+								<li><span style="color:red">Good practice</span> : </li>
+							</ul>
+					</section>
+
+					<section>
+						<h3>Explore tokens</h3>
+						<ul>
+							<li>Use <a href="https://jwt.ms" target="_blank">https://jwt.ms</a> to explore tokens</li>
+							<li>Explore tokens, claims and dates (access_token, refresh_token, id_token)</li>
+							<li>Experiment with scope param?</li>
+							<li>Discuss security considerations</li>
+							<li><span style="color:red">Good practice</span> : </li>
+						</ul>
+					</section>
+
+
 				</section>
 
 				<section>
