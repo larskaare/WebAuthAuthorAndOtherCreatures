@@ -120,11 +120,12 @@
 					</section>
 					<section>
 							<h2>Software</h2>
-							<small>Installed and verified to work software</small></br>
+							<small>Installed and verified working software</small></br>
 								<ul>
 									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a></li>
+									<li>(I recommned installing node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>)</li>
 									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
-									<li>Git, account in github.com</li>
+									<li><a href="https://git-scm.com/" target="_blank">git</a>, account in <a href="https://github.com/" target="_blank">github.com</a></li>
 									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
 									<li>(Docker)</li>
 								</ul>
@@ -584,13 +585,13 @@ Client lives inside browser (user agent)
 						<h3>Explore tokens</h3>
 						<ul>
 							<li>Use <a href="https://jwt.ms" target="_blank">https://jwt.ms</a> to explore tokens</li>
-							<li>Explore tokens, claims and dates (access_token, refresh_token, id_token)</li>
-							<li>Experiment with scope param? (Set-up auth in postman?)</li>
-							<li>Discuss security considerations</li>
-							<li><span style="color:red">Good practice</span> : </li>
+							<li>Explore tokens, claims and dates</br> (access_token, refresh_token, id_token)</li>
+							<li>Experiment with scope param?</li>
+							<li>Discuss claims, optiona claims, application manifrst</li>
+							<li>Discuss security considerations (token validation, token storage)</li>
+							<li><span style="color:red">Good practice</span>: Don't uses access tokens as authentication. Access tokens are for the protected resource </li>
 						</ul>
 					</section>
-
 
 				</section>
 
@@ -600,6 +601,41 @@ Client lives inside browser (user agent)
 						<h3>Prepare a web application</h3>
 					</section>
 
+					<section>
+						<h3>Verify the environment</h3>
+						<code class="hljs">$ git --version</code>
+						<code class="hljs">$ node --version</code>
+						<code class="hljs">$ npm --version</code>
+					</section>
+
+					<section>
+						<h3>Generate default web application</h3>
+						<p>We will create a web application running node.js on the back-end using the <a href="https://expressjs.com/" target="_blank">Express framework</a></p>
+						<ul style="font-size:80%">
+							<li>Navigate to <span style="color:yellow">"./ex-2"</span></li>
+							<li>Install npx (execute npm package binaries)</li>
+							<code class="hljs">$ npm install -g npx</code>
+							<li>Running the express generator</li>
+							<code class="hljs">$ npx express-generator --view=pug</code>
+							<li>Installing dependencies</li>
+							<code class="hljs">$ npm install</code>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Let's add a linter - thats good practice</h3>
+						<ul style="font-size:80%">
+							<li>Install eslint
+								<code class="hljs">$ npm install eslint --save-dev</code>
+							</li>
+							<li>Intialise <a href="https://www.npmjs.com/package/eslint" target="_blank">eslint</a></li>
+								<code class="hljs">$ ./node_modules/.bin/eslint --init</code>
+							<li>Run the linter
+								<code class="hljs">$ ./node_modules/.bin/eslint . --ext .js</code>
+							</li>
+							<li>Explore results from linter, investigate "/.eslintrc.json"</li>
+						</ul>
+					</section>
 				</section>
 				
 				<section>
