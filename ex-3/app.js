@@ -46,7 +46,7 @@ var authServer = {
 };
 
 var client = {
-    'client_id': 'cab2507d-e7d1-46fd-9580-ea7de0cd02ea',
+    'client_id': '16be6669-f6c1-440b-9ebc-ae9349e3a956',
     'client_secret': process.env.CLIENT_SECRET,
     'redirect_uris': ['http://localhost:3000/callback']
 };
@@ -94,7 +94,7 @@ app.get('/callback', function(req, res){
     if (code) {
         title = 'Authenticated' ;
     } else {
-        title = 'Express';
+        title = 'Not Authenticated';
     }
     res.render('index', { title: title, code: code.substr(1,10) });    
     

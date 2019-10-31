@@ -643,7 +643,98 @@ Client lives inside browser (user agent)
 							<h1>Exercise 3</h1>
 							<h3>Add authentication</h3>
 							<small>OAuth2, OpenID, Auth Code Grant Flow</small>
-							<p>Get code</p>
+						</section>
+
+						<section>
+							<h3>Preparing the code</h3>
+							<ul>
+								<li>Navigate to the <span style="color: yellow">./ex-3</span> directory</li>
+								<li>Install dependencies
+									<code class="hljs">$ npm install</code>
+								</li>
+							</ul>
+						</section>
+						
+						<section>
+							<h3>Exploring the code</h3>
+							<ul>
+								<li>Environment variables</li>
+								<li>Secrets</li>
+								<li>Handling the authentication</li>
+								<li>Staging environments - logging</li>
+							</ul>
+						</section>
+
+						<section>
+							<h3>Environment variables</h3>
+							<ul>
+								<li><span style="color:yellow">PORT</span> in ./bin/www</li>
+								<li><span style="color:yellow">NODE_ENV, CLIENT_SECRET</span> in ./app.js</li>
+								<li>Define environment variables
+									<code class="hljs">$ export PORT=3000</code>
+									<code class="hljs">$ export CLIENT_SECRET=[your secret]</code>
+								</li>
+								<li><span style="color:red">Good practice</span>: 
+									Move config into config files, potentially .env files (that are defined in .gitignore and/or kept outside version control, stored outside git)	
+								</li>
+							</ul>
+						</section>
+
+						<section>
+							<h3>Secrets</h3>
+							<ul>
+								<li><span style="color:red">Good practice</span>: 
+									Keep secrets outside version control!	
+								</li>
+								<li><span style="color:red">Ok practice</span>: 
+									Inject secrets as environment vartiables	
+								</li>
+								<li><span style="color:red">Good practice</span>: 
+									Store secrets in keyvaults (explore if managed identities are available (MSI)) 	
+								</li>
+							</ul>
+						</section>
+
+						<section>
+							<h3>Handling the authentication</h3>
+							<ul>
+								<li>Explore authentication code in <span style="color:yellow">./app.js</span></li>
+								<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
+								<li>Explore application config (client_id, secret, callback)</li>
+								<li>Explore authentication flow in code (auth, redirect, callback)</li>
+								<li><span style="color:red">Good practice</span>: 
+									Be conscious of what you put in log files!!	
+								</li>
+							</ul>
+						</section>
+
+						<section>
+								<h3>Staging environments - logging </h3>
+								<ul>
+									<li>Explore logging logic in <span style="color:yellow">./app.js</span></li>
+									<li>Different logging level dependent on environment (debug, development, production)</li>
+									<li><span style="color:red">Good practice</span>: 
+										Have a strategy for log purpose and transports (why you log, where you store/not store)	
+									</li>
+								</ul>
+						</section>
+
+						<section>
+								<h3>Config, Run and Explore </h3>
+								<ul>
+									<li>Configure the <span style="color:yellow"authServer</span> object in app.js</li>
+									<li>Configure the <span style="color:yellow"client</span> object in app.js</li>
+									<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+									<li>Run web application
+										<code class="hljs">$ npm start</code>
+									</li>
+									<li>Explore; change config - change auth params - observe error messages, observe logging behavior </li>
+								</ul>
+						</section>
+
+						<section>
+								<h3>We are authenticated</h3>
+								<p>and have a code that can be used only once and that will expire shortly (spec says max 10 minutes) </p>
 						</section>
 	
 					</section>
