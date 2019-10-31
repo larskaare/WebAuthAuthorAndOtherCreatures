@@ -46,7 +46,7 @@ var authServer = {
 };
 
 var client = {
-    'client_id': '16be6669-f6c1-440b-9ebc-ae9349e3a956',
+    'client_id': '',
     'client_secret': process.env.CLIENT_SECRET,
     'redirect_uris': ['http://localhost:3000/callback']
 };

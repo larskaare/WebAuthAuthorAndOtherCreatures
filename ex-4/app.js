@@ -50,7 +50,7 @@ var authServer = {
 };
 
 var client = {
-    'client_id': 'cab2507d-e7d1-46fd-9580-ea7de0cd02ea',
+    'client_id': '16be6669-f6c1-440b-9ebc-ae9349e3a956',
     'client_secret': process.env.CLIENT_SECRET,
     'redirect_uris': ['http://localhost:3000/callback']
 };
