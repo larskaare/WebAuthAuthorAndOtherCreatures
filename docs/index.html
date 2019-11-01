@@ -497,7 +497,8 @@ Client lives inside browser (user agent)
 					<section>
 						<h1>Please note ...</h1>
 						<ul>
-							<li>Use Azue AD v2 endpoints whenever possible</li>
+							<li>Use Azure AD v2 endpoints whenever possible</li>
+							<li>Be aware of doc and v1 vs. v2 (it's easy to read the wrong one) </li>
 						</ul>
 					</section>
 
@@ -737,7 +738,13 @@ Client lives inside browser (user agent)
 								<h3>We are authenticated</h3>
 								<p>and have a code that can be used only once and that will expire shortly (spec says max 10 minutes) </p>
 						</section>
-	
+
+						<section>
+							<h3>A challenge (if time)</h3>
+							<p>Change the authentication flow to use <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">openID Connect</a> and get a id_token and/or a code as part of the sign in request</p>
+					</section>
+
+
 					</section>
 					
 				
@@ -787,13 +794,10 @@ Client lives inside browser (user agent)
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
-										<li>Explore; scope - why is <span style="color:yellow">Mail.Read openid profile email</span> default? </li>
-										<li></li>
+										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, scope - why is <span style="color:yellow">Mail.Read openid profile email</span> default? </li>
+										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. Test revoking for test app.</li>
 									</ul>
 							</section>
-
-
-
 
 					</section>
 					

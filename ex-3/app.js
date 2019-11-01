@@ -81,7 +81,7 @@ app.get('/callback', function(req, res){
     }
 	
     if (req.query.state != state) {
-        logger.err('State DOES NOT MATCH: expected ' + state + ' got ' + req.query.state);
+        logger.error('State DOES NOT MATCH: expected ' + state + ' got ' + req.query.state);
         res.render('error', {error: 'State value did not match'});
         return;
     }

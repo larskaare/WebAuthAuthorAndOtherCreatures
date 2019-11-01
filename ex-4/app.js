@@ -50,7 +50,7 @@ var authServer = {
 };
 
 var client = {
-    'client_id': '16be6669-f6c1-440b-9ebc-ae9349e3a956',
+    'client_id': '',
     'client_secret': process.env.CLIENT_SECRET,
     'redirect_uris': ['http://localhost:3000/callback']
 };
@@ -69,7 +69,8 @@ app.get('/authorize', function(req, res) {
         client_id: client.client_id,
         redirect_uri: client.redirect_uris[0],
         state: state,
-        scope: scope
+        scope: scope,
+        response_mode: 'query'
     });
 
     logger.debug('Redirect to ' + authorizeUrl);
@@ -132,7 +133,7 @@ app.get('/callback', function(req, res){
             tokenInfo.family_name = payLoad.family_name;
             tokenInfo.scp = payLoad.scp;
 
-            logger.info(payLoad.exp);
+            logger.debug(payLoad.exp);
 
             res.render('index', { title: 'Authenticated and access', code: code.substr(1,10), tokenInfo: tokenInfo });
 
