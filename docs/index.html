@@ -819,7 +819,7 @@ Client lives inside browser (user agent)
 										<li>Config, run and explore</li>
 										<li>Security considerations - good practices++</li>
 									</ul>
-								</section>
+							</section>
 	
 							<section>
 								<h3>The MS Graph Explorer</h3>
@@ -910,11 +910,126 @@ Client lives inside browser (user agent)
 					<section>
 							<section>
 								<h1>Exercise 6</h1>
-								<h3>Use frameworks</h3>
-								<small>MSAL</small>
-								</is><small>Common problems that must be solved in all eco systems</small>
-								</br><small>A bit more robust</small>
+								<h3>Use frameworks!</h3>
 							</section>
+
+							<section>
+									<h3>Outline</h3>
+									<ul>
+										<li>Explore available frameworks for oAuth2</li>
+										<li>Prepare environment (ex-6)</li>
+										<li>Explore the code</li>
+										<li>Config, run and explore</li>
+										<li>Font-end vs. back-end communication channels</li>
+										<li>Session handling</li>
+										<li>Security considerations - good practices++</li>
+									</ul>
+							</section>
+
+							<section>
+								<h3>Frameworks</h3>
+								<ul>
+									<li>Explore the <span style="color:yellow">quickstart</span> of the application object</li>
+									<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-v2-libraries"
+										target="_blank">Authentication libraries</a> at the MS Identity Platform</li>
+									<li>Explore <a href="https://oauth.net/code/"
+											target="_blank">Authentication libraries</a> at oauth.net</li>
+									<li>Explore <a href="https://github.com/AzureADQuickStarts"
+												target="_blank">the Azure AD Quick Starts</a></li>		
+									<li><span style="color:red">Good practice</span>: 
+										Use the latest library from Microsoft, MSAL, when available
+									</li>	
+								</ul>
+							</section>
+
+							<section>
+									<h3>Preparing the environment</h3>
+									<ul>
+										<li>Navigate to the <span style="color: yellow">./ex-6</span> directory</li>
+										<li>Install dependencies
+											<code class="hljs">$ npm install</code>
+										</li>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Explore the code</h3>
+									<ul>
+										<li>Introducing <a href="http://www.passportjs.org/" target="_blank">passport.js</a></li>
+										<li>Introducing <a href="https://github.com/AzureAD/passport-azure-ad" target="_blank">passport-azure-ad</a></li>
+										<li>./src/</li>
+										<ul>
+											<li style="color:yellow">app.js</li>
+											<li>authutils.js</li>
+											<li>logHelper.js</li>
+										</ul>
+										<li style="color:yellow">config/config.js</li>
+										<li>./routes/</li>
+										<ul>
+												<li>index.js</li>
+												<li>mail.js</li>
+												<li>userinformation.js</li>
+											</ul>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Config, Run and Explore </h3>
+									<ul>
+										<li>Update configuration in <span style="color:yellow">./config/config.js</span> (clientid)</li>
+										<li>Update the AD application object with new <span style="color:yellow">redirect url</span></li>
+										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Run web application
+											<code class="hljs">$ npm start</code>
+										</li>
+										<li>Explore the application</li>
+										<li>Change "node_env" and observe whats happening to the logging</li>
+									</ul>
+							</section>
+
+							<section>
+								<h3>Font-end vs. back-end communication channels</h3>
+								<ul>
+									<li>Font-end: Browser (User agent) to</li>
+									<ul>
+										<li>back-end (localhost:3000/mail, /userinfo)</li>
+										<li>Azure AD authentication</li>
+									</ul>
+									<li>Back-end: Client (Web app) to</li>
+									<ul>
+										<li>Azure ADd authorize (getting access token)</li>
+										<li>Accessing the MS Graph on behalf of user</li>
+									</ul>
+									<li>A tool like <a href="https://portswigger.net/burp/communitydownload" target="_blank">Burp Community Edition</a> could be used to investigate/debug front-end and back-end traffic when on localhost</li>
+								</ul>
+								</section>
+
+								<section>
+										<h3>Session handling</h3>
+										<ul>
+											<li>Our web application use express and <a href="https://github.com/expressjs/session" target="_blank">express-session</a> to manage user session</li>
+											<li>The session cookie is named connect.sid</li>
+											<li>The cookie only stores session id</li>
+											<li>The cookie is signed (to detect tampering)</li>
+											<li>Session data is stored on the back-end</li>
+											<li>A lesser secure(?) alternative could be to store session data in the cookie</li>
+											<li><span style="color:yellow">Task:</span> Open the developer tools in the browser and locate the session cookie for our app</li>
+										</ul>
+										</section>	
+
+							<section>
+									<h3>Security considerations</h3>
+									<ul style="font-size: 80%;">
+										<li>Access_token storage</li>
+										<li>Persistent Session storage (from memory to database?)</li>
+										<li>Cookie signing keys</li>
+										<li>Access_token is being validated</li>
+										<li>Only authenticated users are getting access to end-points (<span style="color:yellow">ensureAuthenticated</span>)</li>
+										<li><span style="color:red">Good practice</span>: 
+											Follow security advices for all frameworks (Example:  
+											<a href="https://expressjs.com/en/advanced/best-practice-security.html" target="_blank">Express - Production Best Practices: Security</a>)</li>
+									</ul>
+								</section>
 
 					</section>
 
