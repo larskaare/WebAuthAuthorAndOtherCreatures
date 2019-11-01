@@ -755,6 +755,7 @@ Client lives inside browser (user agent)
 							</section>
 		
 							<section>
+								<h3>Outline</h3>
 								<ul>
 									<li>Prepare environment (ex-4)</li>
 									<li>Config, run and explore</li>
@@ -805,10 +806,104 @@ Client lives inside browser (user agent)
 							<section>
 								<h1>Exercise 5</h1>
 								<h3>Scope</h3>
-								<small>And get stuff from the MS Graph</small>
 								<small>Consent, Graph explorer, tokens - security, state - session</small>
-								<small>A fragile solution</small>
 							</section>
+
+							<section>
+									<h3>Outline</h3>
+									<ul>
+										<li>Explore the MS Graph Explorer</li>
+										<li>Discuss Permissions and Consent</li>
+										<li>Prepare environment (ex-5)</li>
+										<li>Explore the code</li>
+										<li>Config, run and explore</li>
+										<li>Security considerations - good practices++</li>
+									</ul>
+								</section>
+	
+							<section>
+								<h3>The MS Graph Explorer</h3>
+								<ul>
+									<li>Open the <a href="https://developer.microsoft.com/en-us/graph/graph-explorer"
+									target="_blank">MS Graph Explorer</a></li>
+									<li>Sign in</li>
+									<li>Query the <span style="color:yellow">/v1.0/me</span> endpoint</li>
+									<li>Query the <span style="color:yellow">/v1.0/me/memberOf</span> endpoint</li>
+									<li>Query the <span style="color:yellow">v1.0/me/mailFolders('Inbox')/messages?$select=sender,subject</span> endpoint</li>
+									<li>Explore the <a href="https://docs.microsoft.com/nb-no/graph/api/overview?view=graph-rest-1.0" target="_blank">graph api</a> documentation</li>
+									<li>Play around with other endpoints, filtering, permissions, consent</li>
+								</ul>
+							</section>		
+
+							<section>
+								<h3>Permissions & Consent</h3>
+								<ul style="font-size: 80%;">
+									<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent" target="_blank">Documentation</a> of Permission and Consent on the MS Identity platform </li>
+									<li>Scope = requested permissions</li>
+									<li>Delegated permissions, for signed-in-user, user or admin consent</li>
+									<li>Application permission, without signed-in-user, admin consent only</li>
+									<li>Effective permissions - least privileged between app and user (Example App has User.ReadWriteAll, User has no admin right = Effective rights will be only to update own profile  </li>
+									<li>Effective permission for application permission will be the full permission</li>
+								</ul>
+							</section>
+
+							<section>
+									<h3>Preparing the environment</h3>
+									<ul>
+										<li>Navigate to the <span style="color: yellow">./ex-5</span> directory</li>
+										<li>Install dependencies
+											<code class="hljs">$ npm install</code>
+										</li>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Explore the code</h3>
+									<ul>
+										<li>Explore authentication code in <span style="color:yellow">./app.js</span></li>
+										<li>Adding session management (express-session)</li>
+										<li>Adding new route to show mail (/routes/mail.js)</li>
+										<li>Adding capabilities to scope (Mail.Read, User.Read)</li>
+										<li>Storing access_token in session</li>
+										<li>Explore routing/views in application (<span style="color:yellow">app.use('/mail', mailRouter);</span>)</li>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Config, Run and Explore </h3>
+									<ul>
+										<li>Configure the <span style="color:yellow">authServer</span> object in app.js</li>
+										<li>Configure the <span style="color:yellow">client</span> object in app.js</li>
+										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Run web application
+											<code class="hljs">$ npm start</code>
+										</li>
+										<li>Explore the new mail functionality</li>
+									</ul>
+							</section>
+
+
+							<section>
+									<h3>Security considerations</h3>
+									<ul style="font-size: 80%;">
+										<li>Access_token storage</li>
+										<li>Increase user experience - extend session management to persist user data, refresh tokens??</li>
+										<li>Access_token validation - is not happening</li>
+										<li><a href="https://tools.ietf.org/html/rfc6819" target="_blank">oAuth2 Threat Model and Security Considerations</a></li>
+										<li><a href="https://tools.ietf.org/html/draft-ietf-oauth-security-topics" target="_blank"> OAuth Security Topics</a></li>
+										<li><span style="color:red">Good practice</span>: 
+											It's a lot of hard work to get A&A done properly - USE a Framework!
+										</li>
+										<li><span style="color:red">Good practice</span>: 
+											Protocols (and Frameworks) does not guarantee security, Developers Do
+										</li>
+										<li><span style="color:red">Good practice</span>: 
+											Only request the minimum scope, dynamically - not all at once
+										</li>
+									</ul>
+								</section>
+	
+
 
 					</section>
 						

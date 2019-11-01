@@ -53,7 +53,7 @@ var authServer = {
 };
 
 var client = {
-    'client_id': 'cab2507d-e7d1-46fd-9580-ea7de0cd02ea',
+    'client_id': '',
     'client_secret': process.env.CLIENT_SECRET,
     'redirect_uris': ['http://localhost:3000/callback']
 };
@@ -72,7 +72,8 @@ app.get('/authorize', function(req, res) {
         client_id: client.client_id,
         redirect_uri: client.redirect_uris[0],
         state: state,
-        scope: scope
+        scope: scope,
+        response_mode: 'query'
     });
 
     logger.debug('Redirect to ' + authorizeUrl);
@@ -104,7 +105,6 @@ app.get('/callback', function(req, res){
     var form_data = qs.stringify({
         grant_type: 'authorization_code',
         code: code,
-        scope: scope,
         redirect_uri: client.redirect_uris[0]
     });
 
@@ -136,7 +136,7 @@ app.get('/callback', function(req, res){
             tokenInfo.family_name = payLoad.family_name;
             tokenInfo.scp = payLoad.scp;
 
-            logger.info(payLoad.exp);
+            logger.debug(payLoad.exp);
 
             //Storing access token in session 
             req.session.access_token = access_token;           
