@@ -18,7 +18,7 @@ exports.creds = {
     // To use the common endpoint, you have to either turn `validateIssuer` off, or provide the `issuer` value.
   
     // Required, the client ID of your app in AAD  
-    clientID: 'cab2507d-e7d1-46fd-9580-ea7de0cd02ea',
+    clientID: '',
   
     // Required, must be 'code', 'code id_token', 'id_token code' or 'id_token'
     // If you want to get access_token, you must use 'code', 'code id_token' or 'id_token code' 
@@ -97,4 +97,4 @@ exports.mongoDBSessionMaxAge = 24 * 60 * 60;  // 1 day (unit is second)
 
 //Defines at which point we will ask for a new access token. The value is diff between exp and now
 //Standard exp is 3600 which means that 3590 will refresh after 10 seconds ...
-exports.diffSecondsBeforeRefresh = 3540;
+exports.diffSecondsBeforeRefresh = 3590;

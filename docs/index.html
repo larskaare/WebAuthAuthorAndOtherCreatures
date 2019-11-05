@@ -1041,7 +1041,7 @@ Client lives inside browser (user agent)
 							</section>
 
 							<section>
-									<h3>Outline</h3>
+								<h3>Outline</h3>
 									<ul style="font-size: 80%;">
 										<li>Prepare environment (ex-7)</li>
 										<li>Explore the code</li>
@@ -1174,9 +1174,92 @@ Client lives inside browser (user agent)
 							<section>
 								<h1>Exercise 8</h1>
 								<h3>Refresh tokens</h3>
-								</br><small>Re-fresh alg</small>
-								</br><small>Expect more heavy lifting from framework</small>
-								</br><small>Look at MSAL, roadmap ++</small>
+							</section>
+
+							<section>
+								<h3>Outline</h3>
+								<ul>
+								<li>What are refresh tokens?</li>
+								<li>Framework support for handling refresh</li>
+								<li>Prepare environment (ex-8)</li>
+								<li>Explore the code</li>
+								<li>Config, run and explore</li>
+							</ul>
+							</section>
+
+							<section>
+								<h3>What are refresh tokens?</h3>
+								<ul>
+									<li><a href="https://tools.ietf.org/html/rfc6749#section-1.5"
+										target="_blank">rfc6749 section 1.5</a></li>
+									<li>"Refresh tokens are credentials used to obtain access tokens."</li>
+									<li>Are used to get new access token when current one expire</li>
+									<li>Are used to get new access token to narrow scope</li>
+									<li>Refresh tokens are issued by the authorization server and are never used by resource servers</li>
+									<li>The flow to refresh is defined in spec</li>
+									<li>Refresh tokens is only issued to secure clients (Not supported by implicit flow)</li>
+									<li>Refresh tokens can be stored on back-end to perform operations on behalf of user when not logged in</li>
+									<li>Refesh tokens are about user experience</li>
+								</ul>
+							</section>
+
+							<section>
+								<h3>Framework support for handling refresh</h3>
+								<ul>
+									<li>Framework support for automatic handling of refresh tokens is varying</li>
+									<li>Verify support in each framework</li>
+									<li><a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/msal-authentication-flows"
+										target="_blank">Flows</a> that emits refresh tokens in Azure</li>
+									<li>Single Page Web applications using MSAL.JS usually login-and-get-new tokens silently to the user</li>
+									<li>Passport.js (that we use does not have native support for refresh tokens. so lets add it :) )
+									</ul>
+							</section>
+
+							<section>
+									<h3>Preparing the environment</h3>
+									<ul>
+										<li>Navigate to the <span style="color: yellow">./ex-8</span> directory</li>
+										<li>Install dependencies
+											<code class="hljs">$ npm install</code>
+										</li>
+										</ul>
+							</section>
+
+							<section>
+									<h3>Explore the code</h3>
+									<ul style="font-size:80%">
+										<li style="color:yellow">config/config.js</li>
+											<ul>
+												<li>Scope param includes "offline_access" which emits refresh token</li>
+												<li>"diffSecondsBeforeRefresh" defines how close we will be to the access token exipration before we ask for a new access token</li>
+											</ul>
+											<li style="color:yellow">src/app.js</li>
+											<ul>
+												<li>Storing refresh-token in authinfo object</li>
+												<li>Middleware (considerRefresh) to determine if we should get new access tokens</li>
+											</ul>
+											<li style="color:yellow">src/authutils.js</li>
+											<ul>
+												<li>"considerRefres" function which does the magic</li>
+												<li>We refresh based on time (in seconds) before expire</li>
+												<li>We could also react to the 401 issued by Azure AD when we try to use and expired access token </li>
+												<li>(It's worth knowing that java script stores time in milliseconds while it's seconds int the tokens)</li>
+											</ul>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Config, Run and Explore </h3>
+									<ul>
+										<li>Update configuration in <span style="color:yellow">./config/config.js</span> (clientid)</li>
+										<li>Verify the AD application object <span style="color:yellow">redirect url</span></li>
+										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Run web application
+											<code class="hljs">$ npm start</code>
+										</li>
+										<li>Explore the "user information" part of the web application</li>
+										<li>Explore changing the "diffSecondsBeforeRefresh" config and observe token refresh (by expire date and in log)</li>
+									</ul>
 							</section>
 
 					</section>
