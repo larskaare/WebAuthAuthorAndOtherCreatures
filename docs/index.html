@@ -1036,16 +1036,136 @@ Client lives inside browser (user agent)
 					<section>
 							<section>
 								<h1>Exercise 7</h1>
-								<h3>Authorization</h3>
-								<h4>Accessing a 3rd party api</h4>
-								<small>Only people with EQ account should have access</small>
-							</br><small>Only defined users/groups should have access to app</small>
-							</br><small>Only people with EQ account should have access</small>
-							</br><small>Application manifest, security groups, general groups issues</small>
-							</br><small>Application roles</small>
-							</br><small>Issues</small>
-								
+								<h3>Authorization scenarios</h3>
+								<h4>The Application Manifest</h4>
 							</section>
+
+							<section>
+									<h3>Outline</h3>
+									<ul style="font-size: 80%;">
+										<li>Prepare environment (ex-7)</li>
+										<li>Explore the code</li>
+										<li>Config, run and explore</li>
+										<li>Scenario 1: Only people with valid account should have access</li>
+										<li>Scenario 2: Only defined users/groups should have access</li>
+										<li>Scenario 3: Application roles to handele authorisation</li>
+										<li>Accessing 3d party api's protected by oauth2</li>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Preparing the environment</h3>
+									<ul>
+										<li>Navigate to the <span style="color: yellow">./ex-7</span> directory</li>
+										<li>Install dependencies
+											<code class="hljs">$ npm install</code>
+										</li>
+										</ul>
+							</section>
+
+							<section>
+									<h3>Explore the code</h3>
+									<ul>
+										<li style="color:yellow">src/app.js</li>
+											<ul>
+												<li>passport.use(....)</br>Creating authInfo object in profile to store relevant claims</li>
+											</ul>
+											<li style="color:yellow">view/userinfo.pug</li>
+											<ul>
+												<li>Showing information about groups & roles in claim</li>
+											</ul></br>
+											<li>We are not activation authorization (other than login), just retrieving the information to do it</li>
+									
+									</ul>
+							</section>
+
+							<section>
+									<h3>Config, Run and Explore </h3>
+									<ul>
+										<li>Update configuration in <span style="color:yellow">./config/config.js</span> (clientid)</li>
+										<li>Verify the AD application object <span style="color:yellow">redirect url</span></li>
+										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Run web application
+											<code class="hljs">$ npm start</code>
+										</li>
+										<li>Explore the "user information" part of the web application</li>
+									</ul>
+							</section>
+
+							<section>
+								<h3>Scenario 1:</br> Only people with valid account should have access</h3>
+								<ul>
+									<li><span style="color:yellow">App Registration (object)</span> vs. <span style="color:yellow">Enterprise Application (instance, multi-tentant)</span></li>
+									<li>In "Enterprise Applications" (Azure AD) explore the property section for your application</li>
+									<ul>
+										<li>"Enables for users to sign-in?"</li>
+										<li>"User assignment required?"</br>(User must be assigned to be able to sign in)</li>
+									</ul>
+								</ul>
+								<li><span style="color:yellow">Sign-in enabled</span> and <span style="color:yellow">no user assignment required = available to everyone with valid user account in tenant</li>
+							</section>
+
+							<section>
+									<h3>Scenario 2:</br> Only defined users/groups should have access</<br></h3>
+									<ul style="font-size: 90%;">
+										<li>There are "many" ways to achive this scenario</li>
+										<li>1) Managing the App Object</li>
+											<ul>
+												<li>Set "User assignment" to "Yes" - in App property</li>
+												<li>Add users and groups in "Users & Groups" - in App property</li>
+											</ul>
+										<li>2) Alter application manifest to include security groups</li>
+										<ul>
+											<li>The <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest" target="_blank">Application Manifest</a> defines all the attributes and behavior of an applicaton object</li>
+											<li><span style="color:yellow">groupMembershipClaims</span> to include <span style="color:yellow">"SecurityGroup"</span></li>
+											<li>Alter - save - explore "user information part in our web app</li>
+											<li>This approach have some limitations (size) </li>
+										</ul>
+									</ul>
+								</section>
+
+								<section>
+										<h3>Scenario 3: Application roles</h3>
+										<ul style="font-size: 80%;">
+											<li>Application roles implement RBAC</li>
+											<li>App admins grant permissions to roles, users and groups are assigned to roles</li>
+											<li>Define application role in app manifest (<a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps" target="_blank">doc</a>)</br>ID is a self generated GUID and must be unique</li>	
+											<pre><code class="hljs">
+"appRoles": [
+{
+  "allowedMemberTypes": ["User"],
+  "displayName": "Writer",
+  "id": "b421319c-3e45-4685-aaf2-b1282ad05a6f",
+  "isEnabled": true,
+  "description": "Writers Have the ability to create tasks.",
+  "value": "Writer"
+}
+],
+"availableToOtherTenants": false,
+											</code></pre>		
+										<li>Alter manifest with "Writer" app role". Save</li>
+										<li>Assign a user or group to the "Write roles" in "Enterprise apps" - "Users and Groups"</li>			
+										<li>Explore the "User information" part of our web app</li>				
+										</ul>
+									</section>
+	
+									<section>
+										<h3>Accessing 3d party api's protected by oAuth2</h3>
+										<ul style="font-size: 80%;">
+											<li>Add/Include api resource to scope</li>
+											<li>Hit token endpoint to request an access token</li>
+											<li>Use access token to access api</li>
+											<li>Explore the mail part of our web application (/routes/mail.js)</li>
+											<li>Explore Static vs. Dynamic permissions</li>
+											<ul>
+												<li><a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/v2-permissions-and-consent" target="_blank">Best practice</a></li>
+												<li>Change scope to include <span style="color:yellow">
+													https://graph.microsoft.com/Contacts.read</span> from code (scope config) and/or "api permissions" in app definition (AD) </li>
+												<li>Remember to restart app after changes (and do a new login)</li>
+												<li>Add other resources from the MS Graph Explorer and observe consent flow</li>
+											</ul>
+										</ul>
+									</section>
 
 					</section>
 
