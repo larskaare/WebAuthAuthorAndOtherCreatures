@@ -1270,8 +1270,96 @@ Client lives inside browser (user agent)
 								<h1>Exercise 9</h1>
 								<h3>Single Page Web Application (SPA)</h3>
 								<small>Implicit grant flow </small>
-								<small>Sec implication, no-refresh, ....</small>
 							</section>
+
+							<section>
+								<h3>Outline</h3>
+								<ul>
+									<li>What is a SPA?</li>
+									<li>Prepare environment (EX-9)</li>
+									<li>Explore code</li>
+									<li>Config, Run and Explore</li>
+									<li>Security considerations</li>
+								</ul>
+							</section>
+
+							<section>
+								<h3>What is a SPA?</h3>
+								<ul>
+									<li><a href="https://en.wikipedia.org/wiki/Single-page_application"
+										target="_blank">SPA</a> = Single Page Application</li>
+									<li>Re-Writing DOM rather than refreshing page</li>
+									<li>1) Web browser (user agent) only (all communications happends in browser, client is in browser)</li>
+									<li>2) Hybrid, web communicates to dedicated back-end (client) which then handles external communication</li>
+								</ul>
+							</section>
+
+							<section>
+									<h3>Preparing the environment</h3>
+									<ul>
+										<li>Navigate to the <span style="color: yellow">./ex-9</span> directory</li>
+										<li>Install dependencies
+											<code class="hljs">$ npm install</code>
+										</li>
+										</ul>
+							</section>
+
+							<section>
+								<h3>Explore the code</h3>
+								<ul>
+									<li>We use an <a href="https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2"
+									target="_blank">example</a> from microsoft, calling the graph api from java script</li>
+									<li>Our back-end only serves the static web pages</li>
+									<ul>
+										<li><span style="color:yellow">server.js</span> serves the static web pages</li>
+									</ul>
+									<li>The application lives in the browser</li>
+									<ul>
+										<li<span style="color:yellow">JavaScriptSPA/index.html</span></li<span>
+									</ul>
+								</ul>
+							</section>
+
+							<section>
+								<h3>Config, Run and Explore</h3>
+								<ul style="font-size: 80%;">
+										<li>Update configuration in <span style="color:yellow">javaScriptSPA/index.html:msalConfig</span> (clientid, authority)</li>
+										<li>Configure AD app object (Azure AD)</li>
+											<ul>
+												<li>Redirect URI: http://localhost</li>
+												<li>Authentication:Advances Setting:Implicit grant - allow access token and ID tokens</li>	
+											</ul>
+										<li>Configure environment back-end variables (PORT)</li>
+										<li>Run web application
+											<code class="hljs">$ npm start</code>
+										</li>
+										<li>Explore SPA Client (Browser, Developer Mode)</li>
+										<ul>
+											<li>Network flow to graph api - headers</li>
+											<li>Cookies</li>
+											<li>Local storage</li>
+										</ul>
+									</ul>
+							</section>
+
+							<section>
+									<h3>Security considerations</h3>
+									<ul style="font-size: 80%;">
+										<li>It's a public client!</li>
+										<li>Implicit flow is less secure than other methods</li>
+										<li>The redirect GET REQUEST exposes the AccessToken in many ways</li>
+										<li>Information - like access tokens are available to "everyone" using the browser</li>
+										<li><span style="color:red">Good practice</span>: 
+											Follow advice in OWASP Top 10 for Web application security ( 
+											<a href="https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf" target="_blank">PDF</a>)</li>
+											<li><span style="color:red">Good practice</span>: Always use HTTPS</li>
+											<li><span style="color:red">Good practice</span>: Use Content Security Policy</li>
+											<li><span style="color:red">Good practice</span>: Go with auth code grant flow if you can :)</li>
+											<li><span style="color:red">Good advice</span>: 
+												Monitor support for PKCE in MSAL.js ( 
+												<a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" target="_blank">March 2020, MSAL 2.0.0</a>)</li>	
+										</ul>
+								</section>
 
 					</section>
 
