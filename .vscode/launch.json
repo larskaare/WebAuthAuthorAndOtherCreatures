@@ -51,6 +51,12 @@
             "request": "launch",
             "name": "www ex-8",
             "program": "${workspaceFolder}/ex-8/src/www.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "www ex-10-api",
+            "program": "${workspaceFolder}/ex-10/api/bin/www"
         }
     ]
     ]

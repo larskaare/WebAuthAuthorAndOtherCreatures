@@ -13,17 +13,15 @@ router.get('/', function(req, res, next) {
 
   if (req.headers.authorization) {
     tokenArray = req.headers.authorization.split(" ");
+  } else {
+    console.log('No JWT token in request');
+    res.status(401).send('Access denied');
+    return;
   }
 
   var decodedToken = jwt.decode(tokenArray[1],{complete: true});
   var token = tokenArray[1];
   
-  if (!token) {
-    console.log('No JWT token in request');
-    res.status(200).send(JSON.stringify(respObj));
-    return;
-  };
-
 
   // Process to verify token
   // A few functions to get the signing key - input to validation
@@ -41,8 +39,8 @@ router.get('/', function(req, res, next) {
   }
 
   var validateOptions = {
-    "audience" : "api://43b81c01-b3a3-426d-b999-5db9fa5f1337",
-    "issuer": "https://sts.windows.net/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/",
+    "audience" : "",
+    "issuer": "https://sts.windows.net/1-1-1-1-1/",
     "maxAge": "1h"
   };
 

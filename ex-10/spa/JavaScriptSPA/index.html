@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Example 9</title>
+    <title>Example 10</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>
     <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.js"></script>
 </head>
@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="leftContainer">
-            <p id="WelcomeMessage">Example 9</p>
+            <p id="WelcomeMessage">Example 10</p>
             <button id="SignIn" onclick="signIn()">Sign In</button>
             <button id="grapData" onclick="getGraphData()">Graph data</button>
             <button id="Echo" onclick="getEcho()">Echo</button>
@@ -22,8 +22,8 @@
 <script>
     var msalConfig = {
         auth: {
-            clientId: 'cab2507d-e7d1-46fd-9580-ea7de0cd02ea', //This is your client ID
-            authority: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0" //This is your tenant info
+            clientId: '', //This is your client ID
+            authority: "https://login.microsoftonline.com/1-1-1-1-1" //This is your tenant info
         },
         cache: {
             cacheLocation: "localStorage",
@@ -157,7 +157,7 @@
         //Get token - then decide
 
         var requestEchoObj = {
-            scopes: ["api://43b81c01-b3a3-426d-b999-5db9fa5f1337/echo.read"]
+            scopes: ["api://1-1-1-1-1/Echo.Read"]
         };
 
         myMSALObj.acquireTokenSilent(requestEchoObj).then(function (tokenResponse) {

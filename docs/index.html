@@ -82,8 +82,7 @@
 							<li>Pre-requisites, Practicalities</li>
 							<li>The basics of A&A </li>
 							<li>Exercises (11)</li>
-							<li>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's & DevOps (Radix)
-							<li>Security</li>
+							<li>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
 							<li>Hack your own project</li>
 						</ul>
 					</section>
@@ -1121,6 +1120,8 @@ Client lives inside browser (user agent)
 											<li>Alter - save - explore "user information part in our web app</li>
 											<li>This approach have some limitations (size) </li>
 										</ul>
+										<li>3) Read information in the Microsoft graph about user & groups (using ID token). 
+											This require admin concent for the application and generally gives to much privileges!! Should be avoided</li>
 									</ul>
 								</section>
 
@@ -1372,6 +1373,128 @@ Client lives inside browser (user agent)
 								</br><small>Azure API GW - Apim</small>
 							</section>
 
+							<section>
+								<h3>Outline</h3>
+								<ul>
+									<li>The scenario</li>
+									<li>Add AD Application Object for API</li>
+									<li>Explore and config the SPA code</li>
+									<li>Explore and config the API code</li>
+									<li>Run and Explore</li>
+									<li>Security considerations</li>
+								</ul>
+							</section>
+
+							<section>
+								<h3>The Scenario</h3>
+								<ul>
+									<li>Two components</li>
+									<ul>
+										<li>Single Page Web Application (from prev. exercise)</li>
+										<li>API which echoes time</li>
+									</ul>
+									<li>New button in SPA to "Echo" api</li>
+									<li>SPA sends request to API with access token as a bearer token</li>
+									<li>API validates token and reponds with time if everything is ok</li>
+								</ul>
+							</section>
+
+							<section>
+								<h3>Adding Azure AD application object for API</h3>
+								<ul>
+									<li>Follow procedure in <a href="#/7/2" target="_blank">earlier exercise</a> to register API </li>
+									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
+									<li><span style="color:red">Name</span>: (inital)-(aa-api) or something else</li>
+									<li><span style="color:red">Type</span>: Single tenant</li>
+									<li>Select "Expose an API" (app config)</li>
+									<ul>
+										<li>Add scope (accept suggested App ID URI)</li>
+										<li>Scope name: Echo.Read</li>
+										<li>Who can consent: Admins and Users (Add relevant text to descriptions)</li>
+										<li>State: Enabled</li>
+										<li>Remove "default" API permissions from API object (user.read)</li>
+									</ul>
+									</li>
+								</ul>
+							</section>
+
+							<section>
+								<h3>Explore and config the SPA code</h3>
+								<ul>
+									<li>Navigate to the <span style="color: yellow">./ex-10/spa</span> directory</li>
+									<li>Install dependencies <code class="hljs">$ npm install</code></li>
+									<li>Update config in "JavaScriptSPA/index.html</li>	
+									<ul>
+										<li>msalConfig: clientId, authority(tenant id) (for SPA AD App)</li>
+										<li>getEcho():requestEchoObj:scope (api://..../Echo.Read)</li>
+										<li>getEcho(): Url to API (http://localhost:3100)</li>
+									</ul>
+									<li>The getEcho function do</li>
+									<ul>
+										<li>Request an access token to access the Echo API</li>
+										<li>Call Echo with access token and then displays response</li>
+									</ul>
+								</ul>
+							</section>
+
+
+							<section>
+									<h3>Explore and config the API code</h3>
+									<ul style="font-size:80%">
+										<li>Navigate to the <span style="color: yellow">./ex-10/api</span> directory</li>
+										<li>Install dependencies <code class="hljs">$ npm install</code></li>
+										<li>Update config in "bin/www (the port if needed)</li>	
+										<li>Update config in "routes/index.js</li>
+										<ul>
+											<li>validateOptions: audience (the api app URI)</li>
+											<li>validateOptions: issues (the tenant id)</li>
+										</ul>
+										<li>Update config in "app.js" (corsOptions, will only accept requests from localhost. Must be changed if the SPA is moved)</li>
+										<li>Code: "routes/index.js"</li>
+										<ul>
+											<li>Gets the api request, using 
+												<a href="https://github.com/auth0/node-jsonwebtoken"
+												target="_blank">library</a> to validate token</li>
+											<li>"validateOptions" defines what will be validated</li>
+											<li>Uses "well known endpoints" of API object to find keys++</li>
+										</ul>
+										<li>Code: "./app.js"</li>
+										<ul>
+											<li>The API middleware layer (Express)</li>
+											<li>Define CORS headers using a <a href="https://github.com/expressjs/cors"
+											target="_blank">library</a></li>
+										</ul>
+									</ul>
+								</section>
+
+								<section>
+									<h3>Run and explore scenario</h3>
+									<ul>
+										<li>Use two terminal sessions - SPA, API</li>
+										<li>Navigate to the <span style="color: yellow">./ex-10/api</span> and do
+											<code class="hljs">$ npm start</code></li>
+										<li>Navigate to the <span style="color: yellow">./ex-10/spa</span> and do
+											<code class="hljs">$ npm start</code></li>
+										<li>Explore the new "Echo" functionallity</li>
+										<li>Alter CORS headers and observe effect (in SPA - Dev mode</li>
+										<li>Alter token validation options in API and observe effect</li>
+										<li>Alter scope for Api in SPA and observe effect</li>
+									</ul>
+									
+								</section>
+
+								<section>
+									<h3>Security considerations</h3>
+									<ul>
+										<li>Use libraries to do token validation</li>
+										<li>"Trust but verify" vs. "No trust"</li>
+										<li><span style="color:red">Good practice</span>: Consider placing your API behind and api gateway (such as 
+											<a href="https://azure.microsoft.com/en-us/services/api-management/"
+											target="_blank">APIM</a>)</li>
+											
+									</ul>
+								</section>
+
 					</section>
 
 
@@ -1383,25 +1506,11 @@ Client lives inside browser (user agent)
 
 					</section>
 
-
 					<section>
 							<section>
-								<h1>Exercise 11</h1></h2>
-								<h3>Deployment - DevOps - Radix</h1>
-								<small>Let's put a project into Radix</small>
-							</br><small>Create a new project based on ex-10??</small>
+								<h1>Hack your own A&A project</h1>
 							</section>
-
 					</section>
-
-					<section>
-							<section>
-								<h1>Hack your own project</h1>
-							</section>
-
-					</section>
-
-
 
 			</div>
 
