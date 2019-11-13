@@ -163,10 +163,10 @@
 						<h3>oAuth2</h3>
 						<blockquote style="font-size: 80%">
 						The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. </blockquote>
-						<small><a href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of letting someone who controls a resource to let application access the resource ont their behalf (without impersonating).</small>
+						<small><a href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of giving someone who controls a resource the capability to delegate access to the resource on their behalf (without impersonating).</small>
 					</section>
 					<section style="font-size: 75%">
-						<h3>Roles</h3>
+						<h3>Roles / Actors</h3>
 						<p><div style="color:yellow">resource owner</div>
 						An entity capable of granting access to a protected resource.
 						When the resource owner is a person, it is referred to as an
@@ -265,26 +265,72 @@
 					</section>
 
 					<section>
-						<h2>Permissions, Consent, delegation, users vs. machine, user vs. admin</h2>
+						<h3>Scope</h3>
+						<ul>
+							<li>Defined the scope of access</li>
+							<li>Defines permissions given to the access token</li>
+							<li>Consentable</li>
+							<li>The scope request is configured on the client</li>
+							<li>the Scope is requested in the flow</li>
+							<li>The Authorization Server determines of scope should be issued</li>
+						</ul>
 					</section>
-
-
-
+					<section>
+							<h3>Consent</h3>
+							<ul>
+								<li>Scope can be consented by</li>
+								<ul>
+									<li>User on on-behalf of self</li> 
+									<li>Admin on behalf of organization</li>
+								</ul>
+								<li>The consent is about delegating the client access to resource server on a users behalf</li>
+							</ul>
+						</section>
+					
 					<section>
 						<h2>Tokens</h2>
 						<ul>
-							<li><span style="color:red">Access token</span></br><span style="font-size: 80%">Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
+							<li>Token type: How it can be used</li>
+							<ul>
+								<li>Can I just send it?</li>
+								<li>Do i need to prove that i have it?</li>
+							</ul>
+							<li>Token format: Encoding</li>
+							<ul>
+								<li>By value (token contains all values)</li>
+								<li>By reference (pointer to more information)</li>
+							</ul>
+							<li>Token purpose: Who is it for?</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Access token</h3>
+						<ul style="font-size: 80%;">
+							<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
 							 </li>
+							 <li>By reference or value, for resource server, bearer</li>
 						</ul>						
 					</section>
 
 					<section>
-							<h2>Tokens</h2>
-							<ul>
-								<li><span style="color:red">Refresh token</span></br><span style="font-size: 80%">Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
+							<h3>Refresh token</h2>
+							<ul style="font-size: 80%;">
+								<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
 								 </li>
+								 <li>By value, for client</li>
 							</ul>						
 					</section>
+
+					<section>
+						<h3>ID token</h2>
+						<ul style="font-size: 80%;">
+							<li>ID tokens are issued to the client to validate that a user is who he/she claims to be and to provide additional
+								information about the user.
+							</li>
+							 <li>By value, for client</li>
+						</ul>						
+				</section>
 
 					<section>
 						<h3>Azure AD (AAD) issues JWT tokens</h3>
@@ -422,9 +468,13 @@ Client lives inside browser (user agent)
 
 					<section>
 						<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
-						<small><span style="color:red">Authentication</span> protocol built on-top of oAuth2</small>
-						
-						<table>
+						<ul style="font-size: 80%;">
+							<li><span style="color:red">Identity</span> layer built on-top of oAuth2</li>
+							<li>Defines user authentication meta data</li>
+							<li>Can control authentication</li>
+							<lI>Enables federation</lI><p></p>
+						</ul>
+						<table style="font-size: 80%;">
 							<thead>
 								<tr>
 									<td>oAuth2</td>
@@ -451,10 +501,10 @@ Client lives inside browser (user agent)
 					<section>
 						<h2>OpenID Connect (OICD)</h2>
 						<ul style="font-size: 70%";">
-							<li>New <span style="color:red">IDToken</span> received upon sucessfull authentication</li>
+							<li>New <span style="color:red">IDToken</span> received upon successful authentication</li>
 							<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
-							<li>IDToken's are given to client along with Aaccess tokens</li>
-							<li>IDTokens' are signes JWT tokens.</li>
+							<li>IDToken's can be given to client along with Access tokens</li>
+							<li>IDTokens' are signed JWT tokens.</li>
 							<li>ID tokens contains claims such as</li>
 								<ul>
 									<li>iss - issuer of the token</li>
@@ -462,7 +512,7 @@ Client lives inside browser (user agent)
 									<li>aud - audience - id for relying party</li>
 									<li>exp - expiration time stamp</li>
 								</ul>
-							<li>More documentation on the <a href"https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages</li>
+							<li>For the Azure implementation, more documentation on the <a href"https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages</li>
 						</ul>
 					</section>
 
@@ -489,12 +539,24 @@ Client lives inside browser (user agent)
 						</pre>	
 					</section>
 
+					<section>
+						<h3>Token Introspection</h3>
+						<ul>
+							<li>The process for a protected resource to query the authorization server to verify validity of a oAuth2 token</li>
+							<li>An extension to oAuth2 defined in <a href="https://tools.ietf.org/html/rfc7662"
+							target="_blank">rfc7662</a></li>
+							<li>Not currently supported by Azure AD
+							<a href="https://feedback.azure.com/forums/169401-azure-active-directory/suggestions/18930289-introspection-endpoint-for-azure-active-directory"
+							target="_blank">(Improvement request)</a>	
+							</li>
+						</ul>
+					</section>
 
 					<section>
 						<h1>Please note ...</h1>
 						<ul>
-							<li>Use Azure AD v2 endpoints whenever possible</li>
-							<li>Be aware of doc and v1 vs. v2 (it's easy to read the wrong one) </li>
+							<li>Use Azure AD v2 endpoints whenever possible, V1 is about to be deprecated</li>
+							<li>Be aware of doc and v1 vs. v2 (it's easy to read the wrong one)</li>
 						</ul>
 					</section>
 
