@@ -45,7 +45,8 @@
 				<!-- Front page -->
 				<section style="text-align: left;">
 					<h1>Modern A&A</h1>
-					<h4>Authentication (OpenID) and Authorization (oAuth2)</h3>
+					<h2>Authentication and Authorization</h2>
+					<h4>oAuth2 and OpenID Connect (OICD)</h4>
 					<small>An simple introduction to a endless complex topic</small>
 					<p>
 						<small><a href="https://loop.equinor.com" target="_blank">Equinor</a></Equinor> <font style="color:red;">#AppSec</font> community</a></small>
@@ -60,12 +61,12 @@
 
 					<section>
 						<h3>Workshop objectives </h3>
-						<blockquote>De-mystify, enable notion of confidence and prepare for further exploration of A&A</blockquote>
+						<blockquote>De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
 						<ul style="font-size: 80%;">
 							<li>Give an introduction to basics modern web A&A</li>
 							<li>Introduce protocols, grants & flows</li>
 							<li>Hands-on coding with a few A&A scenarios </li>
-							<li>Insight into threats and current best practices for security</li>
+							<li>Insight into threats and current best practices (BCP) for security</li>
 						</ul>
 					</section>
 
@@ -133,7 +134,7 @@
 				<section>
 					<section>
 						<h1>Practicalities</h1>
-						<h3><a href="" target="_blank">#appsec-access-control</a></h3> on Slack
+						<h3><a href="https://equinor.slack.com/archives/CQUQN8QQL" target="_blank">#appsec-access-control</a></h3> on Slack
 					</section>
 					<section>
 							<h1>Useful links</h1>
@@ -165,8 +166,22 @@
 						The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. </blockquote>
 						<small><a href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of giving someone who controls a resource the capability to delegate access to the resource on their behalf (without impersonating).</small>
 					</section>
+
+					<section>
+						<h3>oAuth2 vs OpenID Connect</h3>
+						<ul>
+							<li>oAuth is for delegation, the goal is to access api's</li>
+							<li>OpenID Connect is an identify layer on top of oAuth</li>
+							<ul>
+								<li>Defines user authentication metadata</li>
+								<li>Can control authentication</li>
+								<li>Supports federation</li>
+							</ul>
+						</ul>
+					</section>
+
 					<section style="font-size: 75%">
-						<h3>Roles / Actors</h3>
+						<h3>Actors</h3>
 						<p><div style="color:yellow">resource owner</div>
 						An entity capable of granting access to a protected resource.
 						When the resource owner is a person, it is referred to as an
@@ -189,7 +204,12 @@
 						</p>
 					</section>
 					<section>
-						<h4>Protocol flow</h4>
+						<h3>Actors</h3>
+						<img src="./graphics/export/actors.jpg" width="75%">
+					</section>
+					<section>
+						<h4><a href="https://tools.ietf.org/html/rfc6749#section-1.2"
+							target="_blank">Abstract protocol flow</a></h4>
 						<pre>
 +--------+                               +---------------+
 |        |--(A)- Authorization Request ->|   Resource    |
@@ -212,10 +232,10 @@
 						</pre>
 					</section>
 					<section>
-						<h4 style="text-align: left;">High level oAuth flow</h4>
+						<h4 style="text-align: left;">Abstract protocol flow</h4>
 						<pre style="font-size: 40%; text-align: left;">
-+-- <span style="color:red">Resource</span> --+ +-- <span style="color: yellow;">Client</span> -- + +- <span style="color:yellowgreen">Authorization</span> -+ +--<span style="color:violet"> Protected</span> --+
-+    Owner     + +             + +     Server      + +   Resource    +
++-- <span style="color:red">Resource</span> --+ +-- <span style="color: yellow;">Client</span> -- + +- <span style="color:yellowgreen">Authorization</span> -+ +--<span style="color:violet"> Resource</span> --+
++    Owner     + +             + +     Server      + +   Server    +
 +--------------+ +-------------+ +-----------------+ +---------------+
      -                   -                -                     -
      |  <span style="color:yellow">(A)Client request</span>|                |                     |
@@ -260,101 +280,167 @@
 							<li>Is not defining user-to-user delegation</li>
 							<li>Is not defining a token format</li>
 							<li>Is not defining crypto methods</li>
-							<li>Is not a single protocol - </br>it supports multiple use cases</li>
+							<li>Is not a single protocol - </br>it supports multiple use cases -</br> it's a protocol for protocols</li>
 						</ul>
 					</section>
 
 					<section>
-						<h3>Scope</h3>
-						<ul>
-							<li>Defined the scope of access</li>
-							<li>Defines permissions given to the access token</li>
-							<li>Consentable</li>
-							<li>The scope request is configured on the client</li>
-							<li>the Scope is requested in the flow</li>
-							<li>The Authorization Server determines of scope should be issued</li>
-						</ul>
-					</section>
-					<section>
-							<h3>Consent</h3>
-							<ul>
-								<li>Scope can be consented by</li>
-								<ul>
-									<li>User on on-behalf of self</li> 
-									<li>Admin on behalf of organization</li>
-								</ul>
-								<li>The consent is about delegating the client access to resource server on a users behalf</li>
-							</ul>
-						</section>
+						<h3>Obtaining authorization - the oauth Dance</h3>
+						<blockquote> To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
+				</section>
 					
-					<section>
-						<h2>Tokens</h2>
-						<ul>
-							<li>Token type: How it can be used</li>
-							<ul>
-								<li>Can I just send it?</li>
-								<li>Do i need to prove that i have it?</li>
-							</ul>
-							<li>Token format: Encoding</li>
-							<ul>
-								<li>By value (token contains all values)</li>
-								<li>By reference (pointer to more information)</li>
-							</ul>
-							<li>Token purpose: Who is it for?</li>
-						</ul>
-					</section>
+				<section>
+					<h3><a href="https://tools.ietf.org/html/rfc6749#section-4.1"
+						target="_blank">Authorization Code Grant</a></h3>
+					<pre style="font-size: 40%;">
 
-					<section>
-						<h3>Access token</h3>
-						<ul style="font-size: 80%;">
-							<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
-							 </li>
-							 <li>By reference or value, for resource server, bearer</li>
-						</ul>						
-					</section>
-
-					<section>
-							<h3>Refresh token</h2>
-							<ul style="font-size: 80%;">
-								<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
-								 </li>
-								 <li>By value, for client</li>
-							</ul>						
-					</section>
-
-					<section>
-						<h3>ID token</h2>
-						<ul style="font-size: 80%;">
-							<li>ID tokens are issued to the client to validate that a user is who he/she claims to be and to provide additional
-								information about the user.
-							</li>
-							 <li>By value, for client</li>
-						</ul>						
++----------+
+| Resource |
+|   Owner  |
+|          |
++----------+
+ ^
+ |
+(B)
++----|-----+          Client Identifier      +---------------+
+|         -+----(A)-- & Redirection URI ---->|               |
+|  User-   |                                 | Authorization |
+|  Agent  -+----(B)-- User authenticates --->|     Server    |
+|          |                                 |               |
+|         -+----(C)-- Authorization Code ---<|               |
++-|----|---+                                 +---------------+
+|    |                                           ^      v
+(A)  (C)                                         |      |
+|    |                                           |      |
+^    v                                           |      |
++---------+                                      |      |
+|         |>---(D)-- Authorization Code ---------'      |
+|  Client |          & Redirection URI                  |
+|         |                                             |
+|         |<---(E)----- Access Token -------------------'
++---------+       (w/ Optional Refresh Token)
+				   
+						
+					</pre>
+				</section>
+				<section>
+					<h3>Authorization Code Grant</h3>
+					<img src="./graphics/export/oauth_code_flow.jpg" width="75%">
 				</section>
 
-					<section>
-						<h3>Azure AD (AAD) issues JWT tokens</h3>
-						<small><a href="https://tools.ietf.org/html/rfc7519" target="_blank">JSON Web Token (JWT)(RFC7519)</a></small></br>
-						<div style="font-size:40%; text-align: center;">eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9<span style="color:red">.</span></br>eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ<span style="color:red">.</span></br>dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</div>
-						<p></p>
-						<pre><code class="hljs">
-{
-  "typ": "JWT",
-  "alg": "HS256"
-}.
-{
-  "iss": "joe",
-  "exp": 1300819380,
-}.
-[Signature]
-						</code> 
-						</pre>	
-						<small>Header, Payload with claims and Signature -  based64 encoded</small>
+				<section>
+					<h3>Authorization Code Grant</h3>
+					<table>
+						<tr>
+							<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+							<td style=" vertical-align: top;">
+								<p>-1-</p>
+								User - via user agent - initiates
+							</td>
+						</tr>
+					</table>
+				</section>
 
-					</section>
-	
+				<section>
+						<h3>Authorization Code Grant</h3>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<p>-2-</p>
+									<span style="font-size: 70%;">
+									GET /authorize? </br>
+									client_id=client </br>
+									&scope=read </br>
+									&reponse_type=code </br>
+									&state=1234
+									&redirect_uri=
+									https://app/callback
+									</span>
+								</td>
+							</tr>
+						</table>
+				</section>
 
-					<section>
+				<section>
+						<h3>Authorization Code Grant</h3>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<p>-3-</p>
+									Authentication is handed over to authentication server
+								</td>
+							</tr>
+						</table>
+				</section>
+
+				<section>
+						<h3>Authorization Code Grant</h3>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<p>-4-</p>
+									<span style="font-size: 70%;">
+									303 redirect
+									https://app/callback? </br>
+									code=o-t-c</br>
+									&state=1234</br>		
+									</span>
+								</td>
+							</tr>
+						</table>
+				</section>
+
+				<section>
+						<h3>Authorization Code Grant</h3>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<p>-5-</p>
+									<span style="font-size: 70%;">
+									POST /token
+									grant_type=authorization_code</br>
+									&client_id=</br>
+									&client_secret=</br>
+									&code=</br>
+									&redirect_uri=</br>
+									</span>
+								</td>
+							</tr>
+						</table>
+				</section>
+
+				<section>
+						<h3>Authorization Code Grant</h3>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<p>-6-</p>
+									<span style="font-size: 70%;">
+									{</br>
+											"access_token":"2YotnFZFEjr1zCsicMWpAA",
+											"token_type":"example",
+											"expires_in":3600,
+											"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
+											"token_type":"Bearer"
+										</br>}
+									</span>
+								</td>
+							</tr>
+						</table>
+				</section>
+
+
+				<section>
+					<h2>Let's disucss a few elements</h2>
+				</section>
+
+
+				<section>
 						<h3>Clients</h3>
 						<ul>
 							<li>Clients are either confidential or public
@@ -372,62 +458,280 @@
 						<ul>
 							<li><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner </li>
 							<li><span style="color:red">Token endpoint:</span> used by client to exchange authorization grant for an access token</li>
-							<li><span style="color:red">Redirection endpoint:</span> used by authorization server to return response containing creds to client</li>
-						</ul>
+							<li>There may be more based on actual implementation</li>
 					</section>
 					
 					<section>
-						<h3>Interaction between actors</h3>
+						<h3>Channels - Interaction between actors</h3>
 						<ul>
-							<li><span style="color:red">Back-channel</span>: Communication happening outside the view of the resource owner and the user agent (like browser)</li>
-							<li><span style="color:red">Front-channel</span>: Communication between to parties through an intermediate (the web browser)</li>
-							<li><span style="color:red">Protocol endpoints</span></li>
-						
+							<li><span style="color:red">Front-channel</span>: Communication between two parties through an intermediate (the web browser)</li>
+							<li><span style="color:red">Back-channel</span>: Communication happening outside the view of the resource owner and the user agent (like browser)</li>					
 						</ul>
 
 					</section>
 
 					<section>
-							<h3>Obtaining authorization - the oauth Dance</h3>
-							<blockquote> To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
+							<h2>Tokens</h2>
+							<ul>
+								<li>Token type: How it can be used</li>
+								<ul>
+									<li>Use it as is</li>
+									<li>Use it, but prove that I own it</li>
+								</ul>
+								<li>Token format: Encoding</li>
+								<ul>
+									<li>By value (token contains all values)</li>
+									<li>By reference (pointer to more information)</li>
+								</ul>
+								<li>Token purpose: Who is it for?</li>
+							</ul>
+						</section>
+	
+						<section>
+							<h3>Access token</h3>
+							<ul style="font-size: 80%;">
+								<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
+								 </li>
+								 <li>By reference or value, for <span style="color:red">resource server</span>, bearer type</li>
+							</ul>						
+						</section>
+	
+						<section>
+								<h3>Refresh token</h2>
+								<ul style="font-size: 80%;">
+									<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
+									</li>
+									 <li>By value, for <span style="color:red">client</span></li>
+								</ul>						
+						</section>
+	
+						<section>
+							<h3>ID token</h2>
+							<ul style="font-size: 80%;">
+								<li>ID tokens are issued to the client to validate that a user is who he/she claims to be and to provide additional
+									information about the user.
+								</li>
+								<li>ID tokens are issued as part of OpenID connect</li>
+								 <li>By value, for <span style="color:red">client</span></li>
+							</ul>						
 					</section>
-						
-					<section>
-						<h3> Authorization Code Grant</h3>
-						<pre style="font-size: 40%;">
 
-+----------+
-| Resource |
-|   Owner  |
-|          |
-+----------+
-     ^
-     |
-    (B)
-+----|-----+          Client Identifier      +---------------+
-|         -+----(A)-- & Redirection URI ---->|               |
-|  User-   |                                 | Authorization |
-|  Agent  -+----(B)-- User authenticates --->|     Server    |
-|          |                                 |               |
-|         -+----(C)-- Authorization Code ---<|               |
-+-|----|---+                                 +---------------+
-  |    |                                         ^      v
- (A)  (C)                                        |      |
-  |    |                                         |      |
-  ^    v                                         |      |
-+---------+                                      |      |
-|         |>---(D)-- Authorization Code ---------'      |
-|  Client |          & Redirection URI                  |
-|         |                                             |
-|         |<---(E)----- Access Token -------------------'
-+---------+       (w/ Optional Refresh Token)
-					   
-							
-						</pre>
+					<section>
+							<h3>Azure AD (AAD) issues JWT tokens (access, id)</h3>
+							<small><a href="https://tools.ietf.org/html/rfc7519" target="_blank">JSON Web Token (JWT)(RFC7519)</a></small></br>
+							<div style="font-size:40%; text-align: center;">eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9<span style="color:red">.</span></br>eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ<span style="color:red">.</span></br>dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</div>
+							<p></p>
+							<pre><code class="hljs">
+	{
+	  "typ": "JWT",
+	  "alg": "HS256"
+	}.
+	{
+	  "iss": "joe",
+	  "exp": 1300819380,
+	}.
+	[Signature]
+							</code> 
+							</pre>	
+							<small>Header, Payload with claims and Signature -  based64 encoded</small>
+	
+						</section>
+
+					<section>
+						<h3>Scope</h3>
+						<ul>
+							<li>Defined the scope of access</li>
+							<li>Defines permissions given in the access token</li>
+							<li>Consentable</li>
+							<li>The scope request is configured on the client</li>
+							<li>The Scope is requested in the flow</li>
+							<li>The Authorization Server determines if scope should be issued</li>
+						</ul>
 					</section>
-
 					<section>
-						<h4> Implicit Grant</h4>
+							<h3>Consent</h3>
+							<ul>
+								<li>Scope can be consented by (In Azure impl)</li>
+								<ul>
+									<li>User on on-behalf of self</li> 
+									<li>Admin on behalf of organization</li>
+								</ul>
+								<li>The consent is about delegating the client access to resource server on a users behalf</li>
+							</ul>
+						</section>
+					
+
+						<section>
+								<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
+								<ul style="font-size: 80%;">
+									<li><span style="color:red">Identity</span> layer built on-top of oAuth2</li>
+									<li>Defines user authentication meta data</li>
+									<li>Can control authentication</li>
+									<lI>Enables federation</lI><p></p>
+								</ul>
+								<table style="font-size: 80%;">
+									<thead>
+										<tr>
+											<td>oAuth2</td>
+											<td>OICD</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Resouce owner</td>
+											<td>User</td>
+										</tr>
+										<tr>
+											<td>Client</td>
+											<td>Relying party</td>
+										</tr>
+										<tr>
+											<td>Authorisation server, Protected resource</td>
+											<td>Identity provider</td>
+										</tr>
+									</tbody>
+								</table>
+							</section>
+		
+							<section>
+									<h3>OpenID Connect Code Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-2-</p>
+												<span style="font-size: 70%;">
+												GET /authorize? </br>
+												client_id=client </br>
+												&scope=read+<span style="color:red">openid</span> </br>
+												&reponse_type=code </br>
+												&state=1234
+												&redirect_uri=
+												https://app/callback
+												</span>
+											</td>
+										</tr>
+									</table>
+							</section>
+
+
+							<section>
+									<h3>OpenID Connect Code Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-3-</p>
+												Authentication is handed over to authentication server
+											</td>
+										</tr>
+									</table>
+							</section>
+
+							<section>
+									<h3>OpenID Connect Code Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-4-</p>
+												<span style="font-size: 70%;">
+												303 redirect
+												https://app/callback? </br>
+												code=o-t-c</br>
+												&state=1234</br>		
+												</span>
+											</td>
+										</tr>
+									</table>
+							</section>
+
+							<section>
+									<h3>OpenID Connect Code Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-5-</p>
+												<span style="font-size: 70%;">
+												POST /token 
+												grant_type=authorization_code</br>
+												&client_id=</br>
+												&client_secret=</br>
+												&code=</br>
+												&redirect_uri=</br>
+												</span>
+											</td>
+										</tr>
+									</table>
+							</section>
+
+							<section>
+									<h3>OpenID Connect Code Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-6-</p>
+												<span style="font-size: 70%;">
+												{</br>
+														"access_token":"ey2YotnFZFEjr1zCsicMWpAA",</br>
+														"token_type":"example",</br>
+														"id_token": "eynndj3nn77hs7Hhjhjh",</br>
+														"expires_in":3600,</br>
+														"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",</br>
+														"token_type":"Bearer"
+													</br>}
+												</span>
+											</td>
+										</tr>
+									</table>
+							</section>
+
+
+							<section>
+									<h3>Example ID Token</h3>
+									<small>Azure AD ID Token <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">claims</a></small>
+									<pre><code class="hljs" style="font-size: 60%;">
+			{
+				"typ": "JWT",
+				"alg": "RS256"
+				}.{
+				"aud": "cab2507d-e7d1-46fd-9580-ea7de0cd02ea",
+				"iss": "https://login.microsoftonline.com/../v2.0",
+				"exp": 1571657734,
+				"name": "Jon Doe",
+				"oid": "..",
+				"roles": [
+					"Admin"
+				],
+				"sub": "..",
+				}.[Signature]
+			
+									</code> 
+									</pre>	
+								</section>
+	
+								<section>
+								<h2>OpenID Connect (OICD)</h2>
+								<ul style="font-size: 70%";">
+									<li>New <span style="color:red">IDToken</span> received upon successful authentication</li>
+									<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
+									<li>IDToken's can be given to client along with Access tokens</li>
+									<li>IDTokens' are signed JWT tokens.</li>
+									<li>ID tokens contains claims such as</li>
+										<ul>
+											<li>iss - issuer of the token</li>
+											<li>sub - subject - user id from identity provider</li>
+											<li>aud - audience - id for relying party</li>
+											<li>exp - expiration time stamp</li>
+										</ul>
+									<li>For the Azure implementation, more documentation on the <a href"https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages</li>
+								</ul>
+							</section>
+		
+					<section>
+						<h4>oAuth Implicit Grant</h4>
 						<pre style="font-size: 40%;">
 +----------+
 | Resource |
@@ -465,79 +769,66 @@ Client lives inside browser (user agent)
 						</pre>
 					</section>
 
+		
+					<section>
+							<h3>OpenID Connect Implicit Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-2-</p>
+										<span style="font-size: 70%;">
+										GET /authorize? </br>
+										client_id=client </br>
+										&scope=read</br>
+										&reponse_type=<span style="color:red">token+id_token</span></br>
+										&state=1234</br>
+										&<span style="color:red">nonce=a_nonce</span></br>
+										&<span style="color:red">redirect_uri=</span></br>
+										https://app/callback</span>
+										</span>
+									</td>
+								</tr>
+							</table>
+					</section>
+
 
 					<section>
-						<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
-						<ul style="font-size: 80%;">
-							<li><span style="color:red">Identity</span> layer built on-top of oAuth2</li>
-							<li>Defines user authentication meta data</li>
-							<li>Can control authentication</li>
-							<lI>Enables federation</lI><p></p>
-						</ul>
-						<table style="font-size: 80%;">
-							<thead>
+							<h3>OpenID Connect Implicit Flow</h3>
+							<table>
 								<tr>
-									<td>oAuth2</td>
-									<td>OICD</td>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-3-</p>
+										Authentication is handed over to authentication server
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Resouce owner</td>
-									<td>User</td>
-								</tr>
-								<tr>
-									<td>Client</td>
-									<td>Relying party</td>
-								</tr>
-								<tr>
-									<td>Authorisation server, Protected resource</td>
-									<td>Identity provider</td>
-								</tr>
-							</tbody>
-						</table>
+							</table>
 					</section>
 
 					<section>
-						<h2>OpenID Connect (OICD)</h2>
-						<ul style="font-size: 70%";">
-							<li>New <span style="color:red">IDToken</span> received upon successful authentication</li>
-							<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
-							<li>IDToken's can be given to client along with Access tokens</li>
-							<li>IDTokens' are signed JWT tokens.</li>
-							<li>ID tokens contains claims such as</li>
-								<ul>
-									<li>iss - issuer of the token</li>
-									<li>sub - subject - user id from identity provider</li>
-									<li>aud - audience - id for relying party</li>
-									<li>exp - expiration time stamp</li>
-								</ul>
-							<li>For the Azure implementation, more documentation on the <a href"https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages</li>
-						</ul>
+							<h3>OpenID Connect Implicit Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-4-</p>
+										<span style="font-size: 70%;">
+										303 redirect
+										https://app/callback? </br>
+										
+										Frament: #</br>
+										access_token=AT</br>
+										expires_in=3600</br>
+										token_type=Bearer</br>
+										&state=1234</br>
+										id_token=IDT</br>		
+										</span>
+									</td>
+								</tr>
+							</table>
 					</section>
 
-					<section>
-						<h3>Example ID Token</h3>
-						<small>Azure AD ID Token <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">claims</a></small>
-						<pre><code class="hljs" style="font-size: 60%;">
-{
-	"typ": "JWT",
-	"alg": "RS256"
-	}.{
-	"aud": "cab2507d-e7d1-46fd-9580-ea7de0cd02ea",
-	"iss": "https://login.microsoftonline.com/../v2.0",
-	"exp": 1571657734,
-	"name": "Jon Doe",
-	"oid": "..",
-	"roles": [
-		"Admin"
-	],
-	"sub": "..",
-	}.[Signature]
-
-						</code> 
-						</pre>	
-					</section>
 
 					<section>
 						<h3>Token Introspection</h3>
@@ -545,10 +836,22 @@ Client lives inside browser (user agent)
 							<li>The process for a protected resource to query the authorization server to verify validity of a oAuth2 token</li>
 							<li>An extension to oAuth2 defined in <a href="https://tools.ietf.org/html/rfc7662"
 							target="_blank">rfc7662</a></li>
+							<li>Getting Opaque tokens (by ref) and querying for "details"</li>
 							<li>Not currently supported by Azure AD
 							<a href="https://feedback.azure.com/forums/169401-azure-active-directory/suggestions/18930289-introspection-endpoint-for-azure-active-directory"
 							target="_blank">(Improvement request)</a>	
 							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>OAuth Flows that we have not covered</h3>
+						<ul>
+							<li>Client credentials</br>
+								Typically service to service in protected environment
+
+							</li>
+							<li>Resource Owner Password Credentials</li>
 						</ul>
 					</section>
 
@@ -617,7 +920,7 @@ Client lives inside browser (user agent)
 							<li>Copy "client_id" to GET request parameter</li>
 							<li>Change "redirect_url" to "http://localhost/auth" for GET request parameter</li>
 							<li>Look at scope for GET request</li>
-							<li>Copy GET request to clip board and execute from web browser</li>
+							<li>Copy GET request to clip board and execute from web browser </br> (the code is use once within seconds)</li>
 							<li>Copy authorization code from "code" parameter in request</li>
 							<li>Explore changig "scope" and "redirect uri" for GET request</li>
 							<li>Why do we have to execute request in web browser?</li>
@@ -637,7 +940,6 @@ Client lives inside browser (user agent)
 								<li>(Handle SSL "issues")</li>
 								<li>Explore response</li>
 								<li>Discuss security considerations (SSL, secrets, certificates, public vs. confidential client)</li>
-								<li><span style="color:red">Good practice</span> : </li>
 							</ul>
 					</section>
 
@@ -653,6 +955,15 @@ Client lives inside browser (user agent)
 						</ul>
 					</section>
 
+					<section>
+						<h2>More flows to try with Postman</h2>
+						<ul>
+							<li>OpenID Connect Code Flow</li>
+							<li>oAuth2 Implicit Flow</li>
+							<li>OpenID Connect Implicit Flow</li>
+							<li>oAuth2 Client Credentials</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -788,7 +1099,7 @@ Client lives inside browser (user agent)
 									<li>Run web application
 										<code class="hljs">$ npm start</code>
 									</li>
-									<li>Explore; change config - change auth params - observe error messages, observe logging behavior </li>
+									<li>Explore; change config - change auth params  - observe error messages, observe logging behavior </li>
 								</ul>
 						</section>
 
@@ -799,7 +1110,7 @@ Client lives inside browser (user agent)
 
 						<section>
 							<h3>A challenge (if time)</h3>
-							<p>Change the authentication flow to use <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">openID Connect</a> and get a id_token and/or a code as part of the sign in request</p>
+							<p>Change the flow from <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">openID Connect</a> to oAuth2. Observe differences</p>
 					</section>
 
 
@@ -856,6 +1167,11 @@ Client lives inside browser (user agent)
 										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, scope - why is <span style="color:yellow">Mail.Read openid profile email</span> default? </li>
 										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. Test revoking for test app.</li>
 									</ul>
+							</section>
+
+							<section>
+									<h3>A challenge (if time)</h3>
+									<p>Change the flow from <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">openID Connect</a> to oAuth2. Observe differences</p>
 							</section>
 
 					</section>
