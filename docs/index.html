@@ -16,7 +16,7 @@
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/monokai.css">
@@ -45,8 +45,9 @@
 				<!-- Front page -->
 				<section style="text-align: left;">
 					<h1>Modern A&A</h1>
-					<h2>Authentication and Authorization</h2>
-					<h4>oAuth2 and OpenID Connect (OICD)</h4>
+					<h4>Authentication and Authorization</br>
+					oAuth2 and OpenID Connect (OICD)</h4>
+				</p>
 					<small>An simple introduction to a endless complex topic</small>
 					<p>
 						<small><a href="https://loop.equinor.com" target="_blank">Equinor</a></Equinor> <font style="color:red;">#AppSec</font> community</a></small>
@@ -94,7 +95,7 @@
 				<section>
 					<h1>Disclaimer</h1>
 					<p>The more I learn about the topic the more I realize how complex it is. I am not an expert - in fact I am not even sure what an expert in this field is. I want to share what I think I know. I assume that quite a few of you know some of these topics a lot better than me. I would really appreciate your insight! Sharing is caring!</p>
-					<p style="color:yellow; font-size: 70%;">Code examples are not production quality - they are happy-path</p>
+					<p style="color:blue; font-size: 70%;">Code examples are not production quality - they are happy-path</p>
 				</section>
 				
 <!-- Pre-requisites part-->
@@ -106,7 +107,7 @@
 						<h2>Roles</h2>
 						<ul>
 							<li>Valid Equinor Software Developer On-Boarding</li>
-							<li>Valid role <strong><span style="color:yellow">Application Developer (Azure Active Directory)</span></strong> - apply for access in AccessIT</li>
+							<li>Valid role <strong><span style="color:blue">Application Developer (Azure Active Directory)</span></strong> - apply for access in AccessIT</li>
 						</ul>					
 					</section>
 					<section>
@@ -124,6 +125,7 @@
 								<ul>
 									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a>
 									<br>(I recommned installing node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>)</br></li>
+									<li>Python3 needs to be installed in order for some Node packages to compile</li>
 									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
 									<li><a href="https://git-scm.com/" target="_blank">git</a>, account on <a href="https://github.com/" target="_blank">github.com</a></li>
 									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
@@ -147,6 +149,15 @@
 									<li><a href="https://openid.net/connect/" target="_blank">OpenID Connect</a></li>
 								</ul>
 							</small>
+						</section>
+						<section>
+							<h3>Run-time environments - known differences</h3>
+							<ul>
+								<li>Examples uses Unix path notation "./src". </br>In Windows this will be "src/</li>
+								<li>Scripts, like <span style="color: blue">npm start</span> uses Linux notation. Must be changed for Windows environments</li>
+							</ul>
+						
+						
 						</section>
 		
 				</section>
@@ -238,23 +249,23 @@
 
 					<section style="font-size: 75%">
 						<h3>Actors</h3>
-						<p><div style="color:yellow">resource owner</div>
+						<p><div style="color:blue">resource owner</div>
 						An entity capable of granting access to a protected resource.
 						When the resource owner is a person, it is referred to as an
 						end-user.
 						</p>
-						<p><div style="color:yellow">resource server</div>
+						<p><div style="color:blue">resource server</div>
 						The server hosting the protected resources, capable of accepting
 						and responding to protected resource requests using access tokens.
 						</p>
-						<p><div style="color:yellow">client</div>
+						<p><div style="color:blue">client</div>
 						An application making protected resource requests on behalf of the
 						resource owner and with its authorization.  The term "client" does
 						not imply any particular implementation characteristics (e.g.,
 						whether the application executes on a server, a desktop, or other
 						devices).
 						</p>
-						<p><div style="color:yellow"> authorization server</div>				
+						<p><div style="color:blue"> authorization server</div>				
 						The server issuing access tokens to the client after successfully
 						authenticating the resource owner and obtaining authorization.
 						</p>
@@ -290,12 +301,12 @@
 					<section>
 						<h4 style="text-align: left;">Abstract protocol flow</h4>
 						<pre style="font-size: 40%; text-align: left;">
-+-- <span style="color:red">Resource</span> --+ +-- <span style="color: yellow;">Client</span> -- + +- <span style="color:yellowgreen">Authorization</span> -+ +--<span style="color:violet"> Resource</span> --+
++-- <span style="color:red">Resource</span> --+ +-- <span style="color: blue;">Client</span> -- + +- <span style="color:bluegreen">Authorization</span> -+ +--<span style="color:violet"> Resource</span> --+
 +    Owner     + +             + +     Server      + +   Server    +
 +--------------+ +-------------+ +-----------------+ +---------------+
      -                   -                -                     -
-     |  <span style="color:yellow">(A)Client request</span>|                |                     |
-     |      <span style="color:yellow">Authorization</span>|                |                     |
+     |  <span style="color:blue">(A)Client request</span>|                |                     |
+     |      <span style="color:blue">Authorization</span>|                |                     |
      |<------------------|                |                     |
      |- - - - - - - - - - - - - - - - - ->|                     |
      |                   |                |                     |
@@ -304,18 +315,18 @@
      |----------------------------------->|                     |
      |                   |<- - - - - - - -|                     |
      |                   |                |                     |
-     |                   |<span style="color:yellow">(C) Client send</span> |                     |
-     |                   |  <span style="color:yellow">Authorization</span> |                     |
-     |                   |          <span style="color:yellow">grant</span> |                     | 
+     |                   |<span style="color:blue">(C) Client send</span> |                     |
+     |                   |  <span style="color:blue">Authorization</span> |                     |
+     |                   |          <span style="color:blue">grant</span> |                     | 
      |                   |--------------->|                     |
      |                   |                |                     |
-     |                   | <span style="color:yellowgreen">(D)Autorization</span>|                     |
-     |                   |    <span style="color:yellowgreen">server sends</span>|                     |
-     |                   |    <span style="color:yellowgreen">access token</span>|                     |
+     |                   | <span style="color:bluegreen">(D)Autorization</span>|                     |
+     |                   |    <span style="color:bluegreen">server sends</span>|                     |
+     |                   |    <span style="color:bluegreen">access token</span>|                     |
      |                   |<---------------|                     |
      |                   |                |                     |
-     |                   |<span style="color:yellow">(E)Client sends</span> |                     |
-     |                   |<span style="color:yellow">Access Token</span>    |                     |
+     |                   |<span style="color:blue">(E)Client sends</span> |                     |
+     |                   |<span style="color:blue">Access Token</span>    |                     |
      |                   |------------------------------------->|
      |                   |                |                     |
      |                   |                |<span style="color:violet">(F)Protected resource</span>|
@@ -1039,7 +1050,7 @@ Client lives inside browser (user agent)
 						<h3>Generate default web application</h3>
 						<p>We will create a web application running node.js on the back-end using the <a href="https://expressjs.com/" target="_blank">Express framework</a></p>
 						<ul style="font-size:80%">
-							<li>Navigate to <span style="color:yellow">"./ex-2"</span></li>
+							<li>Navigate to <span style="color:blue">"./ex-2"</span></li>
 							<li>Install npx (execute npm package binaries)</li>
 							<code class="hljs">$ npm install -g npx</code>
 							<li>Running the express generator</li>
@@ -1060,7 +1071,7 @@ Client lives inside browser (user agent)
 							<li>Run the linter
 								<code class="hljs">$ ./node_modules/.bin/eslint . --ext .js</code>
 							</li>
-							<li>Explore results from linter, investigate <span style="color:yellow">"/.eslintrc.json"</span></li>
+							<li>Explore results from linter, investigate <span style="color:blue">"/.eslintrc.json"</span></li>
 						</ul>
 					</section>
 				</section>
@@ -1075,7 +1086,7 @@ Client lives inside browser (user agent)
 						<section>
 							<h3>Preparing the code</h3>
 							<ul>
-								<li>Navigate to the <span style="color: yellow">./ex-3</span> directory</li>
+								<li>Navigate to the <span style="color: blue">./ex-3</span> directory</li>
 								<li>Install dependencies
 									<code class="hljs">$ npm install</code>
 								</li>
@@ -1095,8 +1106,8 @@ Client lives inside browser (user agent)
 						<section>
 							<h3>Environment variables</h3>
 							<ul>
-								<li><span style="color:yellow">PORT</span> in ./bin/www</li>
-								<li><span style="color:yellow">NODE_ENV, CLIENT_SECRET</span> in ./app.js</li>
+								<li><span style="color:blue">PORT</span> in ./bin/www</li>
+								<li><span style="color:blue">NODE_ENV, CLIENT_SECRET</span> in ./app.js</li>
 								<li>Define environment variables
 									<code class="hljs">$ export PORT=3000</code>
 									<code class="hljs">$ export CLIENT_SECRET=[your secret]</code>
@@ -1125,7 +1136,7 @@ Client lives inside browser (user agent)
 						<section>
 							<h3>Handling the authentication</h3>
 							<ul>
-								<li>Explore authentication code in <span style="color:yellow">./app.js</span></li>
+								<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
 								<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
 								<li>Explore application config (client_id, secret, callback)</li>
 								<li>Explore authentication flow in code (auth, redirect, callback)</li>
@@ -1138,7 +1149,7 @@ Client lives inside browser (user agent)
 						<section>
 								<h3>Staging environments - logging </h3>
 								<ul>
-									<li>Explore logging logic in <span style="color:yellow">./app.js</span></li>
+									<li>Explore logging logic in <span style="color:blue">./app.js</span></li>
 									<li>Different logging level dependent on environment (debug, development, production)</li>
 									<li><span style="color:red">Good practice</span>: 
 										Have a strategy for log purpose and transports (why you log, where you store/not store)	
@@ -1149,8 +1160,8 @@ Client lives inside browser (user agent)
 						<section>
 								<h3>Config, Run and Explore </h3>
 								<ul>
-									<li>Configure the <span style="color:yellow">authServer</span> object in app.js</li>
-									<li>Configure the <span style="color:yellow">client</span> object in app.js</li>
+									<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
+									<li>Configure the <span style="color:blue">client</span> object in app.js</li>
 									<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
 									<li>Run web application
 										<code class="hljs">$ npm start</code>
@@ -1191,7 +1202,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: yellow">./ex-4</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-4</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1201,8 +1212,8 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore the code</h3>
 									<ul>
-										<li>Explore authentication code in <span style="color:yellow">./app.js</span></li>
-										<li>New logic in <span style="color:yellow">app.get('/callback', function(req, res){</span></li>
+										<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
+										<li>New logic in <span style="color:blue">app.get('/callback', function(req, res){</span></li>
 										<li>Creating POST request to token endpoint</li>
 										<li>Body contains oAuth2 params</li>
 										<li>Header uses basic auth for client credentials (remember to base64 encode)</li>
@@ -1213,15 +1224,18 @@ Client lives inside browser (user agent)
 
 							<section>
 									<h3>Config, Run and Explore </h3>
-									<ul>
-										<li>Configure the <span style="color:yellow">authServer</span> object in app.js</li>
-										<li>Configure the <span style="color:yellow">client</span> object in app.js</li>
+									<ul style="font-size: 80%;">
+										<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
+										<li>Configure the <span style="color:blue">client</span> object in app.js</li>
 										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
-										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, scope - why is <span style="color:yellow">Mail.Read openid profile email</span> default? </li>
+										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, scope - why is <span style="color:blue">Mail.Read openid profile email</span> default? </li>
 										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. Test revoking for test app.</li>
+										<li><span style="color:red">Bad practice</span>: 
+											Extracting things like "given_name" from Access Token to display in client</li>
+									</ul>
 									</ul>
 							</section>
 
@@ -1257,9 +1271,9 @@ Client lives inside browser (user agent)
 									<li>Open the <a href="https://developer.microsoft.com/en-us/graph/graph-explorer"
 									target="_blank">MS Graph Explorer</a></li>
 									<li>Sign in</li>
-									<li>Query the <span style="color:yellow">/v1.0/me</span> endpoint</li>
-									<li>Query the <span style="color:yellow">/v1.0/me/memberOf</span> endpoint</li>
-									<li>Query the <span style="color:yellow">v1.0/me/mailFolders('Inbox')/messages?$select=sender,subject</span> endpoint</li>
+									<li>Query the <span style="color:blue">/v1.0/me</span> endpoint</li>
+									<li>Query the <span style="color:blue">/v1.0/me/memberOf</span> endpoint</li>
+									<li>Query the <span style="color:blue">v1.0/me/mailFolders('Inbox')/messages?$select=sender,subject</span> endpoint</li>
 									<li>Explore the <a href="https://docs.microsoft.com/nb-no/graph/api/overview?view=graph-rest-1.0" target="_blank">graph api</a> documentation</li>
 									<li>Play around with other endpoints, filtering, permissions, consent</li>
 								</ul>
@@ -1280,7 +1294,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: yellow">./ex-5</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-5</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1290,20 +1304,20 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore the code</h3>
 									<ul>
-										<li>Explore authentication code in <span style="color:yellow">./app.js</span></li>
+										<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
 										<li>Adding session management (express-session)</li>
 										<li>Adding new route to show mail (/routes/mail.js)</li>
 										<li>Adding capabilities to scope (Mail.Read, User.Read)</li>
 										<li>Storing access_token in session</li>
-										<li>Explore routing/views in application (<span style="color:yellow">app.use('/mail', mailRouter);</span>)</li>
+										<li>Explore routing/views in application (<span style="color:blue">app.use('/mail', mailRouter);</span>)</li>
 									</ul>
 							</section>
 
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Configure the <span style="color:yellow">authServer</span> object in app.js</li>
-										<li>Configure the <span style="color:yellow">client</span> object in app.js</li>
+										<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
+										<li>Configure the <span style="color:blue">client</span> object in app.js</li>
 										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
@@ -1359,7 +1373,7 @@ Client lives inside browser (user agent)
 							<section>
 								<h3>Frameworks</h3>
 								<ul>
-									<li>Explore the <span style="color:yellow">quickstart</span> of the application object</li>
+									<li>Explore the <span style="color:blue">quickstart</span> of the application object</li>
 									<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-v2-libraries"
 										target="_blank">Authentication libraries</a> at the MS Identity Platform</li>
 									<li>Explore <a href="https://oauth.net/code/"
@@ -1375,7 +1389,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: yellow">./ex-6</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-6</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1389,11 +1403,11 @@ Client lives inside browser (user agent)
 										<li>Introducing <a href="https://github.com/AzureAD/passport-azure-ad" target="_blank">passport-azure-ad</a></li>
 										<li>./src/</li>
 										<ul>
-											<li style="color:yellow">app.js</li>
+											<li style="color:blue">app.js</li>
 											<li>authutils.js</li>
 											<li>logHelper.js</li>
 										</ul>
-										<li style="color:yellow">config/config.js</li>
+										<li style="color:blue">config/config.js</li>
 										<li>./routes/</li>
 										<ul>
 												<li>index.js</li>
@@ -1406,8 +1420,8 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Update configuration in <span style="color:yellow">./config/config.js</span> (clientid)</li>
-										<li>Update the AD application object with new <span style="color:yellow">redirect url</span></li>
+										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
+										<li>Update the AD application object with new <span style="color:blue">redirect url</span></li>
 										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
@@ -1418,7 +1432,7 @@ Client lives inside browser (user agent)
 							</section>
 
 							<section>
-								<h3>Font-end vs. back-end communication channels</h3>
+								<h3>Font-end vs. back-end com. channels</h3>
 								<ul>
 									<li>Font-end: Browser (User agent) to</li>
 									<ul>
@@ -1430,7 +1444,10 @@ Client lives inside browser (user agent)
 										<li>Azure ADd authorize (getting access token)</li>
 										<li>Accessing the MS Graph on behalf of user</li>
 									</ul>
-									<li>A tool like <a href="https://portswigger.net/burp/communitydownload" target="_blank">Burp Community Edition</a> could be used to investigate/debug front-end and back-end traffic when on localhost</li>
+									<li>A tool like <a href="https://portswigger.net/burp/communitydownload" target="_blank">Burp Community Edition</a>
+										could be used to investigate/debug front-end and back-end traffic when on localhost
+										<small>Browsers may have different policies on using proxies for localhost</small>
+									</li>
 								</ul>
 								</section>
 
@@ -1443,7 +1460,7 @@ Client lives inside browser (user agent)
 											<li>The cookie is signed (to detect tampering)</li>
 											<li>Session data is stored on the back-end</li>
 											<li>A lesser secure(?) alternative could be to store session data in the cookie</li>
-											<li><span style="color:yellow">Task:</span> Open the developer tools in the browser and locate the session cookie for our app</li>
+											<li><span style="color:blue">Task:</span> Open the developer tools in the browser and locate the session cookie for our app</li>
 										</ul>
 										</section>	
 
@@ -1454,7 +1471,7 @@ Client lives inside browser (user agent)
 										<li>Persistent Session storage (from memory to database?)</li>
 										<li>Cookie signing keys</li>
 										<li>Access_token is being validated</li>
-										<li>Only authenticated users are getting access to end-points (<span style="color:yellow">ensureAuthenticated</span>)</li>
+										<li>Only authenticated users are getting access to end-points (<span style="color:blue">ensureAuthenticated</span>)</li>
 											<li><span style="color:red">Good practice</span>: 
 											Follow security advices for all frameworks (Example:  
 											<a href="https://expressjs.com/en/advanced/best-practice-security.html" target="_blank">Express - Production Best Practices: Security</a>)</li>
@@ -1491,7 +1508,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: yellow">./ex-7</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-7</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1501,24 +1518,38 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore the code</h3>
 									<ul>
-										<li style="color:yellow">src/app.js</li>
+										<li style="color:blue">src/app.js</li>
 											<ul>
 												<li>passport.use(....)</br>Creating authInfo object in profile to store relevant claims</li>
 											</ul>
-											<li style="color:yellow">view/userinfo.pug</li>
+											<li style="color:blue">view/userinfo.pug</li>
 											<ul>
 												<li>Showing information about groups & roles in claim</li>
 											</ul></br>
 											<li>We are not activation authorization (other than login), just retrieving the information to do it</li>
-									
 									</ul>
+							</section>
+
+							<section>
+								<h3>Exploring claims in ID token</h3>
+								<pre><code class="hljs">
+{...}.
+{...
+ "name": "Jon Doe",
+ "preferred_username": "",
+ "roles": [
+	"Writer"
+ ],
+ "groups": ["",""],
+}.[Signature]
+								</code></pre>
 							</section>
 
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Update configuration in <span style="color:yellow">./config/config.js</span> (clientid)</li>
-										<li>Verify the AD application object <span style="color:yellow">redirect url</span></li>
+										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
+										<li>Verify the AD application object <span style="color:blue">redirect url</span></li>
 										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
@@ -1530,19 +1561,19 @@ Client lives inside browser (user agent)
 							<section>
 								<h3>Scenario 1:</br> Only people with valid account should have access</h3>
 								<ul>
-									<li><span style="color:yellow">App Registration (object)</span> vs. <span style="color:yellow">Enterprise Application (instance, multi-tentant)</span></li>
+									<li><span style="color:blue">App Registration (object)</span> vs. <span style="color:blue">Enterprise Application (instance, multi-tentant)</span></li>
 									<li>In "Enterprise Applications" (Azure AD) explore the property section for your application</li>
 									<ul>
 										<li>"Enables for users to sign-in?"</li>
 										<li>"User assignment required?"</br>(User must be assigned to be able to sign in)</li>
 									</ul>
 								</ul>
-								<li><span style="color:yellow">Sign-in enabled</span> and <span style="color:yellow">no user assignment required = available to everyone with valid user account in tenant</li>
+								<li><span style="color:blue">Sign-in enabled</span> and <span style="color:blue">no user assignment required = available to everyone with valid user account in tenant</li>
 							</section>
 
 							<section>
 									<h3>Scenario 2:</br> Only defined users/groups should have access</<br></h3>
-									<ul style="font-size: 90%;">
+									<ul style="font-size: 65%;">
 										<li>There are "many" ways to achive this scenario</li>
 										<li>1) Managing the App Object</li>
 											<ul>
@@ -1552,7 +1583,7 @@ Client lives inside browser (user agent)
 										<li>2) Alter application manifest to include security groups</li>
 										<ul>
 											<li>The <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest" target="_blank">Application Manifest</a> defines all the attributes and behavior of an applicaton object</li>
-											<li><span style="color:yellow">groupMembershipClaims</span> to include <span style="color:yellow">"SecurityGroup"</span></li>
+											<li><span style="color:blue">groupMembershipClaims</span> to include <span style="color:blue">"SecurityGroup"</span></li>
 											<li>Alter - save - explore "user information part in our web app</li>
 											<li>This approach have some limitations (size) </li>
 										</ul>
@@ -1563,7 +1594,7 @@ Client lives inside browser (user agent)
 
 								<section>
 										<h3>Scenario 3: Application roles</h3>
-										<ul style="font-size: 80%;">
+										<ul style="font-size: 65%;">
 											<li>Application roles implement RBAC</li>
 											<li>App admins grant permissions to roles, users and groups are assigned to roles</li>
 											<li>Define application role in app manifest (<a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps" target="_blank">doc</a>)</br>ID is a self generated GUID and must be unique</li>	
@@ -1588,7 +1619,7 @@ Client lives inside browser (user agent)
 	
 									<section>
 										<h3>Accessing 3d party api's protected by oAuth2</h3>
-										<ul style="font-size: 80%;">
+										<ul style="font-size: 70%;">
 											<li>Add/Include api resource to scope</li>
 											<li>Hit token endpoint to request an access token</li>
 											<li>Use access token to access api</li>
@@ -1596,7 +1627,7 @@ Client lives inside browser (user agent)
 											<li>Explore Static vs. Dynamic permissions</li>
 											<ul>
 												<li><a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/v2-permissions-and-consent" target="_blank">Best practice</a></li>
-												<li>Change scope to include <span style="color:yellow">
+												<li>Change scope to include <span style="color:blue">
 													https://graph.microsoft.com/Contacts.read</span> from code (scope config) and/or "api permissions" in app definition (AD) </li>
 												<li>Remember to restart app after changes (and do a new login)</li>
 												<li>Add other resources from the MS Graph Explorer and observe consent flow</li>
@@ -1655,7 +1686,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: yellow">./ex-8</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-8</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1665,17 +1696,17 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore the code</h3>
 									<ul style="font-size:80%">
-										<li style="color:yellow">config/config.js</li>
+										<li style="color:blue">config/config.js</li>
 											<ul>
 												<li>Scope param includes "offline_access" which emits refresh token</li>
 												<li>"diffSecondsBeforeRefresh" defines how close we will be to the access token exipration before we ask for a new access token</li>
 											</ul>
-											<li style="color:yellow">src/app.js</li>
+											<li style="color:blue">src/app.js</li>
 											<ul>
 												<li>Storing refresh-token in authinfo object</li>
 												<li>Middleware (considerRefresh) to determine if we should get new access tokens</li>
 											</ul>
-											<li style="color:yellow">src/authutils.js</li>
+											<li style="color:blue">src/authutils.js</li>
 											<ul>
 												<li>"considerRefres" function which does the magic</li>
 												<li>We refresh based on time (in seconds) before expire</li>
@@ -1688,8 +1719,8 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Update configuration in <span style="color:yellow">./config/config.js</span> (clientid)</li>
-										<li>Verify the AD application object <span style="color:yellow">redirect url</span></li>
+										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
+										<li>Verify the AD application object <span style="color:blue">redirect url</span></li>
 										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
@@ -1734,7 +1765,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: yellow">./ex-9</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-9</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1748,11 +1779,11 @@ Client lives inside browser (user agent)
 									target="_blank">example</a> from microsoft, calling the graph api from java script</li>
 									<li>Our back-end only serves the static web pages</li>
 									<ul>
-										<li><span style="color:yellow">server.js</span> serves the static web pages</li>
+										<li><span style="color:blue">server.js</span> serves the static web pages</li>
 									</ul>
 									<li>The application lives in the browser</li>
 									<ul>
-										<li<span style="color:yellow">JavaScriptSPA/index.html</span></li<span>
+										<li<span style="color:blue">JavaScriptSPA/index.html</span></li<span>
 									</ul>
 								</ul>
 							</section>
@@ -1760,7 +1791,7 @@ Client lives inside browser (user agent)
 							<section>
 								<h3>Config, Run and Explore</h3>
 								<ul style="font-size: 80%;">
-										<li>Update configuration in <span style="color:yellow">javaScriptSPA/index.html:msalConfig</span> (clientid, authority)</li>
+										<li>Update configuration in <span style="color:blue">javaScriptSPA/index.html:msalConfig</span> (clientid, authority)</li>
 										<li>Configure AD app object (Azure AD)</li>
 											<ul>
 												<li>Redirect URI: http://localhost</li>
@@ -1857,7 +1888,7 @@ Client lives inside browser (user agent)
 							<section>
 								<h3>Explore and config the SPA code</h3>
 								<ul>
-									<li>Navigate to the <span style="color: yellow">./ex-10/spa</span> directory</li>
+									<li>Navigate to the <span style="color: blue">./ex-10/spa</span> directory</li>
 									<li>Install dependencies <code class="hljs">$ npm install</code></li>
 									<li>Update config in "JavaScriptSPA/index.html</li>	
 									<ul>
@@ -1877,7 +1908,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore and config the API code</h3>
 									<ul style="font-size:80%">
-										<li>Navigate to the <span style="color: yellow">./ex-10/api</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-10/api</span> directory</li>
 										<li>Install dependencies <code class="hljs">$ npm install</code></li>
 										<li>Update config in "bin/www (the port if needed)</li>	
 										<li>Update config in "routes/index.js</li>
@@ -1907,9 +1938,9 @@ Client lives inside browser (user agent)
 									<h3>Run and explore scenario</h3>
 									<ul>
 										<li>Use two terminal sessions - SPA, API</li>
-										<li>Navigate to the <span style="color: yellow">./ex-10/api</span> and do
+										<li>Navigate to the <span style="color: blue">./ex-10/api</span> and do
 											<code class="hljs">$ npm start</code></li>
-										<li>Navigate to the <span style="color: yellow">./ex-10/spa</span> and do
+										<li>Navigate to the <span style="color: blue">./ex-10/spa</span> and do
 											<code class="hljs">$ npm start</code></li>
 										<li>Explore the new "Echo" functionallity</li>
 										<li>Alter CORS headers and observe effect (in SPA - Dev mode</li>
@@ -1937,7 +1968,13 @@ Client lives inside browser (user agent)
 					<section>
 							<section>
 								<h1>Security</h1>
-
+							</section>
+							<section>
+								<h3>Links to relevant security resources</h3>
+								<ul>
+									<li><a href="https://tools.ietf.org/html/rfc6819" target="_blank">oAuth2 Threat Model and Security Considerations</a></li>
+									<li><a href="https://tools.ietf.org/html/draft-ietf-oauth-security-topics" target="_blank"> OAuth Security Topics</a></li>
+								</ul>
 							</section>
 
 					</section>
