@@ -62,7 +62,7 @@
 
 					<section>
 						<h3>Workshop objectives </h3>
-						<blockquote>De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
+						<blockquote style="color:dodgerblue">De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
 						<ul style="font-size: 80%;">
 							<li>Give an introduction to basics modern web A&A</li>
 							<li>Introduce protocols, grants & flows</li>
@@ -151,7 +151,7 @@
 							</small>
 						</section>
 						<section>
-							<h3>Run-time environments - known differences</h3>
+							<h3>Run-time environments -</br> known differences</h3>
 							<ul>
 								<li>Examples uses Unix path notation "./src". </br>In Windows this will be "src/</li>
 								<li>Scripts, like <span style="color: blue">npm start</span> uses Linux notation. Must be changed for Windows environments</li>
@@ -167,14 +167,17 @@
 			
 			<section>
 				<h1>The delegation problem</h1>
+				<small style="color:blue">Giving access to 3rd parties</small>
 			</section>
 
 			<section>
 				<h3>Old style A&A</h3>
+				<small>Impersonating</small><p></p>
 				<img src="./graphics/export/my_super_app_old.jpg" width="75%">
 			</section>
 			<section>
 				<h3>Old style A&A</h3>
+				<small>Impersonating</small>
 				<table>
 					<tr>
 						<td><img src="./graphics/export/my_super_app_old.jpg" ></td>
@@ -193,6 +196,7 @@
 
 			<section>
 				<h3>New Style A&A</h3>
+				<small>Delegating</small><p></p>
 				<img src="./graphics/export/my_super_app_new.jpg" width="75%">
 			</section>
 			<section>
@@ -206,7 +210,7 @@
 								<li>Access can be revoked</li>
 								<li>Access can be time limited</li>
 								<li>Access can be granular</li>
-								<li>Access is delegated from user to client</li>
+								<li>Access is delegated from resource owner to client</li>
 							</ul>
 						</td>
 					</tr>
@@ -229,8 +233,12 @@
 					</section>
 					<section>
 						<h3>oAuth2</h3>
-						<blockquote style="font-size: 80%">
-						The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. </blockquote>
+						<blockquote style="font-size: 75%">
+						The OAuth 2.0 authorization framework enables a
+						</br> third-party application to obtain limited access to an HTTP service,
+						</br></br>either on behalf of a resource owner
+						</br>by orchestrating an approval interaction between the resource owner and the HTTP service
+						</br></br>or by allowing the third-party application to obtain access on its own behalf.</blockquote>
 						<small><a href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of giving someone who controls a resource the capability to delegate access to the resource on their behalf (without impersonating).</small>
 					</section>
 
@@ -248,7 +256,7 @@
 					</section>
 
 					<section style="font-size: 75%">
-						<h3>Actors</h3>
+						<h3>oAuth2 Roles/Actors</h3>
 						<p><div style="color:blue">resource owner</div>
 						An entity capable of granting access to a protected resource.
 						When the resource owner is a person, it is referred to as an
@@ -276,7 +284,7 @@
 					</section>
 					<section>
 						<h4><a href="https://tools.ietf.org/html/rfc6749#section-1.2"
-							target="_blank">Abstract protocol flow</a></h4>
+							target="_blank">Abstract protocol flow (rfc6749)</a></h4>
 						<pre>
 +--------+                               +---------------+
 |        |--(A)- Authorization Request ->|   Resource    |
@@ -302,8 +310,8 @@
 						<h4 style="text-align: left;">Abstract protocol flow</h4>
 						<pre style="font-size: 40%; text-align: left;">
 +-- <span style="color:red">Resource</span> --+ +-- <span style="color: blue;">Client</span> -- + +- <span style="color:bluegreen">Authorization</span> -+ +--<span style="color:violet"> Resource</span> --+
-+    Owner     + +             + +     Server      + +   Server    +
-+--------------+ +-------------+ +-----------------+ +---------------+
++    Owner     + +             + +     Server      + +   Server     +
++--------------+ +-------------+ +-----------------+ +--------------+
      -                   -                -                     -
      |  <span style="color:blue">(A)Client request</span>|                |                     |
      |      <span style="color:blue">Authorization</span>|                |                     |
@@ -338,9 +346,9 @@
 					</section>
 
 					<section>
-						<h3>What oAuth is and is not</h3>
+						<h2>A few nice-to-know What oAuth is and is not</h2>
 						<ul>
-							<li>Is not Defined outside HTTP</li>
+							<li>Is not defined outside HTTP</li>
 							<li>Is "requiring" TLS</li>
 							<li>Is not an authentication protocol</li>
 							<li>Is not processing authorization</li>
@@ -352,13 +360,14 @@
 					</section>
 
 					<section>
-						<h3>Obtaining authorization - the oauth Dance</h3>
-						<blockquote> To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
+						<h3>Obtaining authorization - </br>the oauth Dance</h3>
+						<blockquote>To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
 				</section>
 					
 				<section>
 					<h3><a href="https://tools.ietf.org/html/rfc6749#section-4.1"
 						target="_blank">Authorization Code Grant</a></h3>
+						<small><a href="https://tools.ietf.org/html/rfc6749#section-4.1" target="_blank">rfc6749 #4.1</a></small>
 					<pre style="font-size: 40%;">
 
 +----------+
@@ -402,7 +411,7 @@
 							<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
 							<td style=" vertical-align: top;">
 								<p>-1-</p>
-								User - via user agent - initiates
+								Client via user agent - initiates
 							</td>
 						</tr>
 					</table>
@@ -418,7 +427,7 @@
 									<span style="font-size: 70%;">
 									GET /authorize? </br>
 									client_id=client </br>
-									&scope=read </br>
+									&scope=(optional) </br>
 									&reponse_type=code </br>
 									&state=1234
 									&redirect_uri=
@@ -525,7 +534,7 @@
 						<ul>
 							<li><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner </li>
 							<li><span style="color:red">Token endpoint:</span> used by client to exchange authorization grant for an access token</li>
-							<li>There may be more based on actual implementation</li>
+							<li>There may be other endpoints based on actual implementation</li>
 					</section>
 					
 					<section>
@@ -542,15 +551,15 @@
 							<ul>
 								<li>Token type: How it can be used</li>
 								<ul>
-									<li>Use it as is</li>
-									<li>Use it, but prove that I own it</li>
+									<li>Use it as is (Access token)</li>
+									<li>Use it, but prove that I own it </br>(Proof Of Ownership, Refresh token)</li>
 								</ul>
 								<li>Token format: Encoding</li>
 								<ul>
 									<li>By value (token contains all values)</li>
 									<li>By reference (pointer to more information)</li>
 								</ul>
-								<li>Token purpose: Who is it for?</li>
+								<li>Token purpose: Who is it for?</br>(Client, Authorisation Server, Resource Server</li>
 							</ul>
 						</section>
 	
@@ -773,9 +782,7 @@
 					"Admin"
 				],
 				"sub": "..",
-				}.[Signature]
-			
-									</code> 
+				}.[Signature]</code> 
 									</pre>	
 								</section>
 	
@@ -793,12 +800,14 @@
 											<li>aud - audience - id for relying party</li>
 											<li>exp - expiration time stamp</li>
 										</ul>
-									<li>For the Azure implementation, more documentation on the <a href"https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages</li>
+									<li>For the Azure implementation, more documentation on the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages.
+									Explore attributes such as "prompt", "login_hint", "response_mode"</li>
 								</ul>
 							</section>
 		
 					<section>
 						<h4>oAuth Implicit Grant</h4>
+						<small><a href="https://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">rfc6749 #4.2</a></small>
 						<pre style="font-size: 40%;">
 +----------+
 | Resource |
@@ -847,8 +856,8 @@ Client lives inside browser (user agent)
 										<span style="font-size: 70%;">
 										GET /authorize? </br>
 										client_id=client </br>
-										&scope=read</br>
-										&reponse_type=<span style="color:red">token+id_token</span></br>
+										&scope=<span style="color:red">openid</span></br>
+										&reponse_type=<span style="color:red">id_token</span>+token</br>
 										&state=1234</br>
 										&<span style="color:red">nonce=a_nonce</span></br>
 										&<span style="color:red">redirect_uri=</span></br>
@@ -903,7 +912,7 @@ Client lives inside browser (user agent)
 							<li>The process for a protected resource to query the authorization server to verify validity of a oAuth2 token</li>
 							<li>An extension to oAuth2 defined in <a href="https://tools.ietf.org/html/rfc7662"
 							target="_blank">rfc7662</a></li>
-							<li>Getting Opaque tokens (by ref) and querying for "details"</li>
+							<li>Getting tokens type by ref and querying for "details"</li>
 							<li>Not currently supported by Azure AD
 							<a href="https://feedback.azure.com/forums/169401-azure-active-directory/suggestions/18930289-introspection-endpoint-for-azure-active-directory"
 							target="_blank">(Improvement request)</a>	
@@ -918,7 +927,10 @@ Client lives inside browser (user agent)
 								Typically service to service in protected environment
 
 							</li>
-							<li>Resource Owner Password Credentials</li>
+							<li>Resource Owner Password Credentials</br>
+								High trust envionments where the resource owner trusts it's credentials to the client
+
+							</li>
 						</ul>
 					</section>
 
@@ -1560,16 +1572,16 @@ Client lives inside browser (user agent)
 
 							<section>
 								<h3>Scenario 1:</br> Only people with valid account should have access</h3>
-								<ul>
+								<ul style="font-size: 80%;">
 									<li><span style="color:blue">App Registration (object)</span> vs. <span style="color:blue">Enterprise Application (instance, multi-tentant)</span></li>
 									<li>In "Enterprise Applications" (Azure AD) explore the property section for your application</li>
 									<ul>
 										<li>"Enables for users to sign-in?"</li>
 										<li>"User assignment required?"</br>(User must be assigned to be able to sign in)</li>
 									</ul>
+									<li><span style="color:blue">Sign-in enabled</span> and <span style="color:blue">no user assignment required = available to everyone with valid user account in tenant</li>
 								</ul>
-								<li><span style="color:blue">Sign-in enabled</span> and <span style="color:blue">no user assignment required = available to everyone with valid user account in tenant</li>
-							</section>
+								</section>
 
 							<section>
 									<h3>Scenario 2:</br> Only defined users/groups should have access</<br></h3>
@@ -1657,7 +1669,7 @@ Client lives inside browser (user agent)
 
 							<section>
 								<h3>What are refresh tokens?</h3>
-								<ul>
+								<ul style="font-size: 90%;">
 									<li><a href="https://tools.ietf.org/html/rfc6749#section-1.5"
 										target="_blank">rfc6749 section 1.5</a></li>
 									<li>"Refresh tokens are credentials used to obtain access tokens."</li>
@@ -1676,9 +1688,9 @@ Client lives inside browser (user agent)
 								<ul>
 									<li>Framework support for automatic handling of refresh tokens is varying</li>
 									<li>Verify support in each framework</li>
-									<li><a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/msal-authentication-flows"
+									<li><a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/msal-authentication-flows#how-each-flow-emits-tokens-and-codes"
 										target="_blank">Flows</a> that emits refresh tokens in Azure</li>
-									<li>Single Page Web applications using MSAL.JS usually login-and-get-new tokens silently to the user</li>
+									<li>Single Page Web applications using MSAL.JS usually do a silent login-and-get-new tokens to the user due to no refresh token</li>
 									<li>Passport.js (that we use does not have native support for refresh tokens. so lets add it :) )
 									</ul>
 							</section>
@@ -1708,7 +1720,7 @@ Client lives inside browser (user agent)
 											</ul>
 											<li style="color:blue">src/authutils.js</li>
 											<ul>
-												<li>"considerRefres" function which does the magic</li>
+												<li>"considerRefresh" function which does the magic</li>
 												<li>We refresh based on time (in seconds) before expire</li>
 												<li>We could also react to the 401 issued by Azure AD when we try to use and expired access token </li>
 												<li>(It's worth knowing that java script stores time in milliseconds while it's seconds int the tokens)</li>
@@ -1868,7 +1880,7 @@ Client lives inside browser (user agent)
 
 							<section>
 								<h3>Adding Azure AD application object for API</h3>
-								<ul>
+								<ul style="font-size: 90%;">
 									<li>Follow procedure in <a href="#/7/2" target="_blank">earlier exercise</a> to register API </li>
 									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
 									<li><span style="color:red">Name</span>: (inital)-(aa-api) or something else</li>
@@ -1887,7 +1899,7 @@ Client lives inside browser (user agent)
 
 							<section>
 								<h3>Explore and config the SPA code</h3>
-								<ul>
+								<ul style="font-size: 90%;">
 									<li>Navigate to the <span style="color: blue">./ex-10/spa</span> directory</li>
 									<li>Install dependencies <code class="hljs">$ npm install</code></li>
 									<li>Update config in "JavaScriptSPA/index.html</li>	
@@ -1907,7 +1919,7 @@ Client lives inside browser (user agent)
 
 							<section>
 									<h3>Explore and config the API code</h3>
-									<ul style="font-size:80%">
+									<ul style="font-size:70%">
 										<li>Navigate to the <span style="color: blue">./ex-10/api</span> directory</li>
 										<li>Install dependencies <code class="hljs">$ npm install</code></li>
 										<li>Update config in "bin/www (the port if needed)</li>	
