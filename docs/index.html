@@ -65,7 +65,7 @@
 						<blockquote style="color:dodgerblue">De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
 						<ul style="font-size: 80%;">
 							<li>Give an introduction to basics modern web A&A</li>
-							<li>Introduce protocols, grants & flows</li>
+							<li>Explore Spec vs. Azure Implementation</li>
 							<li>Hands-on coding with a few A&A scenarios </li>
 							<li>Insight into threats and current best practices (BCP) for security</li>
 						</ul>
@@ -172,12 +172,12 @@
 
 			<section>
 				<h3>Old style A&A</h3>
-				<small>Impersonating</small><p></p>
+				<small>Impersonating, Direct Authenticating</small><p></p>
 				<img src="./graphics/export/my_super_app_old.jpg" width="75%">
 			</section>
 			<section>
 				<h3>Old style A&A</h3>
-				<small>Impersonating</small>
+				<small>Impersonating, Direct Authenticating</small>
 				<table>
 					<tr>
 						<td><img src="./graphics/export/my_super_app_old.jpg" ></td>
@@ -953,9 +953,9 @@ Client lives inside browser (user agent)
 					</section>	
 
 					<section>
-						<h2>Steps</h2>
+						<h2>Exercise Outline</h2>
 						<ul style="font-size: 80%;">
-							<li>Clone github repository <a href"https://github.com/larskaare/WebAuthAuthorAndOtherCreatures" target="_blank">https://github.com/larskaare/WebAuthAuthorAndOtherCreatures</a></li>
+							<li>Clone github repository</li>
 							<li>Investigate <a href="https://tools.ietf.org/html/rfc6749#section-4.1" target="_blank">spec</a> and doc on <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">Azure</a></li>
 							<li>Register app object in <a href="https://portal.azure.com" target="_blank">Azure AD</a></li>
 							<li>Set-up postman</li>
@@ -964,6 +964,10 @@ Client lives inside browser (user agent)
 							<li>Explore tokens</li>
 							<li>Use access token</li>
 						</ul>
+					</section>
+					<section>
+						<h2>Clone github repository</h2>
+						<p><a href"https://github.com/larskaare/WebAuthAuthorAndOtherCreatures" target="_blank">https://github.com/larskaare/WebAuthAuthorAndOtherCreatures</a></p>
 					</section>
 					<section>
 						<h3>Register application in Azure AD</h3>
@@ -985,14 +989,13 @@ Client lives inside browser (user agent)
 						<h3>Set-up Postman</h3>
 						<ul>
 							<li>Start Postman</li>
-							<li>Import "Azure AD v2.0 Protocols.postman_collection.json"</li>
+							<li>Import "Azure AD v2.0 Protocols.postman_collection.json" from "./ex-1" folder</li>
 						</ul>
 					</section>
 
 					<section>
 						<h3>Request authorization code</h3>
 						<ul style="font-size: 70%;">
-							<li>Import "Azure AD v2.0 Protocols.postman_collection.json" from EX-1 folder</li>
 							<li>Select "Oauth 2.0 Authorization Code Flow" -> GET Autorization request</li>					
 							<li>Explore "endpoints" for application registration (Azure Portal)"</li>
 							<li>Copy and substitute oAuth2 Authorization endpoint v2 to GET request</li>
@@ -1001,7 +1004,7 @@ Client lives inside browser (user agent)
 							<li>Look at scope for GET request</li>
 							<li>Copy GET request to clip board and execute from web browser </br> (the code is use once within seconds)</li>
 							<li>Copy authorization code from "code" parameter in request</li>
-							<li>Explore changig "scope" and "redirect uri" for GET request</li>
+							<li>Explore changig "scope", "resonse_mode" and "redirect uri" for GET request</li>
 							<li>Why do we have to execute request in web browser?</li>
 							<li>Discuss security considerations</li>
 							<li><span style="color:red">Good practice</span> : remove the localhost redirect from production applications</li>
@@ -1027,7 +1030,7 @@ Client lives inside browser (user agent)
 						<ul>
 							<li>Use <a href="https://jwt.ms" target="_blank">https://jwt.ms</a> to explore tokens</li>
 							<li>Explore tokens, claims and dates</br> (access_token, refresh_token, id_token)</li>
-							<li>Experiment with scope param?</li>
+							<li>Experiment with scope param</li>
 							<li>Discuss claims, optional claims, application manifest</li>
 							<li>Discuss security considerations (token validation, token storage)</li>
 							<li><span style="color:red">Good practice</span>: Don't uses access tokens as authentication. Access tokens are for the protected resource </li>
@@ -1035,10 +1038,10 @@ Client lives inside browser (user agent)
 					</section>
 
 					<section>
-						<h2>More flows to try with Postman</h2>
+						<h3>If time </br>- more flows to try with Postman</h3>
 						<ul>
-							<li>OpenID Connect Code Flow</li>
-							<li>oAuth2 Implicit Flow</li>
+							<li>OpenID Connect Code Flow?</li>
+							<li>oAuth2 Implicit Flow?</li>
 							<li>OpenID Connect Implicit Flow</li>
 							<li>oAuth2 Client Credentials</li>
 						</ul>
@@ -1187,10 +1190,6 @@ Client lives inside browser (user agent)
 								<p>and have a code that can be used only once and that will expire shortly (spec says max 10 minutes) </p>
 						</section>
 
-						<section>
-							<h3>A challenge (if time)</h3>
-							<p>Change the flow from <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">openID Connect</a> to oAuth2. Observe differences</p>
-					</section>
 
 
 					</section>
@@ -1251,10 +1250,6 @@ Client lives inside browser (user agent)
 									</ul>
 							</section>
 
-							<section>
-									<h3>A challenge (if time)</h3>
-									<p>Change the flow from <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">openID Connect</a> to oAuth2. Observe differences</p>
-							</section>
 
 					</section>
 					
@@ -1470,7 +1465,7 @@ Client lives inside browser (user agent)
 											<li>The session cookie is named connect.sid</li>
 											<li>The cookie only stores session id</li>
 											<li>The cookie is signed (to detect tampering)</li>
-											<li>Session data is stored on the back-end</li>
+											<li>Session data is stored on the back-end (memory)</li>
 											<li>A lesser secure(?) alternative could be to store session data in the cookie</li>
 											<li><span style="color:blue">Task:</span> Open the developer tools in the browser and locate the session cookie for our app</li>
 										</ul>
@@ -1880,7 +1875,7 @@ Client lives inside browser (user agent)
 
 							<section>
 								<h3>Adding Azure AD application object for API</h3>
-								<ul style="font-size: 90%;">
+								<ul style="font-size: 80%;">
 									<li>Follow procedure in <a href="#/7/2" target="_blank">earlier exercise</a> to register API </li>
 									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
 									<li><span style="color:red">Name</span>: (inital)-(aa-api) or something else</li>
@@ -1919,7 +1914,7 @@ Client lives inside browser (user agent)
 
 							<section>
 									<h3>Explore and config the API code</h3>
-									<ul style="font-size:70%">
+									<ul style="font-size:60%">
 										<li>Navigate to the <span style="color: blue">./ex-10/api</span> directory</li>
 										<li>Install dependencies <code class="hljs">$ npm install</code></li>
 										<li>Update config in "bin/www (the port if needed)</li>	
@@ -1948,7 +1943,7 @@ Client lives inside browser (user agent)
 
 								<section>
 									<h3>Run and explore scenario</h3>
-									<ul>
+									<ul style="font-size: 90%;">
 										<li>Use two terminal sessions - SPA, API</li>
 										<li>Navigate to the <span style="color: blue">./ex-10/api</span> and do
 											<code class="hljs">$ npm start</code></li>
