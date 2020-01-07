@@ -149,8 +149,9 @@
 						<ul>
 							<li>Pre-requisites, Practicalities</li>
 							<li>The basics of A&A </li>
-							<li>Exercises (10)</li>
+							<li>Exercises (10+1)</li>
 							<li>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
+							<li>Deploy application to the Cloud using Radix</li>
 							<li>Hack your own project</li>
 						</ul>
 					</section>
@@ -173,6 +174,7 @@
 						<ul>
 							<li>Valid Equinor Software Developer On-Boarding</li>
 							<li>Valid role <strong><span style="color:blue">Application Developer (Azure Active Directory)</span></strong> - apply for access in AccessIT</li>
+							<li>Optional for deploy to cloud exercise: Access to Radix Playground - role <strong><span style="color:blue">Radix Playground Users</span></strong> - apply in AccessIT</li>
 						</ul>					
 					</section>
 					<section>
@@ -194,6 +196,10 @@
 									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
 									<li><a href="https://git-scm.com/" target="_blank">git</a>, account on <a href="https://github.com/" target="_blank">github.com</a></li>
 									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
+									<li>Optional for deploy to cloud</li>
+									<ul>
+										<li>Docker</li>
+									</ul>
 								</ul>
 					</section>	
 				</section>
@@ -1981,7 +1987,6 @@ Client lives inside browser (user agent)
 
 					</section>
 
-
 					<section>
 							<section>
 								<h1>Security</h1>
@@ -1995,6 +2000,42 @@ Client lives inside browser (user agent)
 							</section>
 
 					</section>
+
+
+					<section>
+						<section>
+							<h3>Optional Exercise 11</h3>
+							<h2>Deploying to the Cloud</h2>
+							<small>Radix for the win</small>
+						</section>
+
+						<section>
+							<h3>The code</h3>
+							<ul style="font-size: 80%;">
+								<li>Fork from code in ex-8</li>
+								<li>Important changes going from local to the cloud</li>
+								<ul>
+									<li>The depoyment environment becomes dynamic. Potential specific to the cloud provider technology.
+									<li>We use Docker to be a bit more "multi cloud" ready</li>
+									<li>Important URLs, like redirect_url, becomes dynamic. Added some logic to handle this for Radix (in <span style="color: red">./src/app.js , ./src/authutils.js</span>)</li>
+									<li>Still keeping secrets outside code. Storing the CLIENT_SECRET as a secret in Radix</li>
+								<ul>
+							</ul>
+						</section>
+
+						<section>
+							<h2>Tasks</h2>
+							<ul>
+								<li>Clone the project at <span style="color:red">https://github.com/larskaare/sMailandStuff</span></li>
+								<li>Use the instructions in the README.md to configure and run the application locally</li>
+								<li>Deploy to the cloud using Radix. A good place to start would be <a href="https://www.radix.equinor.com" target="_blank">The Radix Getting Started</a></li>
+							</ul>
+
+						</section>
+					</section>
+
+
+
 
 					<section>
 							<section>
