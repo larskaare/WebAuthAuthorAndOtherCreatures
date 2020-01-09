@@ -175,10 +175,6 @@ app.use('/', indexRouter);
 app.use('/mail', mailRouter);
 app.use('/userinfo', userInfoRouter);
 
-app.get('/', function(req, res) {
-    res.render('index', { user: req.user });
-});
-
 app.get('/login',
     function(req, res, next) {
         passport.authenticate('azuread-openidconnect', 

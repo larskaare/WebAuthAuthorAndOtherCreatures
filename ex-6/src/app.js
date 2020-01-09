@@ -161,23 +161,10 @@ app.use(express.static(__dirname + '/../public'));
 // `ensureAuthenticated`. It checks if there is an user stored in session, if not
 // it will call `passport.authenticate` to ask for user to log in.
 //-----------------------------------------------------------------------------
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
-}
 
 app.use('/', indexRouter);
 app.use('/mail', mailRouter);
 app.use('/userinfo', userInfoRouter);
-
-app.get('/', function(req, res) {
-    res.render('index', { user: req.user });
-});
-
-// '/account' is only available to logged in user
-app.get('/account', ensureAuthenticated, function(req, res) {
-    res.render('account', { user: req.user });
-});
 
 app.get('/login',
     function(req, res, next) {
