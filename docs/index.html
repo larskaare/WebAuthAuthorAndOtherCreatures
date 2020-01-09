@@ -67,6 +67,7 @@
 				<section>
 					<h1>The delegation problem</h1>
 					<small style="color:blue">Giving access to 3rd parties</small>
+					<p></p><small>API's are a driving force</small>
 				</section>
 
 				<section>
@@ -150,7 +151,7 @@
 							<li>Pre-requisites, Practicalities</li>
 							<li>The basics of A&A </li>
 							<li>Exercises (10+1)</li>
-							<li>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
+							<br>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
 							<li>Deploy application to the Cloud using Radix</li>
 							<li>Hack your own project</li>
 						</ul>
@@ -181,8 +182,14 @@
 							<h2>Skills</h2>
 							<p>Helpful knowledge and skills:
 								<ul>
-									<li><a href="https://httpwg.org/specs/" target="_blank">HTTP</a></li>									<li>JavaScript/Node.js</li>
+									<li><a href="https://httpwg.org/specs/" target="_blank">HTTP</a></li>									
+									<li>JavaScript/Node.js</li>
 									<li>Linux command line</li>
+									<li>Optional
+										<ul>
+											<li>Docker</li>
+										</ul>
+									</li>
 								</ul>
 							</p>					
 					</section>
@@ -191,8 +198,8 @@
 							<small>Installed and <span style="color: red"> verified</span> working software</small></br>
 								<ul>
 									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a>
-									<br>(I recommned installing node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>)</br></li>
-									<li>Python3 needs to be installed in order for some Node packages to compile</li>
+									<br>(I recommnend installing node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>)
+									(Python3 may be needed in order for some Node packages to compile)</br></li>
 									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
 									<li><a href="https://git-scm.com/" target="_blank">git</a>, account on <a href="https://github.com/" target="_blank">github.com</a></li>
 									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
@@ -225,9 +232,8 @@
 							<h3>Run-time environments -</br> known differences</h3>
 							<ul>
 								<li>Examples uses Unix path notation "./src". </br>In Windows this will be "src/</li>
-								<li>Scripts, like <span style="color: blue">npm start</span> uses Linux notation. Must be changed for Windows environments</li>
+								<li>Scripts in course code, like <span style="color: blue">npm start</span> uses Linux notation. Must be changed for Windows environments</li>
 							</ul>
-						
 						
 						</section>
 		
@@ -252,7 +258,7 @@
 						</br></br>either on behalf of a resource owner
 						</br>by orchestrating an approval interaction between the resource owner and the HTTP service
 						</br></br>or by allowing the third-party application to obtain access on its own behalf.</blockquote>
-						<small><a href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of giving someone who controls a resource the capability to delegate access to the resource on their behalf (without impersonating).</small>
+						<small><a style="font-size: 200%;color: red" href="https://tools.ietf.org/html/rfc6749" target="_blank">oAuth2</a> is a <strong>delegation protocol</strong>, a means of giving someone who controls a resource the capability to delegate access to the resource on their behalf (without impersonating).</small>
 					</section>
 
 					<section>
@@ -374,7 +380,7 @@
 
 					<section>
 						<h3>Obtaining authorization - </br>the oauth Dance</h3>
-						<blockquote>To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
+						<blockquote style="font-size: 80%;">To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
 				</section>
 					
 				<section>
@@ -622,7 +628,7 @@
 	[Signature]
 							</code> 
 							</pre>	
-							<small>Header, Payload with claims and Signature -  based64 encoded</small>
+							<small style="font-size: 40%;">Header, Payload with claims and Signature -  based64 encoded</small>
 	
 						</section>
 
@@ -821,7 +827,7 @@
 					<section>
 						<h4>oAuth Implicit Grant</h4>
 						<small><a href="https://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">rfc6749 #4.2</a></small>
-						<pre style="font-size: 40%;">
+						<pre style="font-size: 30%;">
 +----------+
 | Resource |
 |  Owner   |
@@ -906,7 +912,7 @@ Client lives inside browser (user agent)
 										303 redirect
 										https://app/callback? </br>
 										
-										Frament: #</br>
+										Fragment: #</br>
 										access_token=AT</br>
 										expires_in=3600</br>
 										token_type=Bearer</br>
@@ -980,7 +986,8 @@ Client lives inside browser (user agent)
 					</section>
 					<section>
 						<h2>Clone github repository</h2>
-						<p><a href"https://github.com/larskaare/WebAuthAuthorAndOtherCreatures" target="_blank">https://github.com/larskaare/WebAuthAuthorAndOtherCreatures</a></p>
+						<p><a style="font-size: 70%;" href"https://github.com/larskaare/WebAuthAuthorAndOtherCreatures" target="_blank">https://github.com/larskaare/WebAuthAuthorAndOtherCreatures</a></p>
+						<pre><code class="hljs" style="font-size: 80%;" >git clone git@github.com:larskaare/WebAuthAuthorAndOtherCreatures.git</code>
 					</section>
 					<section>
 						<h3>Register application in Azure AD</h3>
@@ -1100,6 +1107,10 @@ Client lives inside browser (user agent)
 								<code class="hljs">$ ./node_modules/.bin/eslint . --ext .js</code>
 							</li>
 							<li>Explore results from linter, investigate <span style="color:blue">"/.eslintrc.json"</span></li>
+							<li>Run the brand new and shiny web applicatin
+								<code class="hljs">$ npm start</code>
+							</li>
+
 						</ul>
 					</section>
 				</section>
@@ -1257,8 +1268,9 @@ Client lives inside browser (user agent)
 										</li>
 										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, scope - why is <span style="color:blue">Mail.Read openid profile email</span> default? </li>
 										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. Test revoking for test app.</li>
+										<li>Explore running the app with NODE_ENV=debug</li>
 										<li><span style="color:red">Bad practice</span>: 
-											Extracting things like "given_name" from Access Token to display in client</li>
+											Extracting things like "given_name" from Access Token to display in client (dependent on implementation)</li>
 									</ul>
 									</ul>
 							</section>
@@ -1546,7 +1558,6 @@ Client lives inside browser (user agent)
 											<ul>
 												<li>Showing information about groups & roles in claim</li>
 											</ul></br>
-											<li>We are not activation authorization (other than login), just retrieving the information to do it</li>
 									</ul>
 							</section>
 
@@ -1677,7 +1688,7 @@ Client lives inside browser (user agent)
 
 							<section>
 								<h3>What are refresh tokens?</h3>
-								<ul style="font-size: 90%;">
+								<ul style="font-size: 80%;">
 									<li><a href="https://tools.ietf.org/html/rfc6749#section-1.5"
 										target="_blank">rfc6749 section 1.5</a></li>
 									<li>"Refresh tokens are credentials used to obtain access tokens."</li>
@@ -1715,7 +1726,7 @@ Client lives inside browser (user agent)
 
 							<section>
 									<h3>Explore the code</h3>
-									<ul style="font-size:80%">
+									<ul style="font-size:70%">
 										<li style="color:blue">config/config.js</li>
 											<ul>
 												<li>Scope param includes "offline_access" which emits refresh token</li>
@@ -1738,7 +1749,7 @@ Client lives inside browser (user agent)
 
 							<section>
 									<h3>Config, Run and Explore </h3>
-									<ul>
+									<ul style="font-size: 80%;">
 										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
 										<li>Verify the AD application object <span style="color:blue">redirect url</span></li>
 										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
@@ -1934,7 +1945,7 @@ Client lives inside browser (user agent)
 										<li>Update config in "routes/index.js</li>
 										<ul>
 											<li>validateOptions: audience (the api app URI)</li>
-											<li>validateOptions: issues (the tenant id)</li>
+											<li>validateOptions: issuer (the tenant id)</li>
 										</ul>
 										<li>Update config in "app.js" (corsOptions, will only accept requests from localhost. Must be changed if the SPA is moved)</li>
 										<li>Code: "routes/index.js"</li>
@@ -2026,7 +2037,7 @@ Client lives inside browser (user agent)
 						<section>
 							<h2>Tasks</h2>
 							<ul>
-								<li>Clone the project at <span style="color:red">https://github.com/larskaare/sMailandStuff</span></li>
+								<li>Fork the project at <span style="color:red">https://github.com/larskaare/sMailandStuff</span></li>
 								<li>Use the instructions in the README.md to configure and run the application locally</li>
 								<li>Deploy to the cloud using Radix. A good place to start would be <a href="https://www.radix.equinor.com" target="_blank">The Radix Getting Started</a></li>
 							</ul>
