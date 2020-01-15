@@ -12,7 +12,7 @@ var corsOptions = {
     origin: 'http://localhost:3000',
     methods: "GET",
     optionsSuccessStatus: 200 
-  }
+  };
 
 app.use(cors(corsOptions));
 app.use(logger('dev'));
