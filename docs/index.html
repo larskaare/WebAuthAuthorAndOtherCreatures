@@ -153,7 +153,6 @@
 							<li>Exercises (10+1)</li>
 							<Sharing>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
 							<li>Deploy application to the Cloud using Radix</li>
-							<li>Hack your own project</li>
 						</ul>
 					</section>
 				</section>
@@ -199,16 +198,19 @@
 					<section>
 							<h2>Software</h2>
 							<small>Installed and <span style="color: red"> verified</span> working software</small></br>
-								<ul>
+								<ul style="font-size: 80%;">
 									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a>
-									<br>(I recommnend installing node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>)
-									(Python3 may be needed in order for some Node packages to compile)</br></li>
+										<ul>
+											<li>Use Node LTS version v12.4.1 (tested with v11.9.0 as well)</li>
+											<li>Using node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a> is recommended</li>
+											<li>Python may be needed for some node modules to install</li>
+										</ul>
 									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
 									<li><a href="https://git-scm.com/" target="_blank">git</a>, account on <a href="https://github.com/" target="_blank">github.com</a></li>
 									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
 									<li>Optional for deploy to cloud</li>
 									<ul>
-										<li>Docker</li>
+										<li>Local Docker installation</li>
 									</ul>
 								</ul>
 					</section>	
@@ -1050,10 +1052,13 @@ Client lives inside browser (user agent)
 
 					<section>
 						<h3>Explore tokens</h3>
-						<ul>
+						<ul style="font-size: 70%;">
 							<li>Use <a href="https://jwt.ms" target="_blank">https://jwt.ms</a> to explore tokens</li>
 							<li>Explore tokens, claims and dates</br> (access_token, refresh_token, id_token)</li>
-							<li>Experiment with scope param</li>
+							<li>Experiment with scope param
+								</br>Scope profile+email will put "more" info into id_token
+								</br>Scope offline_access will add refresh_token
+							</li>
 							<li>Discuss claims, optional claims, application manifest</li>
 							<li>Discuss security considerations (token validation, token storage)</li>
 							<li><span style="color:red">Good practice</span>: Don't uses access tokens as authentication. Access tokens are for the protected resource </li>
@@ -1693,15 +1698,18 @@ Client lives inside browser (user agent)
 								<h3>What are refresh tokens?</h3>
 								<ul style="font-size: 80%;">
 									<li><a href="https://tools.ietf.org/html/rfc6749#section-1.5"
-										target="_blank">rfc6749 section 1.5</a></li>
+										target="_blank">rfc6749 section 1.5</a>,
+										<a href="https://tools.ietf.org/html/rfc6749#section-6"
+										target="_blank">rfc6749 section 6 for refresh access token</a>
+									</li>
 									<li>"Refresh tokens are credentials used to obtain access tokens."</li>
 									<li>Are used to get new access token when current one expire</li>
 									<li>Are used to get new access token to narrow scope</li>
 									<li>Refresh tokens are issued by the authorization server and are never used by resource servers</li>
-									<li>The flow to refresh is defined in spec</li>
-									<li>Refresh tokens is only issued to secure clients (Not supported by implicit flow)</li>
+									<li>Refresh tokens is only issued to secure clients
+									</br>(Not supported by implicit flow)</li>
 									<li>Refresh tokens can be stored on back-end to perform operations on behalf of user when not logged in</li>
-									<li>Refesh tokens are about user experience</li>
+									<li>Refesh tokens are quite often about user experience </br>(good log-in experience)</li>
 								</ul>
 							</section>
 
@@ -1761,6 +1769,7 @@ Client lives inside browser (user agent)
 										</li>
 										<li>Explore the "user information" part of the web application</li>
 										<li>Explore changing the "diffSecondsBeforeRefresh" config and observe token refresh (by expire date and in log)</li>
+										<li>Observer that we get a new access token with the refresh, but the "old" one is still valid</li>
 									</ul>
 							</section>
 
@@ -2053,7 +2062,10 @@ Client lives inside browser (user agent)
 
 					<section>
 							<section>
-								<h1>Hack your own A&A project</h1>
+								<h1>Clean-Up</h1>
+								<ul>
+									<li>Clean-up in Azure AD App Registration</li>
+								</ul>
 							</section>
 					</section>
 

@@ -39,6 +39,8 @@ exports.considerRefresh = async function (req, res, next) {
                     // eslint-disable-next-line require-atomic-updates
                     req.user.authInfo.access_token_exp = newExpireDate;
 
+                    log.info('Successfull refresh of Access token');
+
                 } else {
                     // console.log('***** I Will NOT ******** >>',(currExp - currTime));
                     // Not refreshing yet
@@ -83,6 +85,10 @@ async function getNewAccessToken(metadata,refresh_token) {
   
     const responseBody = await rp(options);
     const response = JSON.parse(responseBody);
+
+    if(response.refresh_token) {
+        log.info('We go a new refresh token along with the access token refresh - new refresh token not used');
+    }
 
     return response.access_token;
     
