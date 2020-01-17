@@ -1152,12 +1152,13 @@ Client lives inside browser (user agent)
 
 						<section>
 							<h3>Environment variables</h3>
-							<ul>
-								<li><span style="color:blue">PORT</span> in ./bin/www</li>
-								<li><span style="color:blue">NODE_ENV, CLIENT_SECRET</span> in ./app.js</li>
+							<ul style="font-size: 70%;">
 								<li>Define environment variables
 									<code class="hljs">$ export PORT=3000</code>
 									<code class="hljs">$ export CLIENT_SECRET=[your secret]</code>
+									<code class="hljs">$ export CLIENT_ID=[your client id]</code>
+									<code class="hljs">$ export NODE_ENV=[production | developement | debug]</code>
+									
 								</li>
 								<li><span style="color:red">Good practice</span>: 
 									Move config into config files, potentially .env files (that are defined in .gitignore and/or kept outside version control, stored outside git)	
@@ -1208,8 +1209,8 @@ Client lives inside browser (user agent)
 								<h3>Config, Run and Explore </h3>
 								<ul>
 									<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
-									<li>Configure the <span style="color:blue">client</span> object in app.js</li>
-									<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+									<li>Explore the <span style="color:blue">client</span> object in app.js</li>
+									<li>Configure environment variables</li>
 									<li>Run web application
 										<code class="hljs">$ npm start</code>
 									</li>
@@ -1268,17 +1269,17 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul style="font-size: 80%;">
-										<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
-										<li>Configure the <span style="color:blue">client</span> object in app.js</li>
-										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Explore the <span style="color:blue">authServer</span> object in app.js</li>
+										<li>Explore the <span style="color:blue">client</span> object in app.js</li>
+										<li>Configure environment variables</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
-										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, scope - why is <span style="color:blue">Mail.Read openid profile email</span> default? </li>
+										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>,</br>scope - why is <span style="color:blue">Mail.Read openid profile email</span> default? </li>
 										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. Test revoking for test app.</li>
 										<li>Explore running the app with NODE_ENV=debug</li>
-										<li><span style="color:red">Bad practice</span>: 
-											Extracting things like "given_name" from Access Token to display in client (dependent on implementation)</li>
+										<li><span style="color:red">Bad practice?</span>: 
+											Extracting things like "given_name" from Access Token to display in client (as done in exercise code)</li>
 									</ul>
 									</ul>
 							</section>
@@ -1356,9 +1357,9 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
-										<li>Configure the <span style="color:blue">client</span> object in app.js</li>
-										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Explore the <span style="color:blue">authServer</span> object in app.js</li>
+										<li>Explore the <span style="color:blue">client</span> object in app.js</li>
+										<li>Configure environment variables</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
@@ -1460,9 +1461,8 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
 										<li>Update the AD application object with new <span style="color:blue">redirect url</span></li>
-										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Configure environment variables</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
@@ -1587,9 +1587,8 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul>
-										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
 										<li>Verify the AD application object <span style="color:blue">redirect url</span></li>
-										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Configure environment variables</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
@@ -1613,7 +1612,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Scenario 2:</br> Only defined users/groups should have access</<br></h3>
 									<ul style="font-size: 65%;">
-										<li>There are "many" ways to achive this scenario</li>
+										<li>There are several ways to achive this scenario</li>
 										<li>1) Managing the App Object</li>
 											<ul>
 												<li>Set "User assignment" to "Yes" - in App property</li>
@@ -1636,7 +1635,9 @@ Client lives inside browser (user agent)
 										<ul style="font-size: 65%;">
 											<li>Application roles implement RBAC</li>
 											<li>App admins grant permissions to roles, users and groups are assigned to roles</li>
-											<li>Define application role in app manifest (<a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps" target="_blank">doc</a>)</br>ID is a self generated GUID and must be unique</li>	
+											<li>Define application role in app manifest (<a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps" target="_blank">doc</a>)
+											</br>ID is a self generated GUID and must be unique
+											(<a href="https://guidgenerator.com/" target="_blank">Online GUID Generator</a>)</li>	
 											<pre><code class="hljs">
 "appRoles": [
 {
@@ -1761,9 +1762,8 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Config, Run and Explore </h3>
 									<ul style="font-size: 80%;">
-										<li>Update configuration in <span style="color:blue">./config/config.js</span> (clientid)</li>
 										<li>Verify the AD application object <span style="color:blue">redirect url</span></li>
-										<li>Configure environment variables (PORT, NODE_ENV and CLIENT_SECRET</li>
+										<li>Configure environment variables</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
@@ -1857,8 +1857,8 @@ Client lives inside browser (user agent)
 									<h3>Security considerations</h3>
 									<ul style="font-size: 80%;">
 										<li>It's a public client!</li>
-										<li>Implicit flow is less secure than other methods</li>
-										<li>The redirect GET REQUEST exposes the AccessToken in many ways</li>
+										<li>Implicit flow is less secure than code grant</li>
+										<li>The redirect GET REQUEST exposes the AccessToken</li>
 										<li>Information - like access tokens are available to "everyone" using the browser</li>
 										<li><span style="color:red">Good practice</span>: 
 											Follow advice in OWASP Top 10 for Web application security ( 

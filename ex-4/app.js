@@ -50,7 +50,7 @@ var authServer = {
 };
 
 var client = {
-    'client_id': '',
+    'client_id': process.env.CLIENT_ID,
     'client_secret': process.env.CLIENT_SECRET,
     'redirect_uris': ['http://localhost:3000/callback']
 };
@@ -62,7 +62,7 @@ var access_token = null;
 app.get('/authorize', function(req, res) {
 
     state = randomstring.generate();
-    scope = 'openid';
+    scope = 'openid profile email';
 
     var authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
         response_type: 'code',
@@ -118,6 +118,8 @@ app.get('/callback', function(req, res){
         if (tokenRes.statusCode >= 200 && tokenRes.statusCode < 300) {
             var body = JSON.parse(tokenRes.getBody());
 
+            console.log('ID token -->' + body.id_token);
+            
             access_token = body.access_token;
             logger.debug('We go access token '+ access_token);
 

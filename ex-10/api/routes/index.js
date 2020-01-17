@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
 
   var validateOptions = {
     "audience" : "",
-    "issuer": "https://sts.windows.net/1-1-1-1-1/",
+    "issuer": "https://sts.windows.net/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/",
     "maxAge": "1h"
   };
 
