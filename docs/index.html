@@ -54,13 +54,43 @@
 					</p>
 				</section>
 
+
+<!-- Objectives part-->
+				<section>
+					<section>
+						<h1>Objectives</h1>
+					</section>
+
+					<section>
+						<h3>Workshop objectives </h3>
+						<blockquote style="color:dodgerblue">De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
+						<ul style="font-size: 80%;">
+							<li>Give an introduction to basics modern web A&A</li>
+							<li>Explore Spec vs. Azure Implementation</li>
+							<li>Hands-on coding with a few A&A scenarios </li>
+							<li>Insight into threats and current best practices (BCP) for security</li>
+						</ul>
+					</section>
+
+				</section>
+
 <!-- A day in the life of a modern app-->
 			<section>
-				<h2>A day in the life of Modern App .....</h2>
-				<h4><a href="https://developer.microsoft.com/en-us/graph/graph-explorer" target="_blank">The Microsoft Graph Explorer</a></h4>
-				<h4><a href="https://account.activedirectory.windowsazure.com/r#/applications" target="_blank">Azure AD Apps</a></h4>
-			</section>
+					<section>
+						<h3>A day in the life of</h3>
+						<h2 style="color:red">sMailandStuff</h2>
+						<Small>The mature web Swiss Army Knife</Small>
+						<p></p>
+						<a href="https://webapp-smailandstuff-production.playground.radix.equinor.com/"
+						target="_blank">sMailandStuff</a> on Raidx
+					</section>
 
+					<section>
+						<h3>The players</h3>
+						<img src="./graphics/export/actors.jpg" width="75%">
+					</section>
+				</section>
+			
 <!-- The Delegation problem-->
 			<section>
 						
@@ -121,24 +151,6 @@
 
 
 
-				<!-- Objectives part-->
-				<section>
-					<section>
-						<h1>Objectives</h1>
-					</section>
-
-					<section>
-						<h3>Workshop objectives </h3>
-						<blockquote style="color:dodgerblue">De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
-						<ul style="font-size: 80%;">
-							<li>Give an introduction to basics modern web A&A</li>
-							<li>Explore Spec vs. Azure Implementation</li>
-							<li>Hands-on coding with a few A&A scenarios </li>
-							<li>Insight into threats and current best practices (BCP) for security</li>
-						</ul>
-					</section>
-
-				</section>
 				
 <!-- Outlines part-->
 				<section>
@@ -166,61 +178,12 @@
 						 Please share! Sharing is caring!</p>
 					<p style="color:blue; font-size: 70%;">Code examples are not production quality - they are happy-path</p>
 				</section>
-				
-<!-- Pre-requisites part-->
-				<section>
-					<section>
-						<h1>Pre-Requisites</h1>
-					</section>
-					<section>
-						<h2>Roles</h2>
-						<ul>
-							<li>Valid Equinor Software Developer On-Boarding</li>
-							<li>Valid role <strong><span style="color:blue">Application Developer (Azure Active Directory)</span></strong> - apply for access in AccessIT</li>
-							<li>Optional for deploy to cloud exercise: Access to Radix Playground - role <strong><span style="color:blue">Radix Playground Users</span></strong> - apply in AccessIT</li>
-						</ul>					
-					</section>
-					<section>
-							<h2>Skills</h2>
-							<p>Helpful knowledge and skills:
-								<ul>
-									<li><a href="https://httpwg.org/specs/" target="_blank">HTTP</a></li>									
-									<li>JavaScript/Node.js</li>
-									<li>Linux command line</li>
-									<li>Optional
-										<ul>
-											<li>Docker</li>
-										</ul>
-									</li>
-								</ul>
-							</p>					
-					</section>
-					<section>
-							<h2>Software</h2>
-							<small>Installed and <span style="color: red"> verified</span> working software</small></br>
-								<ul style="font-size: 80%;">
-									<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a>
-										<ul>
-											<li>Use Node LTS version v12.4.1 (tested with v11.9.0 as well)</li>
-											<li>Using node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a> is recommended</li>
-											<li>Python may be needed for some node modules to install</li>
-										</ul>
-									<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
-									<li><a href="https://git-scm.com/" target="_blank">git</a>, account on <a href="https://github.com/" target="_blank">github.com</a></li>
-									<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
-									<li>Optional for deploy to cloud</li>
-									<ul>
-										<li>Local Docker installation</li>
-									</ul>
-								</ul>
-					</section>	
-				</section>
 
 <!-- The practicalities & useful links part -->
 				<section>
 					<section>
 						<h1>Practicalities</h1>
-						<h3><a href="https://equinor.slack.com/archives/CQUQN8QQL" target="_blank">#appsec-access-control</a></h3> on Slack
+						<h3><a href="https://equinor.slack.com/archives/CQUQN8QQL" target="_blank">#appsec-authentication-and-authorization-course</a></h3> on Slack
 					</section>
 					<section>
 							<h1>Useful links</h1>
@@ -597,7 +560,7 @@
 						</section>
 	
 						<section>
-								<h3>Refresh token</h2>
+								<h3>Refresh token</h32>
 								<ul style="font-size: 80%;">
 									<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
 									</li>
@@ -2121,9 +2084,6 @@ Client lives inside browser (user agent)
 						</section>
 					</section>
 
-
-
-
 					<section>
 							<section>
 								<h1>Clean-Up</h1>
@@ -2132,6 +2092,59 @@ Client lives inside browser (user agent)
 								</ul>
 							</section>
 					</section>
+
+				
+<!-- Pre-requisites part-->
+<section>
+	<section>
+		<h1>Pre-Requisites</h1>
+	</section>
+	<section>
+		<h2>Roles</h2>
+		<ul>
+			<li>Valid Equinor Software Developer On-Boarding</li>
+			<li>Valid role <strong><span style="color:blue">Application Developer (Azure Active Directory)</span></strong> - apply for access in AccessIT</li>
+			<li>Optional for deploy to cloud exercise: Access to Radix Playground - role <strong><span style="color:blue">Radix Playground Users</span></strong> - apply in AccessIT</li>
+		</ul>					
+	</section>
+	<section>
+			<h2>Skills</h2>
+			<p>Helpful knowledge and skills:
+				<ul>
+					<li><a href="https://httpwg.org/specs/" target="_blank">HTTP</a></li>									
+					<li>JavaScript/Node.js</li>
+					<li>Linux command line</li>
+					<li>Optional
+						<ul>
+							<li>Docker</li>
+						</ul>
+					</li>
+				</ul>
+			</p>					
+	</section>
+	<section>
+			<h2>Software</h2>
+			<small>Installed and <span style="color: red"> verified</span> working software</small></br>
+				<ul style="font-size: 80%;">
+					<li><a href="https://nodejs.org/en/" target"_blank">Node.js</a>
+						<ul>
+							<li>Use Node LTS version v12.4.1 (tested with v11.9.0 as well)</li>
+							<li>Using node version manager <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a> is recommended</li>
+							<li>Python may be needed for some node modules to install</li>
+						</ul>
+					<li>Development IDE (<a target="_blank" href="https://code.visualstudio.com"> like VS Code</a>)</li>
+					<li><a href="https://git-scm.com/" target="_blank">git</a>, account on <a href="https://github.com/" target="_blank">github.com</a></li>
+					<li><a href="https://www.getpostman.com/downloads/" target="_blank">Postman</a></li>
+					<li>Optional for deploy to cloud</li>
+					<ul>
+						<li>Local Docker installation</li>
+					</ul>
+				</ul>
+	</section>	
+</section>
+
+
+
 
 			</div>
 
