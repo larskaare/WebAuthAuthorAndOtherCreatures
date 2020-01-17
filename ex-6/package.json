@@ -1,6 +1,6 @@
 {
-  "name": "ex-5",
-  "version": "0.0.1",
+  "name": "ex-6",
+  "version": "0.0.2",
   "private": true,
   "author": "Lars Kaare Skjorestad",
   "license": "MIT",
@@ -31,6 +31,7 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
+    "elliptic": "^6.5.2",
     "eslint": "^6.3.0",
     "nodemon": "^1.19.2"
   }
