@@ -7,7 +7,7 @@ var appConfig = require('../config/config.js').appConfig;
  */
 
 var app = require('../src/app');
-var debug = require('debug')('ex-6:server');
+var debug = require('debug')('ex-8:server');
 var http = require('http');
 
 /**

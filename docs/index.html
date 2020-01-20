@@ -66,7 +66,7 @@
 						<blockquote style="color:dodgerblue">De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
 						<ul style="font-size: 80%;">
 							<li>Give an introduction to basics modern web A&A</li>
-							<li>Explore Spec vs. Azure Implementation</li>
+							<li>Explore Spec and Azure Implementation</li>
 							<li>Hands-on coding with a few A&A scenarios </li>
 							<li>Insight into threats and current best practices (BCP) for security</li>
 						</ul>
@@ -162,9 +162,9 @@
 						<ul>
 							<li>Pre-requisites, Practicalities</li>
 							<li>The basics of A&A </li>
-							<li>Exercises (10+1)</li>
-							<Sharing>Prepare web app, add authentication, get access token, use access token, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
-							<li>Deploy application to the Cloud using Radix</li>
+							<li>Exercises (8+1)</li>
+							<Sharing>Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
+							<li>Deploy application to the Cloud (using Radix)</li>
 						</ul>
 					</section>
 				</section>
@@ -290,12 +290,11 @@
 |        |                               |     Server    |
 |        |<-(F)--- Protected Resource ---|               |
 +--------+                               +---------------+
-
 						</pre>
 					</section>
 					<section>
 						<h4 style="text-align: left;">Abstract protocol flow</h4>
-						<pre style="font-size: 40%; text-align: left;">
+						<pre style="font-size: 35%; text-align: left;">
 +-- <span style="color:red">Resource</span> --+ +-- <span style="color: blue;">Client</span> -- + +- <span style="color:bluegreen">Authorization</span> -+ +--<span style="color:violet"> Resource</span> --+
 +    Owner     + +             + +     Server      + +   Server     +
 +--------------+ +-------------+ +-----------------+ +--------------+
@@ -334,7 +333,7 @@
 
 					<section>
 						<h2>A few nice-to-know What oAuth is and is not</h2>
-						<ul>
+						<ul style="font-size: 80%;">
 							<li>Is not defined outside HTTP</li>
 							<li>Is "requiring" TLS</li>
 							<li>Is not an authentication protocol</li>
@@ -381,9 +380,7 @@
 |  Client |          & Redirection URI                  |
 |         |                                             |
 |         |<---(E)----- Access Token -------------------'
-+---------+       (w/ Optional Refresh Token)
-				   
-						
++---------+       (w/ Optional Refresh Token)			
 					</pre>
 				</section>
 				<section>
@@ -560,7 +557,7 @@
 						</section>
 	
 						<section>
-								<h3>Refresh token</h32>
+								<h3>Refresh token</h3>
 								<ul style="font-size: 80%;">
 									<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
 									</li>
@@ -791,106 +788,6 @@
 									Explore attributes such as "prompt", "login_hint", "response_mode"</li>
 								</ul>
 							</section>
-		
-					<section>
-						<h4>oAuth Implicit Grant</h4>
-						<small><a href="https://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">rfc6749 #4.2</a></small>
-						<pre style="font-size: 30%;">
-+----------+
-| Resource |
-|  Owner   |
-|          |
-+----------+
-     ^
-     |
-    (B)
-+----|-----+          Client Identifier     +---------------+
-|         -+----(A)-- & Redirection URI --->|               |
-|  User-   |                                | Authorization |
-|  Agent  -|----(B)-- User authenticates -->|     Server    |
-|          |                                |               |
-|          |<---(C)--- Redirection URI ----<|               |
-|          |          with Access Token     +---------------+
-|          |            in Fragment
-|          |                                +---------------+
-|          |----(D)--- Redirection URI ---->|   Web-Hosted  |
-|          |          without Fragment      |     Client    |
-|          |                                |    Resource   |
-|     (F)  |<---(E)------- Script ---------<|               |
-|          |                                +---------------+
-+-|--------+
-  |    |
- (A)  (G) Access Token
-  |    |
-  ^    v
-+---------+
-|         |
-|  Client |
-|         |
-+---------+			   			  	
-Client lives inside browser (user agent)						
-						</pre>
-					</section>
-
-		
-					<section>
-							<h3>OpenID Connect Implicit Flow</h3>
-							<table>
-								<tr>
-									<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
-									<td style=" vertical-align: top;">
-										<p>-2-</p>
-										<span style="font-size: 70%;">
-										GET /authorize? </br>
-										client_id=client </br>
-										&scope=<span style="color:red">openid</span></br>
-										&reponse_type=<span style="color:red">id_token</span>+token</br>
-										&state=1234</br>
-										&<span style="color:red">nonce=a_nonce</span></br>
-										&<span style="color:red">redirect_uri=</span></br>
-										https://app/callback</span>
-										</span>
-									</td>
-								</tr>
-							</table>
-					</section>
-
-
-					<section>
-							<h3>OpenID Connect Implicit Flow</h3>
-							<table>
-								<tr>
-									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
-									<td style=" vertical-align: top;">
-										<p>-3-</p>
-										Authentication is handed over to authentication server
-									</td>
-								</tr>
-							</table>
-					</section>
-
-					<section>
-							<h3>OpenID Connect Implicit Flow</h3>
-							<table>
-								<tr>
-									<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
-									<td style=" vertical-align: top;">
-										<p>-4-</p>
-										<span style="font-size: 70%;">
-										303 redirect
-										https://app/callback? </br>
-										
-										Fragment: #</br>
-										access_token=AT</br>
-										expires_in=3600</br>
-										token_type=Bearer</br>
-										&state=1234</br>
-										id_token=IDT</br>		
-										</span>
-									</td>
-								</tr>
-							</table>
-					</section>
 
 
 					<section>
@@ -912,12 +809,11 @@ Client lives inside browser (user agent)
 						<ul>
 							<li>Client credentials</br>
 								Typically service to service in protected environment
-
 							</li>
 							<li>Resource Owner Password Credentials</br>
 								High trust envionments where the resource owner trusts it's credentials to the client
-
 							</li>
+							<li>(Implicit grant will be covered later)</li>
 						</ul>
 					</section>
 
@@ -1039,6 +935,8 @@ Client lives inside browser (user agent)
 					</section>
 				</section>
 
+<!-- Exercise 2 : Currently removed -->
+<!-- 
 				<section>
 					<section>
 						<h1>Exercise 2</h1>
@@ -1084,9 +982,10 @@ Client lives inside browser (user agent)
 
 						</ul>
 					</section>
-				</section>
-				
-				<section>
+				</section> -->
+
+<!-- Exercise 3 : Currently removed -->		
+				<!-- <section>
 						<section>
 							<h1>Exercise 3</h1>
 							<h3>Add authentication</h3>
@@ -1196,28 +1095,48 @@ Client lives inside browser (user agent)
 
 
 
-					</section>
-					
+					</section> -->
+
+<!-- Exercise 2 :  -->					
 				
 					<section>
 							<section>
-								<h1>Exercise 4</h1>
+								<h1>Exercise 2</h1>
+								<h4>Web applicaton</h4>
 								<h3>Getting an access token</h3>
 							</section>
 		
 							<section>
 								<h3>Outline</h3>
-								<ul>
-									<li>Prepare environment (ex-4)</li>
-									<li>Config, run and explore</li>
-									<li>Explore tokens - good practices++</li>
+								<ul>		
+									<li>Environment Variables</li>
+									<li>Prepare environment (ex-2)</li>
+									<li>Explore the web app code</li>
+									<li>Config, run and explore app</li>
+									<li>Secrets</li>
+									<li>Staging environments and logging</li>
+								</ul>
+							</section>
+
+							<section>
+								<h3>Environment variables</h3>
+								<ul style="font-size: 70%;">
+									<li>Define environment variables
+										<code class="hljs">$ export PORT=3000</code>
+										<code class="hljs">$ export CLIENT_SECRET=[your secret]</code>
+										<code class="hljs">$ export CLIENT_ID=[your client id]</code>
+										<code class="hljs">$ export NODE_ENV=[production | developement | debug]</code>
+									</li>
+									<li><span style="color:red">Good practice</span>: 
+										Move config into config files, potentially .env files (that are defined in .gitignore and/or kept outside version control, stored outside git)	
+									</li>
 								</ul>
 							</section>
 
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-4</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-2</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1227,10 +1146,13 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore the code</h3>
 									<ul>
+										<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
+										<li>Explore application config objects </br>(authServer, client, scope)</li>
 										<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
-										<li>New logic in <span style="color:blue">app.get('/callback', function(req, res){</span></li>
-										<li>Creating POST request to token endpoint</li>
-										<li>Body contains oAuth2 params</li>
+										<ul>
+											<li>/authorize</li>
+											<li>/callback</li>
+										</ul>
 										<li>Header uses basic auth for client credentials (remember to base64 encode)</li>
 										</br>
 										<li>Explore routing/views in application</li>
@@ -1248,14 +1170,14 @@ Client lives inside browser (user agent)
 										display:inline-block
 									">
 									<ul style="font-size: 80%;">
-										<li>Explore the <span style="color:blue">authServer</span> object in app.js</li>
+										<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
 										<li>Explore the <span style="color:blue">client</span> object in app.js</li>
 										<li>Configure environment variables</li>
 										<li>Run web application
 											<code class="hljs">$ npm start</code>
 										</li>
-										<li>Explore; <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>,</br>scope - why is <span style="color:blue">Mail.Read openid profile email</span> default? </li>
-										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. Test revoking for test app.</li>
+										<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, alter scope and other params</li>
+										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. </br> Test revoking for test app.</li>
 										<li>Explore running the app with NODE_ENV=debug</li>
 										<li><span style="color:red">Bad practice?</span>: 
 											Extracting things like "given_name" from Access Token to display in client (as done in exercise code)</li>
@@ -1263,12 +1185,40 @@ Client lives inside browser (user agent)
 									</ul>
 							</section>
 
+							<section>
+								<h3>Secrets</h3>
+								<ul>
+									<li><span style="color:red">Good practice</span>: 
+										Keep secrets outside version control!	
+									</li>
+									<li><span style="color:red">Ok practice</span>: 
+										Inject secrets as environment variables	
+									</li>
+									<li><span style="color:red">Good practice</span>: 
+										Store secrets in keyvaults (explore if managed identities are available (MSI)) 	
+									</li>
+								</ul>
+							</section>
 
+							<section>
+								<h3>Staging environments - logging </h3>
+								<ul>
+									<li>Explore logging logic in <span style="color:blue">./app.js</span></li>
+									<li>Different logging level dependent on environment (debug, development, production)</li>
+									<li><span style="color:red">Good practice</span>: 
+										Have a strategy for log purpose and transports (why you log, where you store/not store)	
+									</li>
+									<li><span style="color:red">Good practice</span>: 
+										Be conscious of what you put in log files!!	
+									</li>
+								</ul>
+							</section>
 					</section>
-					
+
+<!-- Exercise 3 :  -->	
 					<section>
 							<section>
-								<h1>Exercise 5</h1>
+								<h1>Exercise 3</h1>
 								<h3>Scope</h3>
 								<small>Consent, Graph explorer, tokens - security, state - session</small>
 							</section>
@@ -1278,7 +1228,7 @@ Client lives inside browser (user agent)
 									<ul>
 										<li>Explore the MS Graph Explorer</li>
 										<li>Discuss Permissions and Consent</li>
-										<li>Prepare environment (ex-5)</li>
+										<li>Prepare environment (ex-3)</li>
 										<li>Explore the code</li>
 										<li>Config, run and explore</li>
 										<li>Security considerations - good practices++</li>
@@ -1314,7 +1264,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-5</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-3</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1374,14 +1324,11 @@ Client lives inside browser (user agent)
 										</li>
 									</ul>
 								</section>
-	
-
-
-					</section>
-						
+						</section>
+<!-- Exercise 4 :  -->						
 					<section>
 							<section>
-								<h1>Exercise 6</h1>
+								<h1>Exercise 4</h1>
 								<h3>Use frameworks!</h3>
 							</section>
 
@@ -1389,7 +1336,7 @@ Client lives inside browser (user agent)
 									<h3>Outline</h3>
 									<ul>
 										<li>Explore available frameworks for oAuth2</li>
-										<li>Prepare environment (ex-6)</li>
+										<li>Prepare environment (ex-4)</li>
 										<li>Explore the code</li>
 										<li>Config, run and explore</li>
 										<li>Font-end vs. back-end communication channels</li>
@@ -1417,7 +1364,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-6</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-4</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1513,16 +1460,14 @@ Client lives inside browser (user agent)
 											<li><span style="color:red">Good practice</span>: 
 												Know your frameworks - it takes time & capacity when complexity is hidden!  
 												</li>
-										
-
 										</ul>
 								</section>
-
 					</section>
 
+<!-- Exercise 5 :  -->	
 					<section>
 							<section>
-								<h1>Exercise 7</h1>
+								<h1>Exercise 5</h1>
 								<h3>Authorization scenarios</h3>
 								<h4>The Application Manifest</h4>
 							</section>
@@ -1530,7 +1475,7 @@ Client lives inside browser (user agent)
 							<section>
 								<h3>Outline</h3>
 									<ul style="font-size: 80%;">
-										<li>Prepare environment (ex-7)</li>
+										<li>Prepare environment (ex-5)</li>
 										<li>Explore the code</li>
 										<li>Config, run and explore</li>
 										<li>Scenario 1: Only people with valid account should have access</li>
@@ -1543,7 +1488,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-7</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-5</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1677,13 +1622,12 @@ Client lives inside browser (user agent)
 											</ul>
 										</ul>
 									</section>
-
 					</section>
 
-
+<!-- Exercise 6 :  -->	
 					<section>
 							<section>
-								<h1>Exercise 8</h1>
+								<h1>Exercise 6</h1>
 								<h3>Refresh tokens</h3>
 							</section>
 
@@ -1692,7 +1636,7 @@ Client lives inside browser (user agent)
 								<ul>
 								<li>What are refresh tokens?</li>
 								<li>Framework support for handling refresh</li>
-								<li>Prepare environment (ex-8)</li>
+								<li>Prepare environment (ex-6)</li>
 								<li>Explore the code</li>
 								<li>Config, run and explore</li>
 							</ul>
@@ -1732,7 +1676,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-8</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-6</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1783,13 +1727,12 @@ Client lives inside browser (user agent)
 										<li>Observer that we get a new access token with the refresh, but the "old" one is still valid</li>
 									</ul>
 							</section>
-
 					</section>
 					
-
+<!-- Exercise 7 :  -->	
 					<section>
 							<section>
-								<h1>Exercise 9</h1>
+								<h1>Exercise 7</h1>
 								<h3>Single Page Web Application (SPA)</h3>
 								<small>Implicit grant flow </small>
 							</section>
@@ -1798,7 +1741,8 @@ Client lives inside browser (user agent)
 								<h3>Outline</h3>
 								<ul>
 									<li>What is a SPA?</li>
-									<li>Prepare environment (EX-9)</li>
+									<li>Implicit grant</li>
+									<li>Prepare environment (EX-7)</li>
 									<li>Explore code</li>
 									<li>Config, Run and Explore</li>
 									<li>Security considerations</li>
@@ -1816,10 +1760,112 @@ Client lives inside browser (user agent)
 								</ul>
 							</section>
 
+		
+							<section>
+								<h4>oAuth Implicit Grant</h4>
+								<small><a href="https://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">rfc6749 #4.2</a></small>
+								<pre style="font-size: 30%;">
+		+----------+
+		| Resource |
+		|  Owner   |
+		|          |
+		+----------+
+			 ^
+			 |
+			(B)
+		+----|-----+          Client Identifier     +---------------+
+		|         -+----(A)-- & Redirection URI --->|               |
+		|  User-   |                                | Authorization |
+		|  Agent  -|----(B)-- User authenticates -->|     Server    |
+		|          |                                |               |
+		|          |<---(C)--- Redirection URI ----<|               |
+		|          |          with Access Token     +---------------+
+		|          |            in Fragment
+		|          |                                +---------------+
+		|          |----(D)--- Redirection URI ---->|   Web-Hosted  |
+		|          |          without Fragment      |     Client    |
+		|          |                                |    Resource   |
+		|     (F)  |<---(E)------- Script ---------<|               |
+		|          |                                +---------------+
+		+-|--------+
+		  |    |
+		 (A)  (G) Access Token
+		  |    |
+		  ^    v
+		+---------+
+		|         |
+		|  Client |
+		|         |
+		+---------+			   			  	
+		Client lives inside browser (user agent)						
+								</pre>
+							</section>
+		
+				
+							<section>
+									<h3>OpenID Connect Implicit Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-2-</p>
+												<span style="font-size: 70%;">
+												GET /authorize? </br>
+												client_id=client </br>
+												&scope=<span style="color:red">openid</span></br>
+												&reponse_type=<span style="color:red">id_token</span>+token</br>
+												&state=1234</br>
+												&<span style="color:red">nonce=a_nonce</span></br>
+												&<span style="color:red">redirect_uri=</span></br>
+												https://app/callback</span>
+												</span>
+											</td>
+										</tr>
+									</table>
+							</section>
+		
+		
+							<section>
+									<h3>OpenID Connect Implicit Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-3-</p>
+												Authentication is handed over to authentication server
+											</td>
+										</tr>
+									</table>
+							</section>
+		
+							<section>
+									<h3>OpenID Connect Implicit Flow</h3>
+									<table>
+										<tr>
+											<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
+											<td style=" vertical-align: top;">
+												<p>-4-</p>
+												<span style="font-size: 70%;">
+												303 redirect
+												https://app/callback? </br>
+												
+												Fragment: #</br>
+												access_token=AT</br>
+												expires_in=3600</br>
+												token_type=Bearer</br>
+												&state=1234</br>
+												id_token=IDT</br>		
+												</span>
+											</td>
+										</tr>
+									</table>
+							</section>
+		
+
 							<section>
 									<h3>Preparing the environment</h3>
 									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-9</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-7</span> directory</li>
 										<li>Install dependencies
 											<code class="hljs">$ npm install</code>
 										</li>
@@ -1890,12 +1936,12 @@ Client lives inside browser (user agent)
 												<a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" target="_blank">March 2020, MSAL 2.0.0</a>)</li>	
 										</ul>
 								</section>
-
 					</section>
 
+<!-- Exercise 8 :  -->	
 					<section>
 							<section>
-								<h1>Exercise 10</h1>
+								<h1>Exercise 8</h1>
 								<h3>Protecting web api's</h3>
 								<small>MSAL</small>
 								</br><small>AD App, Token validation</small>
@@ -1958,7 +2004,7 @@ Client lives inside browser (user agent)
 							<section>
 								<h3>Explore and config the SPA code</h3>
 								<ul style="font-size: 90%;">
-									<li>Navigate to the <span style="color: blue">./ex-10/spa</span> directory</li>
+									<li>Navigate to the <span style="color: blue">./ex-8/spa</span> directory</li>
 									<li>Install dependencies <code class="hljs">$ npm install</code></li>
 									<li>Update config in "JavaScriptSPA/index.html</li>	
 									<ul>
@@ -1978,7 +2024,7 @@ Client lives inside browser (user agent)
 							<section>
 									<h3>Explore and config the API code</h3>
 									<ul style="font-size:60%">
-										<li>Navigate to the <span style="color: blue">./ex-10/api</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-8/api</span> directory</li>
 										<li>Install dependencies <code class="hljs">$ npm install</code></li>
 										<li>Update config in "bin/www (the port if needed)</li>	
 										<li>Update config in "routes/index.js</li>
@@ -2008,9 +2054,9 @@ Client lives inside browser (user agent)
 									<h3>Run and explore scenario</h3>
 									<ul style="font-size: 90%;">
 										<li>Use two terminal sessions - SPA, API</li>
-										<li>Navigate to the <span style="color: blue">./ex-10/api</span> and do
+										<li>Navigate to the <span style="color: blue">./ex-8/api</span> and do
 											<code class="hljs">$ npm start</code></li>
-										<li>Navigate to the <span style="color: blue">./ex-10/spa</span> and do
+										<li>Navigate to the <span style="color: blue">./ex-8/spa</span> and do
 											<code class="hljs">$ npm start</code></li>
 										<li>Explore the new "Echo" functionallity</li>
 										<li>Alter CORS headers and observe effect (in SPA - Dev mode</li>
@@ -2050,11 +2096,13 @@ Client lives inside browser (user agent)
 							</section>
 
 					</section>
+					
 
+<!-- Exercise 9 :  -->	
 
 					<section>
 						<section>
-							<h3>Optional Exercise 11</h3>
+							<h3>Optional Exercise 9</h3>
 							<h2>Deploying to the Cloud</h2>
 							<small>Radix for the win</small>
 						</section>
@@ -2062,7 +2110,7 @@ Client lives inside browser (user agent)
 						<section>
 							<h3>The code</h3>
 							<ul style="font-size: 80%;">
-								<li>Fork from code in ex-8</li>
+								<li>Fork from code in ex-6</li>
 								<li>Important changes going from local to the cloud</li>
 								<ul>
 									<li>The depoyment environment becomes dynamic. Potential specific to the cloud provider technology.

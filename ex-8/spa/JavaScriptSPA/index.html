@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quickstart for MSAL JS</title>
+    <title>Example 8</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>
     <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.js"></script>
 </head>
@@ -9,13 +9,16 @@
 <body>
     <div class="container">
         <div class="leftContainer">
-            <p id="WelcomeMessage">Welcome to the Microsoft Authentication Library For Javascript Quickstart</p>
+            <p id="WelcomeMessage">Example 8</p>
             <button id="SignIn" onclick="signIn()">Sign In</button>
+            <button id="grapData" onclick="getGraphData()">Graph data</button>
+            <button id="Echo" onclick="getEcho()">Echo</button>
         </div>
         <div class="rightContainer">
             <pre id="json"></pre>
         </div>
     </div>
+
 <script>
     var msalConfig = {
         auth: {
@@ -95,7 +98,7 @@
 
     function showWelcomeMessage() {
         var divWelcome = document.getElementById('WelcomeMessage');
-        divWelcome.innerHTML = "Welcome " + myMSALObj.getAccount().userName + " to Microsoft Graph API";
+        divWelcome.innerHTML = "Welcome " + myMSALObj.getAccount().userName + " to Example 9";
         var loginbutton = document.getElementById('SignIn');
         loginbutton.innerHTML = 'Sign Out';
         loginbutton.setAttribute('onclick', 'signOut();');
@@ -136,6 +139,59 @@
             errorCode === "interaction_required" ||
             errorCode === "login_required";
     }
+
+    function callEcho(theUrl, accessToken, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200)
+                callback(JSON.parse(this.responseText));
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        xmlHttp.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xmlHttp.send();
+    }
+
+
+    function getEcho() {
+        //Register app
+        //Get token - then decide
+
+        var requestEchoObj = {
+            scopes: ["api://1-1-1-1-1/Echo.Read"]
+        };
+
+        myMSALObj.acquireTokenSilent(requestEchoObj).then(function (tokenResponse) {
+            document.getElementById("json").innerHTML = '';
+            callEcho('http://localhost:3100',tokenResponse.accessToken, function(data){
+                document.getElementById("json").innerHTML = JSON.stringify(data, null, 2); 
+            });
+        }).catch(function (error) {
+            console.log(error);
+            // Upon acquireTokenSilent failure (due to consent or interaction or login required ONLY)
+            // Call acquireTokenRedirect
+            if (requiresInteraction(error.errorCode)) {
+                myMSALObj.acquireTokenRedirect(requestEchoObj);
+            }
+
+        });
+    };
+
+    function getGraphData() {
+        
+        myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
+            callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, function(data){
+                document.getElementById("json").innerHTML = JSON.stringify(data, null, 2); 
+            });
+        }).catch(function (error) {
+            console.log(error);
+            // Upon acquireTokenSilent failure (due to consent or interaction or login required ONLY)
+            // Call acquireTokenRedirect
+            if (requiresInteraction(error.errorCode)) {
+                myMSALObj.acquireTokenRedirect(requestObj);
+            }
+        });
+    
+    };
 
     // Browser check variables
     var ua = window.navigator.userAgent;

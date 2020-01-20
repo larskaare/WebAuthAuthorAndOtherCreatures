@@ -3,16 +3,15 @@ extends layout
 block content
   h1= title
 
-  if !code
-    h2 Welcome
-    button <a href="/authorize">Log In</a>
+  if !user
+    h2 Welcome!
+    a(href='/login') Log In
   else
-    p Greetings!
-    p Parts of auth code "#{code}"
-    br
-    JWT Token Info
-    ol
-      li Token Expire #{tokenInfo.exp}
-      li Issued to #{tokenInfo.given_name} #{tokenInfo.family_name}
-      li Token scope "#{tokenInfo.scp}"
-    a(href="/") Home
+    p Greetings! #{user.displayName}
+    p
+    a(href='/userinfo') User information
+    p
+    a(href='/mail') Show inbox
+   
+  
+    
