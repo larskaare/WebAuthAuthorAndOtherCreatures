@@ -1,7 +1,5 @@
 # A Hands-On Introduction to modern web based A&A
 
-Authentication (openID) & Authorization (oAuth2)
-
 Workshop is slides is published at [https://larskaare.github.io/WebAuthAuthorAndOtherCreatures/](https://larskaare.github.io/WebAuthAuthorAndOtherCreatures/). Slides are developed using [reveal.js]([reveal.js](https://revealjs.com))
 
 
@@ -59,7 +57,7 @@ Installed and verified to work software.
 Should produce proof of an up to date version of git (https://git-scm.com/downloads)
 
     $ node --version
-Should produce proof of an up to date LTS version og NodeJS (https://nodejs.org/en/download/)
+Should produce proof of an up to date LTS version of NodeJS (https://nodejs.org/en/download/)
 
     $ npm --version
 Npm is installed with NodeJS
@@ -69,3 +67,5 @@ Should produce proof of a relevant 2.6 version of Python2 (like 2.7.16) (https:/
 
     $ docker --version
 Should produce evidence of an update to date version of docker (https://www.docker.com/products/docker-desktop)
+
+> Please verify that the tools work properly within your network environment. Typical problems would be related to PROXY settings.
