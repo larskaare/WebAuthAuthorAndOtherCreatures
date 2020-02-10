@@ -63,7 +63,7 @@ Should produce proof of an up to date LTS version of NodeJS (https://nodejs.org/
 Npm is installed with NodeJS
 
     $ python --version
-Should produce proof of a relevant 2.6 version of Python2 (like 2.7.16) (https://www.python.org/downloads/)
+Should produce proof of a relevant 2.6/2.7 version of Python2 (https://www.python.org/downloads/)
 
     $ docker --version
 Should produce evidence of an update to date version of docker (https://www.docker.com/products/docker-desktop)
