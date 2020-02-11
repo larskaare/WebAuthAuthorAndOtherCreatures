@@ -1414,10 +1414,18 @@
 
 							<section>
 								<h3>Font-end vs. back-end com. channels</h3>
+								<img src="./graphics/export/actors.jpg" 
+									style="
+										position: absolute;
+										top: 130px;
+										right:0px;
+										width:30%;
+										display:inline-block
+									">
 								<ul>
 									<li>Font-end: Browser (User agent) to</li>
 									<ul>
-										<li>back-end (localhost:3000/mail, /userinfo)</li>
+										<li>back-end (localhost:3000/mail,</br> /userinfo)</li>
 										<li>Azure AD authentication</li>
 									</ul>
 									<li>Back-end: Client (Web app) to</li>
@@ -1441,7 +1449,8 @@
 											<li>The cookie is signed (to detect tampering)</li>
 											<li>Session data is stored on the back-end (memory)</li>
 											<li>A lesser secure(?) alternative could be to store session data in the cookie</li>
-											<li><span style="color:blue">Task:</span> Open the developer tools in the browser and locate the session cookie for our app</li>
+											<li><span style="color:blue">Task:</span> Open the developer tools in the browser and locate the session cookie for our app.
+												</br> Alter cookie and observe effect in app </li>
 										</ul>
 										</section>	
 
@@ -1451,6 +1460,7 @@
 										<li>Access_token storage</li>
 										<li>Persistent Session storage (from memory to database?)</li>
 										<li>Cookie signing keys</li>
+										<li>Cookie stealing</li>
 										<li>Access_token is being validated</li>
 										<li>Only authenticated users are getting access to end-points (<span style="color:blue">ensureAuthenticated</span>)</li>
 											<li><span style="color:red">Good practice</span>: 
@@ -1521,6 +1531,9 @@
  "groups": ["",""],
 }.[Signature]
 								</code></pre>
+								Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens>" target="_blank">
+								 ID Tokens in MS Identity platform</a> as well as the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-optional-claims"
+								 target="_blank">optional</a> claims.
 							</section>
 
 							<section>
@@ -1544,7 +1557,7 @@
 							</section>
 
 							<section>
-								<h3>Scenario 1:</br> Only people with valid account should have access</h3>
+								<h3>Scenario 1:</br> Only people with a valid account should have access</h3>
 								<ul style="font-size: 80%;">
 									<li><span style="color:blue">App Registration (object)</span> vs. <span style="color:blue">Enterprise Application (instance, multi-tentant)</span></li>
 									<li>In "Enterprise Applications" (Azure AD) explore the property section for your application</li>
@@ -1656,7 +1669,7 @@
 									<li>Refresh tokens is only issued to secure clients
 									</br>(Not supported by implicit flow)</li>
 									<li>Refresh tokens can be stored on back-end to perform operations on behalf of user when not logged in</li>
-									<li>Refesh tokens are quite often about user experience </br>(good log-in experience)</li>
+									<li>Refesh tokens are quite often about user experience </br>(log-in experience)</li>
 								</ul>
 							</section>
 
@@ -1668,7 +1681,7 @@
 									<li><a href="https://docs.microsoft.com/nb-no/azure/active-directory/develop/msal-authentication-flows#how-each-flow-emits-tokens-and-codes"
 										target="_blank">Flows</a> that emits refresh tokens in Azure</li>
 									<li>Single Page Web applications using MSAL.JS usually do a silent login-and-get-new tokens to the user due to no refresh token</li>
-									<li>Passport.js (that we use does not have native support for refresh tokens. so lets add it :) )
+									<li>The framework we use, Passport.js, does not have native support for refresh tokens. So lets add it :)
 									</ul>
 							</section>
 
@@ -1688,7 +1701,7 @@
 										<li style="color:blue">config/config.js</li>
 											<ul>
 												<li>Scope param includes "offline_access" which emits refresh token</li>
-												<li>"diffSecondsBeforeRefresh" defines how close we will be to the access token exipration before we ask for a new access token</li>
+												<li>"diffSecondsBeforeRefresh" (ExpireTime - NowTime <= diffSecondsBeforeRefresh)</li>
 											</ul>
 											<li style="color:blue">src/app.js</li>
 											<ul>
@@ -1750,12 +1763,21 @@
 
 							<section>
 								<h3>What is a SPA?</h3>
+								<img src="./graphics/export/actors.jpg" 
+									style="
+										position: absolute;
+										top: 300px;
+										right:0px;
+										width:30%;
+										display:inline-block
+									">
 								<ul>
 									<li><a href="https://en.wikipedia.org/wiki/Single-page_application"
 										target="_blank">SPA</a> = Single Page Application</li>
 									<li>Re-Writing DOM rather than refreshing page</li>
-									<li>1) Web browser (user agent) only (all communications happends in browser, client is in browser)</li>
-									<li>2) Hybrid, web communicates to dedicated back-end (client) which then handles external communication</li>
+									<li>1) Web browser (user agent) only </br>(all communications happens
+										</br> in browser, client is in browser)</li>
+									<li>2) Hybrid, web communicates </br>to dedicated back-end (client)</br> which then handles external</br> communication</li>
 								</ul>
 							</section>
 
@@ -1942,9 +1964,8 @@
 							<section>
 								<h1>Exercise 8</h1>
 								<h3>Protecting web api's</h3>
-								<small>MSAL</small>
 								</br><small>AD App, Token validation</small>
-								</br><small>Azure API GW - Apim</small>
+								</br><small>Azure API GW - APIM</small>
 							</section>
 
 							<section>
@@ -2066,6 +2087,15 @@
 								</section>
 
 								<section>
+									<h3>Alternative solutions for chaining api</h3>
+									</br>
+									<ul>
+										<li>The <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow"
+											target="_blank">On-Behalf-Of</a> flow in the MS Identity Platform</a>
+										</li>
+									</ul>
+								</section>
+								<section>
 									<h3>Security considerations</h3>
 									<ul>
 										<li>Use libraries to do token validation</li>
@@ -2109,12 +2139,12 @@
 						<section>
 							<h3>The code</h3>
 							<ul style="font-size: 80%;">
-								<li>Fork from code in ex-6</li>
+								<li>Fork from code in ex-4</li>
 								<li>Important changes going from local to the cloud</li>
 								<ul>
-									<li>The depoyment environment becomes dynamic. Potential specific to the cloud provider technology.
+									<li>The deployment environment becomes dynamic. Potential specific to the cloud provider technology.
 									<li>We use Docker to be a bit more "multi cloud" ready</li>
-									<li>Important URLs, like redirect_url, becomes dynamic. Added some logic to handle this for Radix (in <span style="color: red">./src/app.js , ./src/authutils.js</span>)</li>
+									<li>Important URLs, like redirect_url, becomes dynamic. Added some logic to handle this for Radix </br>(in <span style="color: red">./src/app.js , ./src/authutils.js</span>)</li>
 									<li>Still keeping secrets outside code. Storing the CLIENT_SECRET as a secret in Radix</li>
 								<ul>
 							</ul>
@@ -2123,7 +2153,8 @@
 						<section>
 							<h2>Tasks</h2>
 							<ul>
-								<li>Fork the project at <span style="color:red">https://github.com/larskaare/sMailandStuff</span></li>
+								<li>Fork the project at <span style="color:red">https://github.com/larskaare/sMailandStuff</span>
+								</br> to your own user on github.com</li>
 								<li>Use the instructions in the README.md to configure and run the application locally</li>
 								<li>Deploy to the cloud using Radix. A good place to start would be <a href="https://www.radix.equinor.com" target="_blank">The Radix Getting Started</a></li>
 							</ul>
