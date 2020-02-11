@@ -42,7 +42,7 @@ Helpful knowledge and skills:
 Installed and verified to work software.
 
 * Node.js
-  * Use Node LTS version v12.4.1 (tested with v11.9.0 as well)
+  * Use Node LTS version v12.5.0 (tested with v11.9.0 as well)
   * Using node version manager nvm is recommended
   * Python may be needed for some node modules to install
 * Development IDE ( like VS Code)
