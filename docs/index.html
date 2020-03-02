@@ -68,105 +68,103 @@
 							<li>Give an introduction to basics modern web A&A</li>
 							<li>Explore Spec and Azure Implementation</li>
 							<li>Hands-on coding with a few A&A scenarios </li>
-							<li>Insight into threats and current best practices (BCP) for security</li>
+							<li>Insight into threats and best current practices (BCP) for security</li>
 						</ul>
 					</section>
 				</section>
 
 <!-- Outlines part-->
-<section>
-	<section>
-		<h1>Workshop Outline</h1>
-	</section>
-	<section style="text-align: left;">
-		<h3>Workshop outline</h3>
-		<ul>
-			<li>What problem are we trying to solve?</li>
-			<li>Practicalities</li>
-			<li>The basics of A&A </li>
-			<li>Exercises (8+1)</li>
-			<Sharing>Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
-			<li>Deploy application to the Cloud (using Radix)</li>
-		</ul>
-	</section>
-</section>
+				<section>
+					<section>
+						<h1>Workshop Outline</h1>
+					</section>
+					<section style="text-align: left;">
+						<h3>Workshop outline</h3>
+						<ul>
+							<li>What problem are we trying to solve?</li>
+							<li>Practicalities</li>
+							<li>The basics of A&A</li>
+							<li>Exercises (8+1)</li>
+							<Sharing>Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
+							<li>Deploy application to the Cloud (using Radix)</li>
+						</ul>
+					</section>
+				</section>
 
 
 <!-- A day in the life of a modern app-->
-			<section>
-					<section>
-						<h3>A day in the life of</h3>
-						<h2 style="color:red">sMailandStuff</h2>
-						<Small>The mature web Swiss Army Knife</Small>
-						<p></p>
-						<a href="https://webapp-smailandstuff-production.playground.radix.equinor.com/"
-						target="_blank">sMailandStuff</a> on Raidx
-					</section>
+				<section>
+						<section>
+							<h3>A day in the life of</h3>
+							<h2 style="color:red">sMailandStuff</h2>
+							<Small>The mature web Swiss Army Knife</Small>
+							<p></p>
+							<a href="https://webapp-smailandstuff-production.playground.radix.equinor.com/"
+							target="_blank">sMailandStuff</a> on Raidx
+						</section>
 
-					<section>
-						<h3>The players</h3>
-						<img src="./graphics/export/actors.jpg" width="75%">
-					</section>
+						<section>
+							<h3>The players</h3>
+							<img src="./graphics/export/actors.jpg" width="75%">
+						</section>
 				</section>
 			
 <!-- The Delegation problem-->
-			<section>
-						
 				<section>
-					<h1>The delegation problem</h1>
-					<small style="color:blue">Giving access to 3rd parties</small>
-					<p></p><small>API's are a driving force</small>
-				</section>
+							
+					<section>
+						<h1>The delegation problem</h1>
+						<small style="color:blue">Giving access to 3rd parties</small>
+						<p></p><small>API's are a driving force</small>
+					</section>
 
-				<section>
-					<h3>Old style A&A</h3>
-					<small>Impersonating, Direct Authenticating</small><p></p>
-					<img src="./graphics/export/my_super_app_old.jpg" width="75%">
-				</section>
-				<section>
-					<h3>Old style A&A</h3>
-					<small>Impersonating, Direct Authenticating</small>
-					<table>
-						<tr>
-							<td><img src="./graphics/export/my_super_app_old.jpg" ></td>
-							<td style=" vertical-align: top;">
-								<ul>
-									<li>Store id/password for each service</li>
-									<li>No way to revoke access</li>
-									<li>Access not time limited</li>
-									<li>Full access only - not granular</li>
-								</ul>
-							</td>
-						</tr>
-					</table>
-				</section>
+					<section>
+						<h3>Old style A&A</h3>
+						<small>Impersonating, Direct Authenticating</small><p></p>
+						<img src="./graphics/export/my_super_app_old.jpg" width="75%">
+					</section>
+					<section>
+						<h3>Old style A&A</h3>
+						<small>Impersonating, Direct Authenticating</small>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/my_super_app_old.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<ul>
+										<li>Store id/password for each service</li>
+										<li>No way to revoke access</li>
+										<li>Access not time limited</li>
+										<li>Full access only - not granular</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</section>
 
 
-				<section>
-					<h3>New Style A&A</h3>
-					<small>Delegating</small><p></p>
-					<img src="./graphics/export/my_super_app_new.jpg" width="75%">
+					<section>
+						<h3>New Style A&A</h3>
+						<small>Delegating</small><p></p>
+						<img src="./graphics/export/my_super_app_new.jpg" width="75%">
+					</section>
+					<section>
+						<h3>New style A&A</h3>
+						<table>
+							<tr>
+								<td><img src="./graphics/export/my_super_app_new.jpg" ></td>
+								<td style=" vertical-align: top;">
+									<ul>
+										<li>id/password not stored on client</li>
+										<li>Access can be revoked</li>
+										<li>Access can be time limited</li>
+										<li>Access can be granular</li>
+										<li>Access is delegated from resource owner to client</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</section>
 				</section>
-				<section>
-					<h3>New style A&A</h3>
-					<table>
-						<tr>
-							<td><img src="./graphics/export/my_super_app_new.jpg" ></td>
-							<td style=" vertical-align: top;">
-								<ul>
-									<li>id/password not stored on client</li>
-									<li>Access can be revoked</li>
-									<li>Access can be time limited</li>
-									<li>Access can be granular</li>
-									<li>Access is delegated from resource owner to client</li>
-								</ul>
-							</td>
-						</tr>
-					</table>
-				</section>
-
-				</section>
-
 
 <!-- Disclaimer part-->
 				<section>
@@ -201,16 +199,14 @@
 								<li>Examples uses Unix path notation "./src". </br>In Windows this will be "src/</li>
 								<li>Scripts in course code, like <span style="color: blue">npm start</span> uses Linux notation. Must be changed for Windows environments</li>
 							</ul>
-						
 						</section>
-		
 				</section>
 
-
-<!-- The basic of A&A -->
+<!-- The basic of A&A part 1-->
 				<section>
 					<section>
 						<h1>The basics of A&A</h1>
+						<h4>Part #1</h4>
 					</section>
 					<section>
 						<h3>Authentication vs. Authorization</h3>
@@ -348,7 +344,17 @@
 						<h3>Obtaining authorization - </br>the oauth Dance</h3>
 						<blockquote style="font-size: 80%;">To request an access token, the client obtains authorization from the resource owner.  The authorization is expressed in the form of an authorization grant, which the client uses to request the access token.  OAuth defines four grant types: <span style="color:red">authorization code, implicit, resource owner password credentials</span>, and <span style="color:red">client credentials</span>.  It also provides an extension mechanism for defining additional grant types.</blockquote>
 				</section>
-					
+
+				<section>
+					<h2>It's about getting tokens</h2>
+					<ul>
+						<li>Access token (to provide access)</li>
+						<li>ID token (to prove identity)</li>
+						<li>Refresh token</li>
+					</ul>
+					<p>More on tokens later....</p>
+				</section>
+
 				<section>
 					<h3><a href="https://tools.ietf.org/html/rfc6749#section-4.1"
 						target="_blank">Authorization Code Grant</a></h3>
@@ -495,313 +501,153 @@
 
 
 				<section>
-					<h2>Let's disucss a few elements</h2>
-				</section>
+						<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
+						<ul style="font-size: 80%;">
+							<li><span style="color:red">Identity</span> layer built on-top of oAuth2</li>
+							<li>Defines user authentication meta data</li>
+							<li>Can control authentication</li>
+							<lI>Enables federation</lI><p></p>
+						</ul>
+						<table style="font-size: 80%;">
+							<thead>
+								<tr>
+									<td>oAuth2 term</td>
+									<td>OICD term</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Resouce owner</td>
+									<td>User</td>
+								</tr>
+								<tr>
+									<td>Client</td>
+									<td>Relying party</td>
+								</tr>
+								<tr>
+									<td>Authorisation server, Protected resource</td>
+									<td>Identity provider</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+	
+					<section>
+							<h3>OpenID Connect Code Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-2-</p>
+										<span style="font-size: 70%;">
+										GET /authorize? </br>
+										client_id=client </br>
+										&scope=read+<span style="color:red">openid</span> </br>
+										&reponse_type=code </br>
+										&state=1234
+										&redirect_uri=
+										https://app/callback
+										</span>
+									</td>
+								</tr>
+							</table>
+					</section>
 
 
-				<section>
-						<h3>Clients</h3>
-						<ul>
-							<li>Clients are either confidential or public
+					<section>
+							<h3>OpenID Connect Code Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-3-</p>
+										Authentication is handed over to authentication server
+									</td>
+								</tr>
+							</table>
+					</section>
+
+					<section>
+							<h3>OpenID Connect Code Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-4-</p>
+										<span style="font-size: 70%;">
+										303 redirect
+										https://app/callback? </br>
+										code=o-t-c</br>
+										&state=1234</br>		
+										</span>
+									</td>
+								</tr>
+							</table>
+					</section>
+
+					<section>
+							<h3>OpenID Connect Code Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-5-</p>
+										<span style="font-size: 70%;">
+										POST /token 
+										grant_type=authorization_code</br>
+										&client_id=</br>
+										&client_secret=</br>
+										&code=</br>
+										&redirect_uri=</br>
+										</span>
+									</td>
+								</tr>
+							</table>
+					</section>
+
+					<section>
+							<h3>OpenID Connect Code Flow</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-6-</p>
+										<span style="font-size: 70%;">
+										{</br>
+												"access_token":"ey2YotnFZFEjr1zCsicMWpAA",</br>
+												"token_type":"example",</br>
+												<span style="color:red">"id_token": "eynndj3nn77hs7Hhjhjh"</span> ,</br>
+												"expires_in":3600,</br>
+												"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",</br>
+												"token_type":"Bearer"
+											</br>}
+										</span>
+									</td>
+								</tr>
+							</table>
+					</section>
+
+
+
+						<section>
+						<h2>OpenID Connect (OICD)</h2>
+						<ul style="font-size: 70%";">
+							<li>New <span style="color:red">IDToken</span> received upon successful authentication</li>
+							<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
+							<li>IDToken's can be given to client along with Access tokens</li>
+							<li>IDTokens' are signed JWT tokens.</li>
+							<li>ID tokens contains claims such as</li>
 								<ul>
-									<li><span style="color:red">Confidential:</span> Clients capable of maintaining the confidentiality of their credentials. (Web apps)</li>
-									<li><span style="color:red">Public:</span> Clients incapable of maintaining the confidentiality of their credentials (SPA, Native) </li>
+									<li>iss - issuer of the token</li>
+									<li>sub - subject - user id from identity provider</li>
+									<li>aud - audience - id for relying party</li>
+									<li>exp - expiration time stamp</li>
 								</ul>
-							</li>
-							<li>Clients provide a redirection URI</li>
+							<li>For the Azure implementation, more documentation on the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages.
+							Explore attributes such as "prompt", "login_hint", "response_mode"</li>
 						</ul>
 					</section>
-				
-					<section>
-						<h3>Protocol Endpoints</h3>
-						<ul>
-							<li><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner </li>
-							<li><span style="color:red">Token endpoint:</span> used by client to exchange authorization grant for an access token</li>
-							<li>There may be other endpoints based on actual implementation</li>
-					</section>
-					
-					<section>
-						<h3>Channels - Interaction between actors</h3>
-						<ul>
-							<li><span style="color:red">Front-channel</span>: Communication between two parties through an intermediate (the web browser)</li>
-							<li><span style="color:red">Back-channel</span>: Communication happening outside the view of the resource owner and the user agent (like browser)</li>					
-						</ul>
 
-					</section>
-
-					<section>
-							<h2>Tokens</h2>
-							<ul>
-								<li>Token type: How it can be used</li>
-								<ul>
-									<li>Use it as is (Access token)</li>
-									<li>Use it, but prove that I own it </br>(Proof Of Ownership, Refresh token)</li>
-								</ul>
-								<li>Token format: Encoding</li>
-								<ul>
-									<li>By value (token contains all values)</li>
-									<li>By reference (pointer to more information)</li>
-								</ul>
-								<li>Token purpose: Who is it for?</br>(Client, Authorisation Server, Resource Server</li>
-							</ul>
-						</section>
-	
-						<section>
-							<h3>Access token</h3>
-							<ul style="font-size: 80%;">
-								<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
-								 </li>
-								 <li>By reference or value, for <span style="color:red">resource server</span>, bearer type</li>
-							</ul>						
-						</section>
-	
-						<section>
-								<h3>Refresh token</h3>
-								<ul style="font-size: 80%;">
-									<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
-									</li>
-									 <li>By value, for <span style="color:red">client</span></li>
-								</ul>						
-						</section>
-	
-						<section>
-							<h3>ID token</h2>
-							<ul style="font-size: 80%;">
-								<li>ID tokens are issued to the client to validate that a user is who he/she claims to be and to provide additional
-									information about the user.
-								</li>
-								<li>ID tokens are issued as part of OpenID connect</li>
-								 <li>By value, for <span style="color:red">client</span></li>
-							</ul>						
-					</section>
-
-					<section>
-							<h3>Azure AD (AAD) issues JWT tokens (access, id)</h3>
-							<small><a href="https://tools.ietf.org/html/rfc7519" target="_blank">JSON Web Token (JWT)(RFC7519)</a></small></br>
-							<div style="font-size:40%; text-align: center;">eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9<span style="color:red">.</span></br>eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ<span style="color:red">.</span></br>dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</div>
-							<p></p>
-							<pre><code class="hljs">
-	{
-	  "typ": "JWT",
-	  "alg": "HS256"
-	}.
-	{
-	  "iss": "joe",
-	  "exp": 1300819380,
-	}.
-	[Signature]
-							</code> 
-							</pre>	
-							<small style="font-size: 40%;">Header, Payload with claims and Signature -  based64 encoded</small>
-	
-						</section>
-
-					<section>
-						<h3>Scope</h3>
-						<ul>
-							<li>Defined the scope of access</li>
-							<li>Defines permissions given in the access token</li>
-							<li>Consentable</li>
-							<li>The scope request is configured on the client</li>
-							<li>The Scope is requested in the flow</li>
-							<li>The Authorization Server determines if scope should be issued</li>
-						</ul>
-					</section>
-					<section>
-							<h3>Consent</h3>
-							<ul>
-								<li>Scope can be consented by (In Azure impl)</li>
-								<ul>
-									<li>User on on-behalf of self</li> 
-									<li>Admin on behalf of organization</li>
-								</ul>
-								<li>The consent is about delegating the client access to resource server on a users behalf</li>
-							</ul>
-						</section>
-					
-
-						<section>
-								<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
-								<ul style="font-size: 80%;">
-									<li><span style="color:red">Identity</span> layer built on-top of oAuth2</li>
-									<li>Defines user authentication meta data</li>
-									<li>Can control authentication</li>
-									<lI>Enables federation</lI><p></p>
-								</ul>
-								<table style="font-size: 80%;">
-									<thead>
-										<tr>
-											<td>oAuth2 term</td>
-											<td>OICD term</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Resouce owner</td>
-											<td>User</td>
-										</tr>
-										<tr>
-											<td>Client</td>
-											<td>Relying party</td>
-										</tr>
-										<tr>
-											<td>Authorisation server, Protected resource</td>
-											<td>Identity provider</td>
-										</tr>
-									</tbody>
-								</table>
-							</section>
-		
-							<section>
-									<h3>OpenID Connect Code Flow</h3>
-									<table>
-										<tr>
-											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
-											<td style=" vertical-align: top;">
-												<p>-2-</p>
-												<span style="font-size: 70%;">
-												GET /authorize? </br>
-												client_id=client </br>
-												&scope=read+<span style="color:red">openid</span> </br>
-												&reponse_type=code </br>
-												&state=1234
-												&redirect_uri=
-												https://app/callback
-												</span>
-											</td>
-										</tr>
-									</table>
-							</section>
-
-
-							<section>
-									<h3>OpenID Connect Code Flow</h3>
-									<table>
-										<tr>
-											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
-											<td style=" vertical-align: top;">
-												<p>-3-</p>
-												Authentication is handed over to authentication server
-											</td>
-										</tr>
-									</table>
-							</section>
-
-							<section>
-									<h3>OpenID Connect Code Flow</h3>
-									<table>
-										<tr>
-											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
-											<td style=" vertical-align: top;">
-												<p>-4-</p>
-												<span style="font-size: 70%;">
-												303 redirect
-												https://app/callback? </br>
-												code=o-t-c</br>
-												&state=1234</br>		
-												</span>
-											</td>
-										</tr>
-									</table>
-							</section>
-
-							<section>
-									<h3>OpenID Connect Code Flow</h3>
-									<table>
-										<tr>
-											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
-											<td style=" vertical-align: top;">
-												<p>-5-</p>
-												<span style="font-size: 70%;">
-												POST /token 
-												grant_type=authorization_code</br>
-												&client_id=</br>
-												&client_secret=</br>
-												&code=</br>
-												&redirect_uri=</br>
-												</span>
-											</td>
-										</tr>
-									</table>
-							</section>
-
-							<section>
-									<h3>OpenID Connect Code Flow</h3>
-									<table>
-										<tr>
-											<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
-											<td style=" vertical-align: top;">
-												<p>-6-</p>
-												<span style="font-size: 70%;">
-												{</br>
-														"access_token":"ey2YotnFZFEjr1zCsicMWpAA",</br>
-														"token_type":"example",</br>
-														<span style="color:red">"id_token": "eynndj3nn77hs7Hhjhjh"</span> ,</br>
-														"expires_in":3600,</br>
-														"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",</br>
-														"token_type":"Bearer"
-													</br>}
-												</span>
-											</td>
-										</tr>
-									</table>
-							</section>
-
-
-							<section>
-									<h3>Example ID Token</h3>
-									<small>Azure AD ID Token <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">claims</a></small>
-									<pre><code class="hljs" style="font-size: 60%;">
-			{
-				"typ": "JWT",
-				"alg": "RS256"
-				}.{
-				"aud": "cab2507d-e7d1-46fd-9580-ea7de0cd02ea",
-				"iss": "https://login.microsoftonline.com/../v2.0",
-				"exp": 1571657734,
-				"name": "Jon Doe",
-				"oid": "..",
-				"roles": [
-					"Admin"
-				],
-				"sub": "..",
-				}.[Signature]</code> 
-									</pre>	
-								</section>
-	
-								<section>
-								<h2>OpenID Connect (OICD)</h2>
-								<ul style="font-size: 70%";">
-									<li>New <span style="color:red">IDToken</span> received upon successful authentication</li>
-									<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
-									<li>IDToken's can be given to client along with Access tokens</li>
-									<li>IDTokens' are signed JWT tokens.</li>
-									<li>ID tokens contains claims such as</li>
-										<ul>
-											<li>iss - issuer of the token</li>
-											<li>sub - subject - user id from identity provider</li>
-											<li>aud - audience - id for relying party</li>
-											<li>exp - expiration time stamp</li>
-										</ul>
-									<li>For the Azure implementation, more documentation on the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc" target="_blank">Microsoft Identity Platform</a> doc pages.
-									Explore attributes such as "prompt", "login_hint", "response_mode"</li>
-								</ul>
-							</section>
-
-
-					<section>
-						<h3>Token Introspection</h3>
-						<ul>
-							<li>The process for a protected resource to query the authorization server to verify validity of a oAuth2 token</li>
-							<li>An extension to oAuth2 defined in <a href="https://tools.ietf.org/html/rfc7662"
-							target="_blank">rfc7662</a></li>
-							<li>Getting tokens type by ref and querying for "details"</li>
-							<li>Not currently supported by Azure AD
-							<a href="https://feedback.azure.com/forums/169401-azure-active-directory/suggestions/18930289-introspection-endpoint-for-azure-active-directory"
-							target="_blank">(Improvement request)</a>	
-							</li>
-						</ul>
-					</section>
 
 					<section>
 						<h3>OAuth Flows that we have not covered</h3>
@@ -823,8 +669,6 @@
 							<li>Be aware of doc and v1 vs. v2 (it's easy to read the wrong one)</li>
 						</ul>
 					</section>
-
-
 				</section>
 
 <!-- Exercise 1 -->
@@ -934,80 +778,24 @@
 					</section>
 				</section>
 
-<!-- Exercise 2 : Currently removed -->
-<!-- 
+<!-- Exercise 2 :  -->					
+				
 				<section>
-					<section>
-						<h1>Exercise 2</h1>
-						<h3>Prepare a web application</h3>
-					</section>
-
-					<section>
-						<h3>Verify the environment</h3>
-						<code class="hljs">$ git --version</code>
-						<code class="hljs">$ node --version</code>
-						<code class="hljs">$ npm --version</code>
-					</section>
-
-					<section>
-						<h3>Generate default web application</h3>
-						<p>We will create a web application running node.js on the back-end using the <a href="https://expressjs.com/" target="_blank">Express framework</a></p>
-						<ul style="font-size:80%">
-							<li>Navigate to <span style="color:blue">"./ex-2"</span></li>
-							<li>Install npx (execute npm package binaries)</li>
-							<code class="hljs">$ npm install -g npx</code>
-							<li>Running the express generator</li>
-							<code class="hljs">$ npx express-generator --view=pug</code>
-							<li>Installing dependencies</li>
-							<code class="hljs">$ npm install</code>
-						</ul>
-					</section>
-
-					<section>
-						<h3>Let's add a linter - thats good practice</h3>
-						<ul style="font-size:80%">
-							<li>Install eslint
-								<code class="hljs">$ npm install eslint --save-dev</code>
-							</li>
-							<li>Intialise <a href="https://www.npmjs.com/package/eslint" target="_blank">eslint</a></li>
-								<code class="hljs">$ ./node_modules/.bin/eslint --init</code>
-							<li>Run the linter
-								<code class="hljs">$ ./node_modules/.bin/eslint . --ext .js</code>
-							</li>
-							<li>Explore results from linter, investigate <span style="color:blue">"/.eslintrc.json"</span></li>
-							<li>Run the brand new and shiny web applicatin
-								<code class="hljs">$ npm start</code>
-							</li>
-
-						</ul>
-					</section>
-				</section> -->
-
-<!-- Exercise 3 : Currently removed -->		
-				<!-- <section>
 						<section>
-							<h1>Exercise 3</h1>
-							<h3>Add authentication</h3>
-							<small>OAuth2, OpenID, Auth Code Grant Flow</small>
+							<h1>Exercise 2</h1>
+							<h4>Web applicaton</h4>
+							<h3>Getting an access token</h3>
 						</section>
-
+	
 						<section>
-							<h3>Preparing the code</h3>
-							<ul>
-								<li>Navigate to the <span style="color: blue">./ex-3</span> directory</li>
-								<li>Install dependencies
-									<code class="hljs">$ npm install</code>
-								</li>
-							</ul>
-						</section>
-						
-						<section>
-							<h3>Outline for exploring the code</h3>
-							<ul>
-								<li>Environment variables</li>
+							<h3>Outline</h3>
+							<ul>		
+								<li>Environment Variables</li>
+								<li>Prepare environment (ex-2)</li>
+								<li>Explore the web app code</li>
+								<li>Config, run and explore app</li>
 								<li>Secrets</li>
-								<li>Handling the authentication</li>
-								<li>Staging environments - logging</li>
+								<li>Staging environments and logging</li>
 							</ul>
 						</section>
 
@@ -1019,12 +807,63 @@
 									<code class="hljs">$ export CLIENT_SECRET=[your secret]</code>
 									<code class="hljs">$ export CLIENT_ID=[your client id]</code>
 									<code class="hljs">$ export NODE_ENV=[production | developement | debug]</code>
-									
 								</li>
 								<li><span style="color:red">Good practice</span>: 
 									Move config into config files, potentially .env files (that are defined in .gitignore and/or kept outside version control, stored outside git)	
 								</li>
 							</ul>
+						</section>
+
+						<section>
+								<h3>Preparing the environment</h3>
+								<ul>
+									<li>Navigate to the <span style="color: blue">./ex-2</span> directory</li>
+									<li>Install dependencies
+										<code class="hljs">$ npm install</code>
+									</li>
+								</ul>
+						</section>
+
+						<section>
+								<h3>Explore the code</h3>
+								<ul>
+									<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
+									<li>Explore application config objects </br>(authServer, client, scope)</li>
+									<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
+									<ul>
+										<li>/authorize</li>
+										<li>/callback</li>
+									</ul>
+									<li>Header uses basic auth for client credentials (remember to base64 encode)</li>
+									</br>
+									<li>Explore routing/views in application</li>
+								</ul>
+						</section>
+
+						<section>
+								<h3>Config, Run and Explore </h3>
+								<img src="./graphics/export/actors.jpg" 
+								style="
+									position: absolute;
+									top: 100px;
+									right:0px;
+									width:20%;
+									display:inline-block
+								">
+								<ul style="font-size: 80%;">
+									<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
+									<li>Explore the <span style="color:blue">client</span> object in app.js</li>
+									<li>Configure environment variables</li>
+									<li>Run web application
+										<code class="hljs">$ npm start</code>
+									</li>
+									<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, alter scope and other params</li>
+									<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. </br> Test revoking for test app.</li>
+									<li>Explore running the app with NODE_ENV=debug</li>
+									<li><span style="color:red">Bad practice?</span>: 
+										Extracting things like "given_name" from Access Token to display in client (as done in exercise code)</li>
+								</ul>
+								</ul>
 						</section>
 
 						<section>
@@ -1043,176 +882,195 @@
 						</section>
 
 						<section>
-							<h3>Handling the authentication</h3>
+							<h3>Staging environments - logging </h3>
 							<ul>
-								<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
-								<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
-								<li>Explore application config (client_id, secret, callback)</li>
-								<li>Explore authentication flow in code (auth, redirect, callback)</li>
+								<li>Explore logging logic in <span style="color:blue">./app.js</span></li>
+								<li>Different logging level dependent on environment (debug, development, production)</li>
+								<li><span style="color:red">Good practice</span>: 
+									Have a strategy for log purpose and transports (why you log, where you store/not store)	
+								</li>
 								<li><span style="color:red">Good practice</span>: 
 									Be conscious of what you put in log files!!	
 								</li>
 							</ul>
 						</section>
+				</section>
 
-						<section>
-								<h3>Staging environments - logging </h3>
-								<ul>
-									<li>Explore logging logic in <span style="color:blue">./app.js</span></li>
-									<li>Different logging level dependent on environment (debug, development, production)</li>
-									<li><span style="color:red">Good practice</span>: 
-										Have a strategy for log purpose and transports (why you log, where you store/not store)	
-									</li>
-								</ul>
-						</section>
-
-						<section>
-								<h3>Config, Run and Explore </h3>
-								<img src="./graphics/export/actors.jpg" 
-									style="
-										position: absolute;
-										top: 150px;
-										right:0px;
-										width:20%;
-										display:inline-block
-									">
-								<ul>
-									<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
-									<li>Explore the <span style="color:blue">client</span> object in app.js</li>
-									<li>Configure environment variables</li>
-									<li>Run web application
-										<code class="hljs">$ npm start</code>
-									</li>
-									<li>Explore; change config - change auth params  - observe error messages, observe logging behavior </li>
-								</ul>
-						</section>
-
-						<section>
-								<h3>We are authenticated</h3>
-								<p>and have a code that can be used only once and that will expire shortly (spec says max 10 minutes) </p>
-						</section>
+<!-- The basic of A&A - part 2 -->
+<section>
+	<section>
+		<h1>The basics of A&A</h1>
+		<h4>Part #2</h4>
+	</section>
 
 
+	<section>
+		<h2>Let's disucss a few elements</h2>
+	</section>
 
-					</section> -->
 
-<!-- Exercise 2 :  -->					
-				
-					<section>
-							<section>
-								<h1>Exercise 2</h1>
-								<h4>Web applicaton</h4>
-								<h3>Getting an access token</h3>
-							</section>
+	<section>
+			<h3>Clients</h3>
+			<ul>
+				<li>Clients are either confidential or public
+					<ul>
+						<li><span style="color:red">Confidential:</span> Clients capable of maintaining the confidentiality of their credentials. (Web apps)</li>
+						<li><span style="color:red">Public:</span> Clients incapable of maintaining the confidentiality of their credentials (SPA, Native) </li>
+					</ul>
+				</li>
+				<li>Clients provide a redirection URI</li>
+			</ul>
+		</section>
+	
+		<section>
+			<h3>Protocol Endpoints</h3>
+			<ul>
+				<li><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner </li>
+				<li><span style="color:red">Token endpoint:</span> used by client to exchange authorization grant for an access token</li>
+				<li>There may be other endpoints based on actual implementation</li>
+		</section>
 		
-							<section>
-								<h3>Outline</h3>
-								<ul>		
-									<li>Environment Variables</li>
-									<li>Prepare environment (ex-2)</li>
-									<li>Explore the web app code</li>
-									<li>Config, run and explore app</li>
-									<li>Secrets</li>
-									<li>Staging environments and logging</li>
-								</ul>
-							</section>
+		<section>
+			<h3>Channels - Interaction between actors</h3>
+			<ul>
+				<li><span style="color:red">Front-channel</span>: Communication between two parties through an intermediate (the web browser)</li>
+				<li><span style="color:red">Back-channel</span>: Communication happening outside the view of the resource owner and the user agent (like browser)</li>					
+			</ul>
 
-							<section>
-								<h3>Environment variables</h3>
-								<ul style="font-size: 70%;">
-									<li>Define environment variables
-										<code class="hljs">$ export PORT=3000</code>
-										<code class="hljs">$ export CLIENT_SECRET=[your secret]</code>
-										<code class="hljs">$ export CLIENT_ID=[your client id]</code>
-										<code class="hljs">$ export NODE_ENV=[production | developement | debug]</code>
-									</li>
-									<li><span style="color:red">Good practice</span>: 
-										Move config into config files, potentially .env files (that are defined in .gitignore and/or kept outside version control, stored outside git)	
-									</li>
-								</ul>
-							</section>
+		</section>
 
-							<section>
-									<h3>Preparing the environment</h3>
-									<ul>
-										<li>Navigate to the <span style="color: blue">./ex-2</span> directory</li>
-										<li>Install dependencies
-											<code class="hljs">$ npm install</code>
-										</li>
-									</ul>
-							</section>
 
-							<section>
-									<h3>Explore the code</h3>
-									<ul>
-										<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
-										<li>Explore application config objects </br>(authServer, client, scope)</li>
-										<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
-										<ul>
-											<li>/authorize</li>
-											<li>/callback</li>
-										</ul>
-										<li>Header uses basic auth for client credentials (remember to base64 encode)</li>
-										</br>
-										<li>Explore routing/views in application</li>
-									</ul>
-							</section>
+		<section>
+			<h2>Tokens</h2>
+			<ul>
+				<li>Token type: How it can be used</li>
+				<ul>
+					<li>Use it as is, bearer type (Access token) (<a href="https://tools.ietf.org/html/rfc6750" target="_blank">RFC6750</a>)  </li>
+					<li>Use it, but prove that I own it </br>(Proof Of Possession)(No wide implementation)</li>
+				</ul>
+				<li>Token format: Encoding</li>
+				<ul>
+					<li>By value (token contains all values)</li>
+					<li>By reference (pointer to more information)</li>
+				</ul>
+				<li>Token purpose: Who is it for?</br>(Client, Authorisation Server, Resource Server</li>
+			</ul>
+		</section>
 
-							<section>
-									<h3>Config, Run and Explore </h3>
-									<img src="./graphics/export/actors.jpg" 
-									style="
-										position: absolute;
-										top: 100px;
-										right:0px;
-										width:20%;
-										display:inline-block
-									">
-									<ul style="font-size: 80%;">
-										<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
-										<li>Explore the <span style="color:blue">client</span> object in app.js</li>
-										<li>Configure environment variables</li>
-										<li>Run web application
-											<code class="hljs">$ npm start</code>
-										</li>
-										<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, alter scope and other params</li>
-										<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. </br> Test revoking for test app.</li>
-										<li>Explore running the app with NODE_ENV=debug</li>
-										<li><span style="color:red">Bad practice?</span>: 
-											Extracting things like "given_name" from Access Token to display in client (as done in exercise code)</li>
-									</ul>
-									</ul>
-							</section>
+		<section>
+			<h3>Access token</h3>
+			<ul style="font-size: 80%;">
+				<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
+				 </li>
+				 <li>By reference or value, for <span style="color:red">resource server</span>, bearer type</li>
+			</ul>						
+		</section>
 
-							<section>
-								<h3>Secrets</h3>
-								<ul>
-									<li><span style="color:red">Good practice</span>: 
-										Keep secrets outside version control!	
-									</li>
-									<li><span style="color:red">Ok practice</span>: 
-										Inject secrets as environment variables	
-									</li>
-									<li><span style="color:red">Good practice</span>: 
-										Store secrets in keyvaults (explore if managed identities are available (MSI)) 	
-									</li>
-								</ul>
-							</section>
+		<section>
+				<h3>Refresh token</h3>
+				<ul style="font-size: 80%;">
+					<li>Refresh tokens are credentials used to obtain access tokens.  Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope (access tokens may have a shorter lifetime and fewer permissions than authorized by the resource	owner).  Issuing a refresh token is optional at the discretion of the authorization server.  If the authorization server issues a refresh token, it is included when issuing an access token.</span>
+					</li>
+					 <li>By value, for <span style="color:red">client</span></li>
+				</ul>						
+		</section>
 
-							<section>
-								<h3>Staging environments - logging </h3>
-								<ul>
-									<li>Explore logging logic in <span style="color:blue">./app.js</span></li>
-									<li>Different logging level dependent on environment (debug, development, production)</li>
-									<li><span style="color:red">Good practice</span>: 
-										Have a strategy for log purpose and transports (why you log, where you store/not store)	
-									</li>
-									<li><span style="color:red">Good practice</span>: 
-										Be conscious of what you put in log files!!	
-									</li>
-								</ul>
-							</section>
-					</section>
+		<section>
+			<h3>ID token</h2>
+			<ul style="font-size: 80%;">
+				<li>ID tokens are issued to the client to validate that a user is who he/she claims to be and to provide additional
+					information about the user.
+				</li>
+				<li>ID tokens are issued as part of OpenID connect</li>
+				 <li>By value, for <span style="color:red">client</span></li>
+			</ul>						
+	</section>
+
+	<section>
+			<h3>Azure AD (AAD) issues JWT tokens (access, id)</h3>
+			<small><a href="https://tools.ietf.org/html/rfc7519" target="_blank">JSON Web Token (JWT)(RFC7519)</a></small></br>
+			<div style="font-size:40%; text-align: center;">eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9<span style="color:red">.</span></br>eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ<span style="color:red">.</span></br>dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</div>
+			<p></p>
+			<pre><code class="hljs">
+{
+"typ": "JWT",
+"alg": "HS256"
+}.
+{
+"iss": "joe",
+"exp": 1300819380,
+}.
+[Signature]
+			</code> 
+			</pre>	
+			<small style="font-size: 40%;">Header, Payload with claims and Signature -  based64 encoded</small>
+
+		</section>
+
+
+		<section>
+			<h3>Example ID Token</h3>
+			<small>Azure AD ID Token <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">claims</a></small>
+			<pre><code class="hljs" style="font-size: 60%;">
+{
+"typ": "JWT",
+"alg": "RS256"
+}.{
+"aud": "cab2507d-e7d1-46fd-9580-ea7de0cd02ea",
+"iss": "https://login.microsoftonline.com/../v2.0",
+"exp": 1571657734,
+"name": "Jon Doe",
+"oid": "..",
+"roles": [
+"Admin"
+],
+"sub": "..",
+}.[Signature]</code> 
+			</pre>	
+		</section>
+
+	<section>
+		<h3>Scope</h3>
+		<ul>
+			<li>Defined the scope of access</li>
+			<li>Defines permissions given in the access token</li>
+			<li>Consentable</li>
+			<li>The scope request is configured on the client</li>
+			<li>The Scope is requested in the flow</li>
+			<li>The Authorization Server determines if scope should be issued</li>
+		</ul>
+	</section>
+	<section>
+			<h3>Consent</h3>
+			<ul>
+				<li>Scope can be consented by (In Azure impl)</li>
+				<ul>
+					<li>User on on-behalf of self</li> 
+					<li>Admin on behalf of organization</li>
+				</ul>
+				<li>The consent is about delegating the client access to resource server on a users behalf</li>
+			</ul>
+		</section>
+
+
+		<section>
+			<h3>Token Introspection</h3>
+			<ul>
+				<li>The process for a protected resource to query the authorization server to verify validity of a oAuth2 token</li>
+				<li>An extension to oAuth2 defined in <a href="https://tools.ietf.org/html/rfc7662"
+				target="_blank">rfc7662</a></li>
+				<li>Getting tokens type by ref and querying for "details"</li>
+				<li>Not currently supported by Azure AD
+				<a href="https://feedback.azure.com/forums/169401-azure-active-directory/suggestions/18930289-introspection-endpoint-for-azure-active-directory"
+				target="_blank">(Improvement request)</a>	
+				</li>
+			</ul>
+		</section>
+
+	
+</section>
+
+
 
 <!-- Exercise 3 :  -->	
 					<section>
@@ -2158,7 +2016,15 @@
 								<li>Use the instructions in the README.md to configure and run the application locally</li>
 								<li>Deploy to the cloud using Radix. A good place to start would be <a href="https://www.radix.equinor.com" target="_blank">The Radix Getting Started</a></li>
 							</ul>
-
+						</section>
+						<section>
+							<h2>Traps ...</h2>
+							<ul>
+								<li>The app name in radixconfig</li>
+								<li>Remove SNYK token from radixconfig (or define value in console)</li>
+								<li>Update redirect URL in app registration</li>
+								<li>Update CLIENTID in radixconfig</li>
+							</ul>
 						</section>
 					</section>
 
@@ -2167,6 +2033,7 @@
 								<h1>Clean-Up</h1>
 								<ul>
 									<li>Clean-up in Azure AD App Registration</li>
+									<li>Clean-up in Radix - remove app after usage</li>
 								</ul>
 							</section>
 					</section>
