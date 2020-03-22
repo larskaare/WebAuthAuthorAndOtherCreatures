@@ -16,7 +16,7 @@
     "moment": "^2.24.0",
     "morgan": "~1.9.1",
     "pug": "^2.0.4",
-    "qs": "^6.9.0",
+    "qs": "^6.9.1",
     "querystring": "^0.2.0",
     "randomstring": "^1.1.5",
     "then-request": "^6.0.2",
