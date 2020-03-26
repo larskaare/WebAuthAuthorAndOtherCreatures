@@ -108,7 +108,7 @@ $ git --version
 git version 2.21.0
 ```
 
-Should produce proof of an up to date version of git [Git Bash](https://git-scm.com/downloads)
+Should produce proof of an up to date version of git [Git](https://git-scm.com/downloads)
 
 ```shell
 $ node --version
@@ -136,6 +136,6 @@ $ docker --version
 Docker version 19.03.8
 ```
 
-Should produce evidence of an update to date version of docker [Docker Desktop](https://www.docker.com/products/docker-desktop)
+Should produce evidence of an update to date version of docker [Docker](https://www.docker.com/products/docker-desktop)
 
 > Please verify that the tools work properly within your network environment. Typical problems would be related to PROXY settings.
