@@ -51,6 +51,8 @@ exports.creds = {
     // we encrypt state and save it in cookie instead. This option together with { session: false } allows your app
     // to be completely express session free.
     useCookieInsteadOfSession: true,
+
+    cookieSameSite: false,
   
     // Required if `useCookieInsteadOfSession` is set to true. You can provide multiple set of key/iv pairs for key
     // rollover purpose. We always use the first set of key/iv pair to encrypt cookie, but we will try every set of
