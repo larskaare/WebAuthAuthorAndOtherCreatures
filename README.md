@@ -60,7 +60,7 @@ Helpful knowledge and skills:
 Installed and verified to work software.
 
 - Node.js
-  - Use Node LTS version v12.16.0
+  - Use Node LTS version v12.16.3
   - Using node version manager [nvm](https://github.com/nvm-sh/nvm) is recommended on Linux/Mac. For Windows users [nvm-windows](https://github.com/coreybutler/nvm-windows) could be an option.
   - Python may be needed for some node modules to install
 - Development IDE (like [Visual Studio Code](https://code.visualstudio.com/))
@@ -105,21 +105,21 @@ Most things should work ok with the cmd or powershell - with a few limitations. 
 
 ```shell
 $ git --version
-git version 2.21.0
+git version 2.24.3
 ```
 
 Should produce proof of an up to date version of git [Git](https://git-scm.com/downloads)
 
 ```shell
 $ node --version
-v12.16.1
+v12.16.3
 ```
 
 Should produce proof of an up to date LTS version of [NodeJS](https://nodejs.org/en/download/)
 
 ```shell
 $ npm --version
-6.14.3
+6.14.4
 ```
 
 Npm is installed with NodeJS
