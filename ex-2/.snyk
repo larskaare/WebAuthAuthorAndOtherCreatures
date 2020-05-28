@@ -5,10 +5,10 @@ ignore: {}
 patch:
   SNYK-JS-LODASH-567746:
     - pug > pug-code-gen > constantinople > babel-types > lodash:
-        patched: '2020-05-28T10:16:33.350Z'
+        patched: '2020-05-28T10:18:11.576Z'
     - pug > pug-filters > constantinople > babel-types > lodash:
-        patched: '2020-05-28T10:16:33.350Z'
+        patched: '2020-05-28T10:18:11.576Z'
     - pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
-        patched: '2020-05-28T10:16:33.350Z'
+        patched: '2020-05-28T10:18:11.576Z'
     - winston > async > lodash:
-        patched: '2020-05-28T10:16:33.350Z'
+        patched: '2020-05-28T10:18:11.576Z'
