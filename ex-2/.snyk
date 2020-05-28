@@ -4,11 +4,11 @@ ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-567746:
-    - winston > async > lodash:
-        patched: '2020-05-01T05:31:45.092Z'
     - pug > pug-code-gen > constantinople > babel-types > lodash:
-        patched: '2020-05-01T05:31:45.092Z'
+        patched: '2020-05-28T10:18:11.576Z'
     - pug > pug-filters > constantinople > babel-types > lodash:
-        patched: '2020-05-01T05:31:45.092Z'
+        patched: '2020-05-28T10:18:11.576Z'
     - pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
-        patched: '2020-05-01T05:31:45.092Z'
+        patched: '2020-05-28T10:18:11.576Z'
+    - winston > async > lodash:
+        patched: '2020-05-28T10:18:11.576Z'

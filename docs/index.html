@@ -14,25 +14,13 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/simple.css" id="theme">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5sßhiv.js"></script>
-		<![endif]-->
 	</head>
 
 	<body>
@@ -761,7 +749,7 @@
 								</br>Scope profile+email will put "more" info into id_token
 								</br>Scope offline_access will add refresh_token
 							</li>
-							<li>Discuss claims, optional claims, application manifest</li>
+							<li>Discuss claims, optional claims, application manifest and <b>token config</b> in AD app object </li>
 							<li>Discuss security considerations (token validation, token storage)</li>
 							<li><span style="color:red">Good practice</span>: Don't uses access tokens as authentication. Access tokens are for the protected resource </li>
 						</ul>
@@ -828,7 +816,7 @@
 								<h3>Explore the code</h3>
 								<ul>
 									<li>Explore endpoints in <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview" target="_blank">Azure</a> for application object</li>
-									<li>Explore application config objects </br>(authServer, client, scope)</li>
+									<li>Explore application config objects </br>(authServer, client, scope) in  <span style="color:blue">./app.js</span></li>
 									<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
 									<ul>
 										<li>/authorize</li>
@@ -857,6 +845,7 @@
 									<li>Run web application
 										<code class="hljs">$ npm start</code>
 									</li>
+									<li>Fix error?</li>
 									<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, alter scope and other params</li>
 									<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. </br> Test revoking for test app.</li>
 									<li>Explore running the app with NODE_ENV=debug</li>
@@ -1391,7 +1380,7 @@
 								</code></pre>
 								Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">
 								 ID Tokens in MS Identity platform</a> as well as the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-optional-claims"
-								 target="_blank">optional</a> claims.
+								 target="_blank">optional</a> claims (and the new <b>token configuration</b> in the AD app object).
 							</section>
 
 							<section>
@@ -1812,7 +1801,7 @@
 											<li><span style="color:red">Good practice</span>: Go with auth code grant flow if you can :)</li>
 											<li><span style="color:red">Good advice</span>: 
 												Monitor support for PKCE in MSAL.js ( 
-												<a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" target="_blank">March 2020, MSAL 2.0.0</a>)</li>	
+												<a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" target="_blank">April 2020, Beta release of MSAL 2.0.0</a>)</li>	
 										</ul>
 								</section>
 					</section>
@@ -2063,7 +2052,13 @@
 			</div>
 		</div>
 
-		<script src="js/reveal.js"></script>
+		
+		<script src="dist/reveal.js"></script>
+		<!-- <script src="plugin/notes/notes.js"></script> -->
+		<!-- <script src="plugin/markdown/markdown.js"></script> -->
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/search/search.js"></script>
 
 		<script>
 
@@ -2079,14 +2074,18 @@
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true },
-					{ src: 'plugin/search/search.js', async: true },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
+				// dependencies: [
+				// 	{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				// 	{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				// 	{ src: 'plugin/highlight/highlight.js', async: true },
+				// 	{ src: 'plugin/search/search.js', async: true },
+				// 	{ src: 'plugin/zoom-js/zoom.js', async: true },
+				// 	{ src: 'plugin/notes/notes.js', async: true }
+				// ]
+			
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealHighlight, RevealZoom, RevealSearch ]
 			});
 
 		</script>
