@@ -157,7 +157,7 @@
         //Get token - then decide
 
         var requestEchoObj = {
-            scopes_std: ["api://1-1-1-1-1/Echo.Read"]
+            scopes: ["api://1-1-1-1-1/Echo.Read"]
         };
 
         myMSALObj.acquireTokenSilent(requestEchoObj).then(function (tokenResponse) {
