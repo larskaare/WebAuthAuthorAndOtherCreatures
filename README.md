@@ -139,3 +139,66 @@ Docker version 19.03.8
 Should produce evidence of an update to date version of docker [Docker](https://www.docker.com/products/docker-desktop)
 
 > Please verify that the tools work properly within your network environment. Typical problems would be related to PROXY settings.
+
+
+## Using docker-comppose to provide the developer environment
+
+The [`./docker-compose.yaml`](./docker-compose.yaml) contains everything we need to run a development environment.
+
+### Start
+
+You will want to use 2-3 terminal sessions ("tabs") for this as it is easier to see what is going on where.
+
+#### _Session 1: Build and start the development container_ 
+
+_Step 1_: Create the workshop config file for docker-compose  
+Copy the template file `workshop-credentials.env-template` and rename the copy to `workshop-credentials.env`, then provide the missing values.
+
+_Step 2_: Start the development container
+
+```sh
+docker-compose up --build
+```
+_Notes for windows users_:  
+- If you are using WSL1  
+  Start docker-compose in windows `cmd` as this will use the native windows docker client that will handle path translation for you.  
+- If you are using WSL2  
+  You are in a happy place, stay there.
+
+#### _Session 2: Run commands inside the development container_  
+
+```sh
+# Open a bash session into the development container
+docker exec -it workshop_development_container bash
+
+# From inside the container you can then run any npm command.
+
+# Example - Exercise 2
+# First install all packages for exercise 2
+cd ex-2
+npm install
+# Then start the nodejs application
+npm start
+```
+
+#### _Session 3: Access the files in host_  
+
+```sh
+# Bring up your IDE and start hacking away. 
+# Please note that template files will not be hot reloaded, see "Notes" down below
+code .
+
+# Run git commands etc
+git status
+```
+
+### Stop
+
+Stop and remove all started containers and networks
+
+```sh
+docker-compose down
+```
+You can always bomb out using `ctrl+c` and similar in the session where `docker-compose` is running, the drawback is that there will be leftovers from the `docker-compose` process.  
+By using command `docker-compose down` you will get a clean exit.  
+Optionally you can provide even more arguments to specify what should be cleaned up for more advanced use cases.

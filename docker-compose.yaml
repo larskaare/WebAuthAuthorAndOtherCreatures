@@ -1,0 +1,27 @@
+# For later consideration regarding Postman
+# "newman" is the cli companion for Postman and can be dockerized
+# See https://github.com/DannyDainton/postman-docker
+version: "3.7"
+services:
+  workshop:
+    image: node:12
+    container_name: workshop_development_container
+    tty: true # Keep container running. This option is not available if you build from a dockerfile.
+    working_dir: /app
+    environment:
+      - TERM=xterm-256color # Support colors in terminal ..I hope
+    env_file:
+      - workshop-credentials.env # Created from workshop-credentials.env-template
+   #  command: 
+   #    - sh
+   #    - -c
+   #    - |
+   #      apt-get -y update && apt-get -y upgrade && apt-get -y dist-upgrade && apt autoremove
+   #      apt-get update
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    ports:
+      - "3000:3000"
+      - "3100:3100"
