@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('dotenv').config();
+
 var appConfig = require('../config/config.js').appConfig;
 
 /**
