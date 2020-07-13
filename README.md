@@ -13,6 +13,12 @@
       - [Shell](#shell)
       - [Known isues](#known-isues)
   - [Verifying working environment](#verifying-working-environment)
+  - [Using docker-compose to provide the developer environment](#using-docker-compose-to-provide-the-developer-environment)
+    - [Start](#start)
+      - [_Session 1: Build and start the development container_](#session-1-build-and-start-the-development-container)
+      - [_Session 2: Run commands inside the development container_](#session-2-run-commands-inside-the-development-container)
+      - [_Session 3: Access the files in host_](#session-3-access-the-files-in-host)
+    - [Stop](#stop)
 
 <!-- /TOC -->
 
@@ -140,8 +146,7 @@ Should produce evidence of an update to date version of docker [Docker](https://
 
 > Please verify that the tools work properly within your network environment. Typical problems would be related to PROXY settings.
 
-
-## Using docker-comppose to provide the developer environment
+## Using docker-compose to provide the developer environment
 
 The [`./docker-compose.yaml`](./docker-compose.yaml) contains everything we need to run a development environment.
 
@@ -149,18 +154,20 @@ The [`./docker-compose.yaml`](./docker-compose.yaml) contains everything we need
 
 You will want to use 2-3 terminal sessions ("tabs") for this as it is easier to see what is going on where.
 
-#### _Session 1: Build and start the development container_ 
+#### _Session 1: Build and start the development container_
 
 _Step 1_: Create the workshop config file for docker-compose  
-Copy the template file `workshop-credentials.env-template` and rename the copy to `workshop-credentials.env`, then provide the missing values.
+Copy the template file `workshop-credentials.env-template` and rename the copy to `workshop-credentials.env`, then provide the missing values. (Verify that new .env this file is kept out of version control)
 
 _Step 2_: Start the development container
 
 ```sh
 docker-compose up --build
 ```
+
 _Notes for windows users_:  
-- If you are using WSL1  
+
+- If you are using WSL1:
   Start docker-compose in windows `cmd` as this will use the native windows docker client that will handle path translation for you.  
 - If you are using WSL2  
   You are in a happy place, stay there.
@@ -184,7 +191,7 @@ npm start
 #### _Session 3: Access the files in host_  
 
 ```sh
-# Bring up your IDE and start hacking away. 
+# Bring up your IDE and start hacking away.
 # Please note that template files will not be hot reloaded, see "Notes" down below
 code .
 
@@ -199,6 +206,7 @@ Stop and remove all started containers and networks
 ```sh
 docker-compose down
 ```
+
 You can always bomb out using `ctrl+c` and similar in the session where `docker-compose` is running, the drawback is that there will be leftovers from the `docker-compose` process.  
 By using command `docker-compose down` you will get a clean exit.  
 Optionally you can provide even more arguments to specify what should be cleaned up for more advanced use cases.
