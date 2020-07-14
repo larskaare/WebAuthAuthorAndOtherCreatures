@@ -906,9 +906,9 @@
 		<section>
 			<h3>Protocol Endpoints</h3>
 			<ul>
-				<li><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner </li>
+				<br><span style="color:red">Authorization endpoint:</span> used by client to get authorization from resource owner,</br>user is involved - delegation </li>
 				<li><span style="color:red">Token endpoint:</span> used by client to exchange authorization grant for an access token</li>
-				<li>There may be other endpoints based on actual implementation</li>
+				<li>There may be other endpoints based on specific implementation, OICD has a few more as well.</li>
 		</section>
 		
 		<section>
@@ -941,7 +941,10 @@
 		<section>
 			<h3>Access token</h3>
 			<ul style="font-size: 80%;">
-				<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client.  The string is usually opaque to the client.  Tokens represent specific scopes and durations of access, granted by the resource owner, and enforced by the resource server and authorization server.</span>
+				<li>Access tokens are credentials used to access protected resources.  An access token is a string representing an authorization issued to the	client. 
+					The string is usually opaque to the client.
+					Tokens represent specific scopes and durations of access,
+					granted by the resource owner (or admin), and enforced by the resource server and authorization server.</span>
 				 </li>
 				 <li>By reference or value, for <span style="color:red">resource server</span>, bearer type</li>
 			</ul>						
@@ -1094,7 +1097,7 @@
 									<li>Scope = requested permissions</li>
 									<li>Delegated permissions, for signed-in-user, user or admin consent</li>
 									<li>Application permission, without signed-in-user, admin consent only</li>
-									<li>Effective permissions - least privileged between app and user (Example App has User.ReadWriteAll, User has no admin right = Effective rights will be only to update own profile  </li>
+									<li>Effective permissions - least privileged between app and user (Example App has User.ReadWriteAll, User has no admin right = Effective rights will be only to update own profile)  </li>
 									<li>Effective permission for application permission will be the full permission</li>
 								</ul>
 							</section>
@@ -1113,7 +1116,6 @@
 									<h3>Explore the code</h3>
 									<ul>
 										<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
-										<li>Adding session management (express-session)</li>
 										<li>Adding new route to show mail (/routes/mail.js)</li>
 										<li>Adding capabilities to scope (Mail.Read, User.Read)</li>
 										<li>Storing access_token in session</li>
