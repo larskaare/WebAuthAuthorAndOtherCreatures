@@ -1883,8 +1883,14 @@
 							</section>
 
 							<section>
+								<h3>The scenario</h3>
+								<img src="./graphics/export/api_scenario.jpg" >
+									
+							</section>
+
+							<section>
 								<h3>The Scenario</h3>
-								<img src="./graphics/export/actors.jpg" 
+								<img src="./graphics/export/api_scenario.jpg" 
 									style="
 										position: absolute;
 										top: 0px;
@@ -1905,9 +1911,9 @@
 							</section>
 
 							<section>
-								<h3>Adding Azure AD application object for API</h3>
+								<h4>Adding Azure AD application object for API</h4>
 								<ul style="font-size: 80%;">
-									<li>Follow procedure in <a href="#/7/2" target="_blank">earlier exercise</a> to register API </li>
+									<li>Follow procedure in <a href="#/8/3" target="_blank">earlier exercise</a> to register API </li>
 									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
 									<li><span style="color:red">Name</span>: (inital)-(aa-api) or something else</li>
 									<li><span style="color:red">Type</span>: Single tenant</li>
@@ -1975,7 +1981,7 @@
 								<section>
 									<h3>Run and explore scenario</h3>
 									<ul style="font-size: 90%;">
-										<li>Use two terminal sessions - SPA, API</li>
+										<li>Use <span style="color:red">two</span> terminal sessions - SPA, API</li>
 										<li>Navigate to the <span style="color: blue">./ex-8/api</span> and do
 											<code class="hljs">$ npm start</code></li>
 										<li>Navigate to the <span style="color: blue">./ex-8/spa</span> and do
@@ -2001,7 +2007,7 @@
 									<h3>Security considerations</h3>
 									<ul>
 										<li>Use libraries to do token validation</li>
-										<li>"Trust but verify" vs. "No trust"</li>
+										<li>"No trust" - "Verify everything"</li>
 										<li><span style="color:red">Good practice</span>: Consider placing your API behind and api gateway (such as 
 											<a href="https://azure.microsoft.com/en-us/services/api-management/"
 											target="_blank">APIM</a>)</li>
