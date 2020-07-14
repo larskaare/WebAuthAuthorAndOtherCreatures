@@ -8,7 +8,7 @@ router.get('/', authUtil.ensureAuthenticated, function(req, res) {
 
     // Preparing username and expire date/time for access token
     const tokenExpireDate = moment(req.user.authInfo.access_token_exp * 1000).format('MMMM Do YYYY, h:mm:ss a');
-    res.render('userinfo', { title: 'My Authentication, Authorization and MS Graph demo app', user: req.user, tokenExpDate: tokenExpireDate });
+    res.render('userinfo', { title: 'A&A - Refresh Tokens (EX-6)', user: req.user, tokenExpDate: tokenExpireDate });
 });
 
 module.exports = router;
