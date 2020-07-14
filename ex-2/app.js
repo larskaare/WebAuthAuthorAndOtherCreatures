@@ -62,7 +62,7 @@ var access_token = null;
 app.get('/authorize', function(req, res) {
 
     state = randomstring.generate();
-    scope = 'openid profile email';
+    scope = 'user.read';
 
     var authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
         response_type: 'code',
@@ -117,9 +117,7 @@ app.get('/callback', function(req, res){
 
         if (tokenRes.statusCode >= 200 && tokenRes.statusCode < 300) {
             var body = JSON.parse(tokenRes.getBody());
-
-            console.log('ID token -->' + body.id_token);
-            
+      
             access_token = body.access_token;
             logger.debug('We go access token '+ access_token);
 
@@ -137,7 +135,7 @@ app.get('/callback', function(req, res){
 
             logger.debug(payLoad.exp);
 
-            res.render('index', { title: 'Authenticated and access', code: code.substr(1,10), tokenInfo: tokenInfo });
+            res.render('index', { title: 'Access token', code: code.substr(1,10), tokenInfo: tokenInfo });
 
         } else {
 
