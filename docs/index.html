@@ -52,11 +52,12 @@
 					<section>
 						<h3>Workshop objectives </h3>
 						<blockquote style="color:dodgerblue">De-mystify, build confidence and prepare for further exploration of A&A</blockquote>
+						<h4>Highlights</h4>
 						<ul style="font-size: 80%;">
-							<li>Give an introduction to basics modern web A&A</li>
-							<li>Explore Spec and Azure Implementation</li>
-							<li>Hands-on coding with a few A&A scenarios </li>
-							<li>Insight into threats and best current practices (BCP) for security</li>
+							<li>Give an introduction to the basics of modern web A&A</li>
+							<li>Explore RFC (specs) and Azure Implementation</li>
+							<li>Code a few A&A scenarios</li>
+							<li>Insights into threats and security best current practices (BCP)</li>
 						</ul>
 					</section>
 				</section>
@@ -620,7 +621,7 @@
 						<section>
 						<h2>OpenID Connect (OICD)</h2>
 						<ul style="font-size: 70%";">
-							<li>New <span style="color:red">IDToken</span> received upon successful authentication</li>
+							<li>New <span style="color:red">IDToken</span> received upon successful authentication and serves as proof of who's authenticated</li>
 							<li>Access tokens are not proof of authentication. They are not intended for client - rather the protected resource</li>
 							<li>IDToken's can be given to client along with Access tokens</li>
 							<li>IDTokens' are signed JWT tokens.</li>
@@ -676,7 +677,6 @@
 							<li>Request authorization code</li>
 							<li>Request an access token</li>
 							<li>Explore tokens</li>
-							<li>Use access token</li>
 						</ul>
 					</section>
 					<section>
@@ -713,13 +713,15 @@
 						<ul style="font-size: 70%;">
 							<li>Select "Oauth 2.0 Authorization Code Flow" -> GET Autorization request</li>					
 							<li>Explore "endpoints" for application registration (Azure Portal)"</li>
-							<li>Copy and substitute oAuth2 Authorization endpoint v2 to GET request</li>
-							<li>Copy "client_id" to GET request parameter</li>
-							<li>Change "redirect_url" to "http://localhost/auth" for GET request parameter</li>
-							<li>Look at scope for GET request</li>
-							<li>Copy GET request to clip board and execute from web browser </br> (the code is use once within seconds)</li>
-							<li>Copy authorization code from "code" parameter in request</li>
-							<li>Explore changig "scope", "resonse_mode" and "redirect uri" for GET request</li>
+							<ul>
+								<li>Copy and substitute oAuth2 Authorization endpoint v2 to GET request</li>
+								<li>Copy "client_id" to GET request parameter</li>
+								<li>Change "redirect_url" to "http://localhost/auth" for GET request parameter</li>
+							</ul>
+							<li>Look at scope for GET request. It's OICD? RFC says optional, Azure AD says mandatory.</li>
+							<li>Copy the GET request to clip board and execute from web browser </br> (the code is use once within seconds)</li>
+							<li>Copy authorization code from "code" parameter in the browser response<br></br></li>
+							<li>Explore changig "scope" and convert to "native" oAuth2 request</li>
 							<li>Why do we have to execute request in web browser?</li>
 							<li>Discuss security considerations</li>
 							<li><span style="color:red">Good practice</span> : remove the localhost redirect from production applications</li>
@@ -732,9 +734,8 @@
 								<li>Select "POST - Token Request - Auth Code" from Postman collection</li>
 								<li>Copy and substitute oAuth2 Token endpoint v2 to POST request</li>
 								<li>Define client secret for application in Azure Portal</li>
-								<li>Update body for POST request <span style="color:red">client_id, redirect_uri, client_secret, code</span><br>(code is from GET request)</li>		
+								<li>Update body for POST request <span style="color:red">client_id, redirect_uri, client_secret, code</span><br>(code is from the GET request)</li>		
 								<li>Send POST request</li>
-								<li>(Handle SSL "issues")</li>
 								<li>Explore response</li>
 								<li>Discuss security considerations (SSL, secrets, certificates, public vs. confidential client)</li>
 							</ul>
@@ -751,19 +752,10 @@
 							</li>
 							<li>Discuss claims, optional claims, application manifest and <b>token config</b> in AD app object </li>
 							<li>Discuss security considerations (token validation, token storage)</li>
-							<li><span style="color:red">Good practice</span>: Don't uses access tokens as authentication. Access tokens are for the protected resource </li>
+							<li><span style="color:red">Good practice</span>: Don't uses access tokens as proof of authentication. Access tokens are for the protected resource </li>
 						</ul>
 					</section>
 
-					<section>
-						<h3>If time </br>- more flows to try with Postman</h3>
-						<ul>
-							<li>OpenID Connect Code Flow?</li>
-							<li>oAuth2 Implicit Flow?</li>
-							<li>OpenID Connect Implicit Flow</li>
-							<li>oAuth2 Client Credentials</li>
-						</ul>
-					</section>
 				</section>
 
 <!-- Exercise 2 :  -->					

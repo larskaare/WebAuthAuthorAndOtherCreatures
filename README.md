@@ -28,10 +28,12 @@ Workshop is slides is published at [https://larskaare.github.io/WebAuthAuthorAnd
 
 De-mystify, build confidence and prepare for further exploration of Authentication and Authorization.
 
-- Give an introduction to basics modern web A&A
-- Explore Spec and Azure Implementation
-- Hands-on coding with a few A&A scenarios
-- Insight into threats and current best practices (BCP) for security
+Highlights
+
+- Give an introduction to the basics of modern web A&A
+- Explore RFC (specs) and Azure Implementation
+- Code a few A&A scenarios
+- Insights into threats and security best current practices (BCP)
 
 ## Workshop outline
 
