@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'My Authentication, Authorization and MS Graph demo app (EX-4)', user: req.user });
+    res.render('index', { title: 'A&A - Using frameworks (EX-4)', user: req.user });
 });
 
 module.exports = router;

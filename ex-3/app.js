@@ -65,7 +65,7 @@ var access_token = null;
 app.get('/authorize', function(req, res) {
 
     state = randomstring.generate();
-    scope = 'openid profile email Mail.Read  User.Read';
+    scope = 'Mail.Read User.Read';
 
     var authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
         response_type: 'code',
@@ -141,7 +141,7 @@ app.get('/callback', function(req, res){
             //Storing access token in session 
             req.session.access_token = access_token;           
             
-            res.render('index', { title: 'Authenticated and access', code: code.substr(1,10), tokenInfo: tokenInfo });
+            res.render('index', { title: 'Access token', code: code.substr(1,10), tokenInfo: tokenInfo });
 
         } else {
 

@@ -1216,13 +1216,13 @@
 									<ul>
 										<li>Introducing <a href="http://www.passportjs.org/" target="_blank">passport.js</a></li>
 										<li>Introducing <a href="https://github.com/AzureAD/passport-azure-ad" target="_blank">passport-azure-ad</a></li>
+										<li style="color:blue">config/config.js</li>
 										<li>./src/</li>
 										<ul>
 											<li style="color:blue">app.js</li>
 											<li>authutils.js</li>
 											<li>logHelper.js</li>
 										</ul>
-										<li style="color:blue">config/config.js</li>
 										<li>./routes/</li>
 										<ul>
 												<li>index.js</li>
@@ -1283,22 +1283,23 @@
 
 								<section>
 										<h3>Session handling</h3>
-										<ul>
+										<ul style="font-size: 80%;">
+											<li>We are using OIDC and the ID TOKEN as proof of authentication and to drive the user experience/mgmt in our app</li>
+											<li>OICD offloads a lot of user management for our app</li>
 											<li>Our web application use express and <a href="https://github.com/expressjs/session" target="_blank">express-session</a> to manage user session</li>
 											<li>The session cookie is named connect.sid</li>
 											<li>The cookie only stores session id</li>
 											<li>The cookie is signed (to detect tampering)</li>
-											<li>Session data is stored on the back-end (memory)</li>
-											<li>A lesser secure(?) alternative could be to store session data in the cookie</li>
+											<li>Session data is stored on the back-end (memory, not recommended for production)</li>
 											<li><span style="color:blue">Task:</span> Open the developer tools in the browser and locate the session cookie for our app.
-												</br> Alter cookie and observe effect in app </li>
+												Alter cookie and observe effect in app </li>
 										</ul>
 										</section>	
 
 							<section>
 									<h3>Security considerations</h3>
 									<ul style="font-size: 80%;">
-										<li>Access_token storage</li>
+										<li>Token storage</li>
 										<li>Persistent Session storage (from memory to database?)</li>
 										<li>Cookie signing keys</li>
 										<li>Cookie stealing</li>
