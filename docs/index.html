@@ -1625,7 +1625,7 @@
 
 		
 							<section>
-								<h4>oAuth Implicit Grant</h4>
+								<h4>oAuth2 Implicit Grant</h4>
 								<small><a href="https://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">rfc6749 #4.2</a></small>
 								<pre style="font-size: 30%;">
 		+----------+
@@ -1664,9 +1664,68 @@
 								</pre>
 							</section>
 		
+							<section>
+								<h3>oAuth2 Implicit Flow</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-2-</p>
+											<span style="font-size: 70%;">
+											GET /<span style="color:red">authorize</span>? </br>
+											client_id=client </br>
+											&scope=user.read</br>
+											&reponse_type=<span style="color:red">token</span></br>
+											&state=1234</br>
+											&redirect_uri=</br>
+											https://app/callback</span>
+											</span>
+										</td>
+									</tr>
+								</table>
+						</section>
+	
+	
+						<section>
+								<h3>oAuth2 Implicit Flow</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-3-</p>
+											Authentication is handed over to authentication server
+										</td>
+									</tr>
+								</table>
+						</section>
+	
+						<section>
+								<h3>oAuth2 Implicit Flow</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-4-</p>
+											<span style="font-size: 70%;">
+											303 redirect
+											https://app/callback? </br>
+											
+											Fragment: #</br>
+											access_token=AT</br>
+											expires_in=3600</br>
+											token_type=Bearer</br>
+											&state=1234	
+											</span>
+										</td>
+									</tr>
+								</table>
+						</section>
+	
+
 				
 							<section>
 									<h3>OpenID Connect Implicit Flow</h3>
+									<p>(for comparison)(<a href="https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth" target="_blank">spec</a>)</p>
 									<table>
 										<tr>
 											<td><img src="./graphics/export/oauth_implicit_flow.jpg" ></td>
@@ -1676,10 +1735,10 @@
 												GET /authorize? </br>
 												client_id=client </br>
 												&scope=<span style="color:red">openid</span></br>
-												&reponse_type=<span style="color:red">id_token</span>+token</br>
+												&reponse_type=<span style="color:red">id_token</span></br>
 												&state=1234</br>
 												&<span style="color:red">nonce=a_nonce</span></br>
-												&<span style="color:red">redirect_uri=</span></br>
+												&redirect_uri=</br>
 												https://app/callback</span>
 												</span>
 											</td>
@@ -1713,11 +1772,11 @@
 												https://app/callback? </br>
 												
 												Fragment: #</br>
-												access_token=AT</br>
+												id_token=IDT</br>
 												expires_in=3600</br>
 												token_type=Bearer</br>
 												&state=1234</br>
-												id_token=IDT</br>		
+												&nonce=a_nonce	
 												</span>
 											</td>
 										</tr>
@@ -1745,16 +1804,18 @@
 										width:20%;
 										display:inline-block
 									">
-								<ul>
+								<ul style="font-size: 80%;">
 									<li>We use an <a href="https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2"
-									target="_blank">example</a> from microsoft, calling the graph api from java script</li>
+									target="_blank">example</a> from microsoft, calling the graph api from javascript</li>
+									<li>The example uses <a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" 
+										target="_blank">MSAL.JS</a> MSAL.JS may not support all modes for oAuth2 or OICD</li>
 									<li>Our back-end only serves the static web pages</li>
 									<ul>
 										<li><span style="color:blue">server.js</span> serves the static web pages</li>
 									</ul>
 									<li>The application lives in the browser</li>
 									<ul>
-										<li<span style="color:blue">JavaScriptSPA/index.html</span></li<span>
+										<li><span style="color:blue">JavaScriptSPA/index.html</span></li<span>
 									</ul>
 								</ul>
 							</section>
@@ -1786,8 +1847,8 @@
 									<ul style="font-size: 80%;">
 										<li>It's a public client!</li>
 										<li>Implicit flow is less secure than code grant</li>
-										<li>The redirect GET REQUEST exposes the AccessToken</li>
-										<li>Information - like access tokens are available to "everyone" using the browser</li>
+										<li>The redirect GET REQUEST exposes the AccessToken/Id_Token</li>
+										<li>Information - like tokens are available to "everyone" using the browser</li>
 										<li><span style="color:red">Good practice</span>: 
 											Follow advice in OWASP Top 10 for Web application security (<a href="https://owasp.org/www-project-top-ten/" target="_blank">link</a>)</li>
 											<li><span style="color:red">Good practice</span>: Always use HTTPS</li>
