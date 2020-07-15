@@ -73,8 +73,9 @@
 							<li>What problem are we trying to solve?</li>
 							<li>Practicalities</li>
 							<li>The basics of A&A</li>
-							<li>Exercises (8+1)</li>
-							<Sharing>Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
+							<li>Exercises (9+1)</li>
+							<Sharing>Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api,
+								refresh tokens, single page web app (SPA), PKCE, protecting web api's
 							<li>Deploy application to the Cloud (using Radix)</li>
 						</ul>
 					</section>
@@ -1861,10 +1862,240 @@
 								</section>
 					</section>
 
+
 <!-- Exercise 8 :  -->	
 					<section>
+						<section>
+							<h1>Exercise 8</h1>
+							<h3>SPA - PKCE</h3>
+							<small>Code flow for public clients using PKCE</small>
+						</section>
+
+						<section>
+							<h3>Outline</h3>
+							<ul>
+								<li>What is a PKCE?</li>
+								<li>The code flow with PKCE</li>
+								<li>Prepare environment (EX-8)</li>
+								<li>Explore code</li>
+								<li>Config, Run and Explore</li>
+								<li>Security considerations</li>
+							</ul>
+						</section>
+
+						<section>
+							<h3>What is PCKE(Pixie)?</h3>
+							<ul>
+								<li>
+									Proof Key for Code Exchange</br>- 
+									<a href="https://tools.ietf.org/html/rfc7636" target="_blank">RFC 7636</a> - <a href="https://oauth.net/2/pkce/" 
+									target="_blank">PKCE at oauth.net</a>
+								</li>
+								<li>Replacing impclicit flow for public clients</li>
+								<li>Extension to Authorization code flow</li>
+								<li>Using generated secret to avoid stealing for authorization code</li>
+							</ul>
+						</section>
+						<section>
+							<h3>Elements of PCKE</h3>
+							<p>For each request to get a token:</p>
+							<ul>
+								<li>Generate secret known as code verifier</li>
+								<li>Code verifier is random generated secret.
+									(A-Z, a-z, 0-9, and the punctuation characters -._~ (hyphen, period, underscore, and tilde), between 43 and 128 characters long.)</li>
+								<li>Generate a code challenge, SHA256 of code verifier - url encoded</li>
+								<li>code_challenge_method to specific method of verifier - plain or s256</li>
+							</ul>						
+						</section>
+
+						<section>
+							<h3>Authorization Code Grant with PKCE</h3>
+							<table>
+								<tr>
+									<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+									<td style=" vertical-align: top;">
+										<p>-1-</p>
+										Client via user agent - initiates
+									</td>
+								</tr>
+							</table>
+						</section>
+		
+						<section>
+								<h3>Authorization Code Grant with PKCE</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-2-</p>
+											<span style="font-size: 50%;">
+												GET /authorize? </br>
+												client_id=client </br>
+												&scope=(optional) </br>
+												&reponse_type=code </br>
+												&state=1234 </br>
+												&redirect_uri=
+												https://app/callback 
+												<span style="color:red">
+												&code_challenge=(SHA of PKCE secret) </br>
+												&code_challenge_method=S256
+												</span>
+											</span>
+											</td> 
+									</tr>
+								</table>
+						</section>
+		
+						<section>
+								<h3>Authorization Code Grant with PKCE</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-3-</p>
+											Authentication is handed over to authentication server
+										</td>
+									</tr>
+								</table>
+						</section>
+		
+						<section>
+								<h3>Authorization Code Grant with PKCE</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-4-</p>
+											<span style="font-size: 70%;">
+											303 redirect
+											https://app/callback? </br>
+											code=o-t-c</br>
+											&state=1234</br>		
+											</span>
+										</td>
+									</tr>
+								</table>
+						</section>
+		
+						<section>
+								<h3>Authorization Code Grant with PKCE</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-5-</p>
+											<span style="font-size: 70%;">
+											POST /token
+											grant_type=authorization_code</br>
+											&client_id=</br>
+											<span style="color:red">
+											&code_verfier=(the PKCE secret)</span></br>
+											&code=</br>
+											&redirect_uri=</br>
+											</span>
+										</td>
+									</tr>
+								</table>
+						</section>
+		
+						<section>
+								<h3>Authorization Code Grant with PKCE</h3>
+								<table>
+									<tr>
+										<td><img src="./graphics/export/oauth_code_flow.jpg" ></td>
+										<td style=" vertical-align: top;">
+											<p>-6-</p>
+											<span style="font-size: 70%;">
+											{</br>
+													"access_token":"2YotnFZFEjr1zCsicMWpAA",
+													"token_type":"example",
+													"expires_in":3600,
+													"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
+													"token_type":"Bearer"
+												</br>}
+											</span>
+										</td>
+									</tr>
+								</table>
+						</section>
+		
+					<section>
+							<h3>Preparing the environment - code</h3>
+							<ul>
+								<li>Navigate to the <span style="color: blue">./ex-8</span> directory</li>
+								<li>Install dependencies
+									<code class="hljs">$ npm install</code>
+								</li>
+							</ul>
+					</section>
+
+					<section>
+						<h3>Preparing the environment - Azure AD</h3>
+
+						<ul style="font-size:85%">
+							<li>
+								The MS identify platform support PKCE. MSAL library support is in preview. 
+							The user experience for the application registration is not up-to-date.
+							</li>
+							<li> For the app object (clientid) in Azure AD we need to</li>
+							<ul>
+								<li>Treat the web app as a public client (app reg -> Authentication -> Advanced Settings - Default Client Type = Yes), </li>
+								<li>Alter manifest in the "replyUrlsWithType" section, change "type" to "Spa" for the redirect urls that will use PKCE </li>
+							</ul>
+							<li>The token request must use CORS - origin in the header </li>
+						</ul>
+				</section>
+
+					<section>
+						<h3>Explore the code</h3>
+						<img src="./graphics/export/oauth_code_flow.jpg" 
+							style="
+								position: absolute;
+								top: 280px;
+								right:0px;
+								width:20%;
+								display:inline-block
+							">
+						<ul style="font-size: 80%;">
+							<li>Same code as for exercise 2</li>
+							<li><span style="color:blue">app.js</span> contains the web app</li>
+							<li>Use node module "pkce-challenge" to generate code_verifier and code_challenge</li>
+							<li>Alter query string for GET code request</li>
+							<li>Alter header and body for POST to get token</li>
+							<li>Add "origin" header for token request</li>
+							<li>Removed the "client_secret" part</li>
+							<li>This flow now supports refresh tokens for "public clients"</li>							
+						</ul>
+					</section>
+
+					<section>
+						<h3>Config, Run and Explore </h3>
+					
+						<ul style="font-size: 90%;">
+							<li>Verify the <span style="color:blue">authServer</span> object in app.js</li>
+							<li>Verify the <span style="color:blue">client</span> object in app.js</li>
+							<li>Configure environment variables</br> (client_id)</li>
+							<li>Run web application
+								<code class="hljs">$ npm start</code>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Security Considerations</h3>
+						<ul>
+							<li>Security consideratins from <a href="https://tools.ietf.org/html/rfc7636#section-7" target="_blank">
+							RFC 7636</a></li>
+							<li>The implicit flow will most likely be deprecated in the future with oAuth 2.1</li>
+							<li>I assume that using PKCE with code grant becomes mandatory at some point</li>
+						</ul>
+					</section>
+					</section>
+
+<!-- Exercise 9:  -->	
+					<section>
 							<section>
-								<h1>Exercise 8</h1>
+								<h1>Exercise 9</h1>
 								<h3>Protecting web api's</h3>
 								</br><small>AD App, Token validation</small>
 								</br><small>Azure API GW - APIM</small>
@@ -1932,7 +2163,7 @@
 							<section>
 								<h3>Explore and config the SPA code</h3>
 								<ul style="font-size: 90%;">
-									<li>Navigate to the <span style="color: blue">./ex-8/spa</span> directory</li>
+									<li>Navigate to the <span style="color: blue">./ex-9/spa</span> directory</li>
 									<li>Install dependencies <code class="hljs">$ npm install</code></li>
 									<li>Update config in "JavaScriptSPA/index.html</li>	
 									<ul>
@@ -1952,7 +2183,7 @@
 							<section>
 									<h3>Explore and config the API code</h3>
 									<ul style="font-size:60%">
-										<li>Navigate to the <span style="color: blue">./ex-8/api</span> directory</li>
+										<li>Navigate to the <span style="color: blue">./ex-9/api</span> directory</li>
 										<li>Install dependencies <code class="hljs">$ npm install</code></li>
 										<li>Update config in "bin/www (the port if needed)</li>	
 										<li>Update config in "routes/index.js</li>
@@ -1982,9 +2213,9 @@
 									<h3>Run and explore scenario</h3>
 									<ul style="font-size: 90%;">
 										<li>Use <span style="color:red">two</span> terminal sessions - SPA, API</li>
-										<li>Navigate to the <span style="color: blue">./ex-8/api</span> and do
+										<li>Navigate to the <span style="color: blue">./ex-9/api</span> and do
 											<code class="hljs">$ npm start</code></li>
-										<li>Navigate to the <span style="color: blue">./ex-8/spa</span> and do
+										<li>Navigate to the <span style="color: blue">./ex-9/spa</span> and do
 											<code class="hljs">$ npm start</code></li>
 										<li>Explore the new "Echo" functionallity</li>
 										<li>Alter CORS headers and observe effect (in SPA - Dev mode</li>
@@ -2022,11 +2253,11 @@
 
 					
 
-<!-- Exercise 9 :  -->	
+<!-- Exercise 11 :  -->	
 
 					<section>
 						<section>
-							<h3>Exercise 9</h3>
+							<h3>Exercise 11</h3>
 							<h2>Deploying to the Cloud</h2>
 							<small>Radix for the win</small>
 						</section>
