@@ -40,8 +40,8 @@ Highlights
 - What problem are we trying to solve?
 - Practicalities
 - The basics of A&A
-- Exercises (8+1)
-  - Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), protecting web api's
+- Exercises (9+1)
+  - Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), PKCE, protecting web api's
 - Deploy application to the Cloud (using Radix)
 
 ## Pre-requisites
