@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+
+  if !code
+    
+    button <a href="/authorize">Get the access token</a>
+  else
+    p Parts of auth code "#{code}"
+    br
+    JWT Information from Access token
+    ol
+      li Token Expire #{tokenInfo.exp}
+      li Issued to #{tokenInfo.given_name} #{tokenInfo.family_name}
+      li Token scope "#{tokenInfo.scp}"
+    a(href="/") Back
