@@ -73,9 +73,9 @@
 							<li>What problem are we trying to solve?</li>
 							<li>Practicalities</li>
 							<li>The basics of A&A</li>
-							<li>Exercises (9+1)</li>
+							<li>Exercises (10+1)</li>
 							<Sharing>Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api,
-								refresh tokens, single page web app (SPA), PKCE, protecting web api's
+								refresh tokens, single page web app (SPA), PKCE, protecting web api's and On-Behalf-Of flow.
 							<li>Deploy application to the Cloud (using Radix)</li>
 						</ul>
 					</section>
@@ -2252,6 +2252,71 @@
 					</section>
 
 					
+<!-- Exercise 10:  -->	
+<section>
+	<section>
+		<h1>Exercise 10</h1>
+		<h3>Protecting web api's, chaining api's</h3>
+		<h3>The On-Behalf-Of flow<h3>
+	</section>
+
+	<section>
+		<h3>Outline</h3>
+		<ul>
+			<li>The scenario</li>
+			<li>The On-Behalf-Of Flow</li>
+			<li>The Application Objects in AzureAD</li>
+			<li>The SPA Client (functionally, config, code)</li>
+			<li>The Echo API (functionally, config, code)</li>
+			<li>The Quote API (functionally, config, code)</li>			
+			<li>Run and Explore</li>
+			<li>Security considerations</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>The scenario</h3>
+		<small>An Api making requests on behalf of user/machine</small>
+		<img src="./graphics/export/o-b-o-scenario.jpg"
+		style="width:75%; display:inline-block"> 
+	
+	</section>
+
+	<section>
+		<h3>The Scenario</h3>
+		<small>An Api making requests on behalf of user/machine</small>
+		<table style="font-size: 50%;">
+			<tr>
+				<td>
+					<ol>
+						<li>The Client requests an access token for Echo</li>
+						<li>The Client get an accesstoken for the Echo API - user consent</li>
+						<li>The Client uses access token and requests an Echo</li>
+						<li>The Echo Api validates the request and the access token</li>
+						<li>The Echo Api requests an access token for the Quote Api (client permission)</li>
+						<lI>The Echo Api get a access token for the Quote Api</lI>
+						<li>The Echo API requests a Quote from the Quote Api</li>
+						<li>The Quote Api validates the request and the access token</li>
+						<li>The Quote Api returnes a cool quote</li>
+						<li>The Echo Api returns a Echo w/Quote to the Client</li>
+					</ol>
+				</td>
+				<td style="vertical-align: top;">
+					<img src="./graphics/export/o-b-o-scenario.jpg">
+				</td>			
+			</tr>
+		</table>	
+	</section>
+
+	<section>
+		<h3>The On-Behalf-Of Flow</h3>
+	</section>
+
+
+
+</section>
+
+
 
 <!-- Exercise 11 :  -->	
 
