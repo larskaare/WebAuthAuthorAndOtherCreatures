@@ -10,7 +10,6 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "form-data": "^3.0.0",
     "got": "^11.5.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.7.0",

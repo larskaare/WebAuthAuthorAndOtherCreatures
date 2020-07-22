@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
   }
 
   var validateOptions = {
-    "audience" : "api://b7f6e800-ffa7-4ffc-920f-000ec3343bce",
+    "audience" : "api://...",
     "issuer": "https://sts.windows.net/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/",
     "maxAge": "1h"
   };
@@ -49,7 +49,7 @@ router.get('/', function(req, res, next) {
 
       //validating a few other claims in the token
       //AppID  - it was issued from a known client
-      if (decoded.appid == 'b1621ac1-750a-4ee2-915b-0388732a97d3') {
+      if (decoded.appid == '') {
         res.status(200).send(returnQuote());
         return;
       } else {

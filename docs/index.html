@@ -2267,8 +2267,8 @@
 			<li>The On-Behalf-Of Flow</li>
 			<li>The Application Objects in AzureAD</li>
 			<li>The SPA Client (functionally, config, code)</li>
+			<li>The Quote API (functionally, config, code)</li>
 			<li>The Echo API (functionally, config, code)</li>
-			<li>The Quote API (functionally, config, code)</li>			
 			<li>Run and Explore</li>
 			<li>Security considerations</li>
 		</ul>
@@ -2309,13 +2309,268 @@
 	</section>
 
 	<section>
-		<h3>The On-Behalf-Of Flow</h3>
+		<h3>The On-Behalf-Of (OBO) Flow</h3>
+		<ul>
+			<li>oAuth2 Protocol Extension </br>-based on draft 
+				<a href="https://tools.ietf.org/html/draft-ietf-oauth-token-exchange-19" target="_blank">RFC 8693 (oAuth2 Token Exchange)</a></li>
+			<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow"
+			target="_blank">Microsoft identity platform and OAuth 2.0 On-Behalf-Of flow</a></li>
+			<li>Supported by Azure AD (MS Identity Platform) on V1 and V2 endpoints. Not for Azure AD B2C</li>
+			<li>May not be supported by other Security Token Services (STS)</li>
+			<li>Framework support will vary</li>
+		</ul>
 	</section>
 
+	<section>
+		<h3>The On-Behalf-Of (OBO) Flow</h3>
+		<small>The middle-tier access token request (5)</small>
+		<table style="font-size: 50%;">
+			<tr>
+				<td>
+					<ul>
+						<li>Request endpoint_ </br>https://login.microsoftonline.com/<tenant>/oauth2/v2.0/token</li>
+						<li>Request parameters</li>
+						<table>
+							<tr>
+								<td>grant_type</td>
+								<td style="color:red">urn:ietf:params:oauth:grant-type:jwt-bearer</td>
+							</tr>
+							<tr>
+								<td>client_id</td>
+								<td>Id of the client making the request (B)</td>
+							</tr>
+							<tr>
+								<td>client_secret</td>
+								<td>The client (B) secret</td>
+							</tr>
+							<tr>
+								<td>assertion</td>
+								<td>The access token that the client (B) got from client A in step 3. Audience in claim must be client_id of client B</td>
+							</tr>
+							<tr>
+								<td>scope</td>
+								<td>The scope that is requested (The scope in client C)</td>
+							</tr>
+							<tr>
+								<td>
+									requested_token_use
+								</td>
+								<td style="color:red">on_behalf_of</td>
+							</tr>
+						</table>
+					</ul>
+				</td>
+				<td style="vertical-align: top;">
+					<img src="./graphics/export/o-b-o-scenario.jpg">
+				</td>			
+			</tr>
+		</table>	
+	</section>
 
+	<section>
+		<h3>The On-Behalf-Of (OBO) Flow</h3>
+		<small>The middle-tier access token request (5)</small>
+		<table style="font-size: 50%;">
+			<tr>
+				<td>
+					<ul>
+						<li>Example POST request</br></br>
+						<span>
+							POST /...../oauth2/v2.0/token</br>
+							HTTP/1.1</br>
+							Content-type: application/x-www-form-urlencoded </br>
+							Host: login.microsoftonline.com </br></br>
+							
+							grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer</br>
+							&client_id=b1621ac1-750a-4ee2-915b-0388732a97d3</br>
+							&client_secret=</br>
+							&assertion=ey.....tg</br>
+							&scope=api://..../GetQuote</br>
+							&requested_token_use=on_behalf_of</br>
+						</span>
+						</li>
+					</ul>
+				</td>
+				<td style="vertical-align: top;">
+					<img src="./graphics/export/o-b-o-scenario.jpg">
+				</td>			
+			</tr>
+		</table>	
+	</section>
 
+	<section>
+		<h3>The On-Behalf-Of (OBO) Flow</h3>
+		<small>The middle-tier access token request response (6)</small>
+		<table style="font-size: 50%;">
+			<tr>
+				<td>
+					<ul>
+						<li>Parameters in response</li>
+						<table>
+							<tr>
+								<td>token_type</td>
+								<td>Bearer</td>
+							</tr>
+							<tr>
+								<td>scope</td>
+								<td>The requested scope (exposed by client C)</td>
+							</tr>
+							<tr>
+								<td>expires_in</td>
+								<td>Number of seconds until the access token expire</td>
+							</tr>
+							<tr>
+								<td>access_token</td>
+								<td>The actual access token that will be used by client B when requesting from client C (step 7)</td>
+							</tr>
+							
+						</table>
+					</ul>
+				</td>
+				<td style="vertical-align: top;">
+					<img src="./graphics/export/o-b-o-scenario.jpg">
+				</td>			
+			</tr>
+		</table>	
+	</section>
+	
+	<section>
+		<h3>The Application Objects in AzureAD</h3>
+		<small>All objects that we want to protect must be registered in Azure AD</small>
+		<table style="font-size: 50%;">
+			<tr>
+				<td>
+					<ul>
+						<li>
+							SPA (Client A). Must have a client_id and client_secret (depending on which flows that are used). No changes compared to previous exercises
+						</li>
+						<li>
+							The Echo Api (Client B). Must have a client_id and a client_secret. Must expose scope for api - Echo.Read. 
+							Compared to previous exercises - we need a client_secret to be able to request a token on-behalf-of
+						</li>
+						<li>The Quote Api (Client C). Must have a client_id. Must expose scope for api - GetQuote. Compared to previous exercises - this is a new registration</li>
+					</ul>
+				</td>
+				<td style="vertical-align: top;">
+					<img src="./graphics/export/o-b-o-scenario.jpg">
+				</td>			
+			</tr>
+		</table>	
+	</section>
+
+	<section>
+		<h3>Preparing for the exercise</h3>
+		<ul>
+			<li>Code lives in ./ex-10</li>
+			<li>3 projects</li>
+			<ul>
+				<li>Client A - SPA (./ex-10/spa)</li>
+				<li>Client B - Echo Api (./ex-10/echoapi)</li>
+				<li>Client C - Quote Api (./ex-10/quoteapi)</li>
+			</ul>
+			<li><span style="color: red">Remember:</span> Each project must be executed in a separate terminal window on your computer</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>The SPA Client</h3>
+		<ul>
+			<li>No code changes from previous examples (ex-9)</li>
+			<li>Update in "JavaSciptSPA/index.html
+				(<a href="http://localhost:8000/#/17/5" target="_blank">Link to ex-9</a>)
+			</li>
+			<li>In a separate terminal window, from ./ex-10/spa</li>
+			<ul>
+				
+				<li>Set environment variable PORT=3000</li>
+				<li>Do a <span style="color :red">npm install</span></li>
+				<li>Start SPA client (A) by doing <span style="color :red">npm start</span></li>
+			</ul>
+		</ul>
+	</section>
+
+	<section>
+		<h3>The Quote API</h3>
+		<ul style="font-size: 70%;">
+			<li>New functionalliy - based on Echo api from ex-9</li>
+			<li>Examine code in ./ex-10/quoteapi</li>
+			<li>Create new App Registration for Quote Api in Azure AD</li>
+			<ul>
+				<li>Expose api/scope: <span style="color: red">GetQuote</span></li>
+				<li>Authorise client application (the EchoAPI (B) to access the API)(from Expose Api section)</li>
+				<li style="color: red;">This is an example for application/machine trust - no user consent involved!</li>
+			</ul>
+			<li>Update config in app (./routes/quote.js)</li>
+			<ul>
+				<li>validateOptions: audience (clientID of Quote API)</li>
+				<li>jwt.verify(...)</li>
+				<ul></li>
+					<li>decoded.appid = clientID of Echo Api
+				</ul>
+			</ul>
+			<li>In a separate terminal window, from ./ex-10/quoteapi</li>
+			<ul>
+				<li>Set environment variable PORT=3200</li>
+				<li>Do a <span style="color :red">npm install</span></li>
+				<li>Start Quote Api (C) by doing <span style="color :red">npm start</span></li>
+			</ul>
+		</ul>
+	</section>
+
+	<section>
+		<h3>The Echo API</h3>
+		<ul style="font-size: 70%;">
+			<li>New functionalliy - request quote and return a part of echo request</li>
+			<li>Examin code for changes (./routes/index.js, ./src/quotes.js)</li>
+			<li>Verify config according to previous example (validate options) (<a href="http://localhost:8000/#/17/6" target="_blank">ex-9</a>)</li>
+			<li>Update the scope in the request form in quotes.js to reflect to Quotes scope (api://...../GetQuote)</li>
+			<li>Verify the url for the Quote Api in getQuote in quotes.js</li>			
+			<li>In a separate terminal window, from ./ex-10/echoapi</li>
+			<ul>
+				<li>Set environment variable PORT=3100, CLIENT_ID , CLIENT_SECRET</li>
+				<li>Do a <span style="color :red">npm install</span></li>
+				<li>Start Echo api (B) by doing <span style="color :red">npm start</span></li>
+			</ul>
+		</ul>
+	</section>
+	
+	<section>
+		<h3>Run & Explore</h3>
+		<table >
+			<tr>
+				<td>
+					<ul>
+						<li>You now have 3 applications running in 3 terminal windows</li>
+						<li>Login to the SPA, trigger the <strong>Echo functionality</strong> and observe cool quotes, logging etc </li>
+						<li>Explore code, make changes and observe effect</li>
+					</ul>
+				</td>
+				<td style="vertical-align: top;">
+					<img src="./graphics/export/o-b-o-scenario.jpg">
+				</td>			
+			</tr>
+		</table>
+	</section>
+
+	<section>
+		<h3>Security consideratons</h3>
+		<ul style="font-size: 80%;">
+			<li>Things are getting complex - which always gives us security issues</li>
+			<ul>
+				<li>Creds and config needs to be managed properly</li>
+				<li>Borders between staging environments needs to be clear (dev, test, prod)</li>
+				<li>Application architecture should be done carefully</li>
+			</ul>
+			<li>Use frameworks as much as possible to handle the flows! We only do it the hard way in this exercise to be able understand</li>
+			<li>Establish good practise around debugging/tracing to understand network flow (Burp, Fiddler)</li>
+			<ul>
+				<li>
+					For NodeJS i recommend the <a href="https://www.npmjs.com/package/global-agent" target="_blank">Global Agent</a> module to enable debugging using a network proxy
+				</li>
+			</ul>
+		</ul>
+	</section>
 </section>
-
 
 
 <!-- Exercise 11 :  -->	

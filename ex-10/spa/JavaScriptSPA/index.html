@@ -22,7 +22,7 @@
 <script>
     var msalConfig = {
         auth: {
-            clientId: '8c7e708b-8d88-4ee1-8502-3b158dc55299', //This is your client ID
+            clientId: '', //This is your client ID
             authority: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0" //This is your tenant info
         },
         cache: {
@@ -155,7 +155,7 @@
     function getEcho() {
       
         var requestEchoObj = {
-            scopes: ["api://b1621ac1-750a-4ee2-915b-0388732a97d3/Echo.Read"]
+            scopes: ["api://.../Echo.Read"]
         };
 
         myMSALObj.acquireTokenSilent(requestEchoObj).then(function (tokenResponse) {

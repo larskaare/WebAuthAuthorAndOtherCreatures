@@ -10,30 +10,30 @@ Strategy
 
 
 const got = require('got');
-const FormData = require('form-data');
 
 //The assertion param is the accesstoken we use in the assertion field when using the bob flow
 async function getAccessToken(assertion) {
 
     console.log('Trying use exchange ' + assertion + ' for a new token O-B-O');
-    const form = new FormData();
-
+   
     //Build the form for the AT request using o-b-o
-    form.append('grant_type','urn:ietf:params:oauth:grant-type:jwt-bearer');
-    form.append('client_id',process.env.CLIENT_ID);
-    form.append('client_secret',process.env.CLIENT_SECRET);
-    form.append('assertion',assertion);
-    form.append('scope','api://b7f6e800-ffa7-4ffc-920f-000ec3343bce/GetQuote');  //The scope we request for the Quote Api
-    form.append('requested_token_use','on_behalf_of');
-    
+    let requestForm = {
+      'grant_type' :'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      'client_id' : process.env.CLIENT_ID,
+      'client_secret' : process.env.CLIENT_SECRET,
+      'assertion': assertion,
+      'scope': 'api://.../GetQuote',  //The scope we request for the Quote Api
+      'requested_token_use': 'on_behalf_of'
+    }
 
     //Creating a new instance of the got library which handles our http requests
     const atRequest = got.extend({
         prefixUrl: 'https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/',
     });
 
+
     try {
-        const response = await atRequest.post('token', {body: form});
+        const response = await atRequest.post('token', {form: requestForm});
 
         console.log(response.body);
         
