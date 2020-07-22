@@ -1,0 +1,11 @@
+{
+  "name": "ex-10-spa",
+  "version": "0.0.2",
+  "license": "MIT",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.12.3",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}

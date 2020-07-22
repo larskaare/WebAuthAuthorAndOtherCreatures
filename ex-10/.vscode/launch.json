@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Echo API",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/echoapi/bin/www",
+            "env": {
+                "NODE_ENV": "development",
+                "PORT": "3100"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Quote API",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/quoteapi/bin/www",
+            "env": {
+                "NODE_ENV": "development",
+                "PORT": "3200"
+            }
+        }
+        
+    ]
+}
