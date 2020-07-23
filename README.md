@@ -11,7 +11,7 @@
     - [Software](#software)
     - [Consideration when using Windows](#consideration-when-using-windows)
       - [Shell](#shell)
-      - [Known isues](#known-isues)
+      - [Known challenges](#known-challenges)
   - [Verifying working environment](#verifying-working-environment)
   - [Using docker-compose to provide the developer environment](#using-docker-compose-to-provide-the-developer-environment)
     - [Start](#start)
@@ -40,8 +40,8 @@ Highlights
 - What problem are we trying to solve?
 - Practicalities
 - The basics of A&A
-- Exercises (9+1)
-  - Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), PKCE, protecting web api's
+- Exercises (10+1)
+  - Raw flows, add authentication to web app, using frameworks & libraries, accessing 3rd party api, refresh tokens, single page web app (SPA), PKCE, protecting web api's, chaining requests (on-behalf-of)
 - Deploy application to the Cloud (using Radix)
 
 ## Pre-requisites
@@ -83,7 +83,7 @@ Installed and verified to work software.
 
 Most things should work ok with the cmd or powershell - with a few limitations. I've tested with using git-bash which is part of [Git for Windows](https://gitforwindows.org/)
 
-#### Known isues
+#### Known challenges
 
 - Be aware of how to export environment variables, `set` for Windows, `export` for Bash/Linux
 - Define proxy variables if needed:
