@@ -70,7 +70,7 @@
 					<section style="text-align: left;">
 						<h3>Workshop outline</h3>
 						<ul>
-							<li>What problem are we trying to solve?</li>
+							<li>Which problems are we trying to solve?</li>
 							<li>Practicalities</li>
 							<li>The basics of A&A</li>
 							<li>Exercises (10+1)</li>
@@ -144,7 +144,7 @@
 								<td><img src="./graphics/export/my_super_app_new.jpg" ></td>
 								<td style=" vertical-align: top;">
 									<ul>
-										<li>id/password not stored on client</li>
+										<li>Id/password not stored on client</li>
 										<li>Access can be revoked</li>
 										<li>Access can be time limited</li>
 										<li>Access can be granular</li>
@@ -159,7 +159,7 @@
 <!-- Disclaimer part-->
 				<section>
 					<h1>Disclaimer</h1>
-					<p>The more I learn about the topic the more I realize how complex it is. I am not an expert.
+					<p>The more I learn about the topic at hand, the more I realize how complex it is. I am not an expert.
 						 Very rarely is the answer black and white. Context is important.
 						 I assume that quite a few of you have experience, insight and knowledge to share.
 						 Please share! Sharing is caring!</p>
@@ -478,10 +478,9 @@
 									<span style="font-size: 70%;">
 									{</br>
 											"access_token":"2YotnFZFEjr1zCsicMWpAA",
-											"token_type":"example",
+											"token_type":"Bearer",
 											"expires_in":3600,
-											"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
-											"token_type":"Bearer"
+											"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA"
 										</br>}
 									</span>
 								</td>
@@ -605,11 +604,10 @@
 										<span style="font-size: 70%;">
 										{</br>
 												"access_token":"ey2YotnFZFEjr1zCsicMWpAA",</br>
-												"token_type":"example",</br>
+												"token_type":"Bearer",</br>
 												<span style="color:red">"id_token": "eynndj3nn77hs7Hhjhjh"</span> ,</br>
 												"expires_in":3600,</br>
-												"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",</br>
-												"token_type":"Bearer"
+												"refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA"</br>
 											</br>}
 										</span>
 									</td>
@@ -693,7 +691,7 @@
 							<li>Register new application</li>
 								<ul>
 									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
-									<li><span style="color:red">Name</span>: (inital)-(aatest) or something else</li>
+									<li><span style="color:red">Name</span>: (inital)-(aa-client) or something else</li>
 									<li><span style="color:red">Type</span>: Single tenant</li>
 									<li><span style="color:red">Redirect uri</span>: http://localhost/auth</li>
 								</ul>
@@ -771,12 +769,22 @@
 						<section>
 							<h3>Outline</h3>
 							<ul>		
-								<li>Environment Variables</li>
 								<li>Prepare environment (ex-2)</li>
+								<li>Environment Variables</li>
 								<li>Explore the web app code</li>
 								<li>Config, run and explore app</li>
 								<li>Secrets</li>
 								<li>Staging environments and logging</li>
+							</ul>
+						</section>
+
+						<section>
+							<h3>Preparing the environment</h3>
+							<ul>
+								<li>Navigate to the <span style="color: blue">./ex-2</span> directory</li>
+								<li>Install dependencies
+									<code class="hljs">$ npm install</code>
+								</li>
 							</ul>
 						</section>
 
@@ -796,15 +804,7 @@
 							</ul>
 						</section>
 
-						<section>
-								<h3>Preparing the environment</h3>
-								<ul>
-									<li>Navigate to the <span style="color: blue">./ex-2</span> directory</li>
-									<li>Install dependencies
-										<code class="hljs">$ npm install</code>
-									</li>
-								</ul>
-						</section>
+						
 
 						<section>
 								<h3>Explore the code</h3>
@@ -816,7 +816,8 @@
 										<li>/authorize</li>
 										<li>/callback</li>
 									</ul>
-									<li>Header uses basic auth for client credentials (remember to base64 encode)</li>
+									<li>This example uses basic auth for passing client credentials (remember to base64 encode)</li>
+									<li>(This example uses the <span style="color: red">request</span> module - which is deprecated by February 2020)
 									</br>
 									<li>Explore routing/views in application</li>
 								</ul>
@@ -836,11 +837,13 @@
 									<li>Configure the <span style="color:blue">authServer</span> object in app.js</li>
 									<li>Explore the <span style="color:blue">client</span> object in app.js</li>
 									<li>Configure environment variables</li>
+									<lI>Verify the app object in Azure AD </br>(Hint: redirect URI's)</lI>
 									<li>Run web application
 										<code class="hljs">$ npm start</code>
 									</li>
 									<li>Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow" target="_blank">spec</a>, alter scope and other params</li>
-									<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. </br> Test revoking for test app.</li>
+									<li>Explore what <a href="https://myapps.microsoft.com/" target="_blank">consent</a> you have given to apps on Azure AD. 
+									</br> Test revoking for test app.</li>
 									<li>Explore running the app with NODE_ENV=debug</li>
 									<li><span style="color:red">Bad practice</span>: 
 										Extracting things like "given_name" from Access Token to display in client (as done in exercise code)</li>
@@ -1118,7 +1121,7 @@
 									<ul>
 										<li>Explore authentication code in <span style="color:blue">./app.js</span></li>
 										<li>Adding new route to show mail (/routes/mail.js)</li>
-										<li>Adding capabilities to scope (Mail.Read, User.Read)</li>
+										<li>Adding capabilities to scope (Mail.Read)</li>
 										<li>Storing access_token in session</li>
 										<li>Explore routing/views in application (<span style="color:blue">app.use('/mail', mailRouter);</span>)</li>
 									</ul>
@@ -1362,7 +1365,7 @@
 							</section>
 
 							<section>
-								<h3>Exploring claims in ID token</h3>
+								<h3>Exploring claims in tokens</h3>
 								<pre><code class="hljs">
 {...}.
 {...
@@ -1375,9 +1378,11 @@
 }.[Signature]
 								</code></pre>
 								Explore <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens" target="_blank">
-								 ID Tokens in MS Identity platform</a> as well as the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-optional-claims"
+								 ID Tokens</a> and 
+								 <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens" target="_blank"> Acess Tokens</a> and  in MS Identity platform as well as the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-optional-claims"
 								 target="_blank">optional</a> claims (and the new <b>token configuration</b> in the AD app object).
-							</section>
+								<p>(Claims does not always show up in the token you expect. OIDC drives some claims into the ID token)</p>
+								</section>
 
 							<section>
 									<h3>Config, Run and Explore </h3>
@@ -1428,7 +1433,7 @@
 											<li>Alter - save - explore "user information part in our web app</li>
 											<li>This approach have some limitations (size) </li>
 										</ul>
-										<li>3) Read information in the Microsoft graph about user & groups 
+										<li>3) Read information in the Microsoft graph about user & groups. 
 											This require admin concent for the application and generally gives to much privileges!! Should be avoided</li>
 									</ul>
 								</section>
@@ -1809,10 +1814,10 @@
 									<li>We use an <a href="https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2"
 									target="_blank">example</a> from microsoft, calling the graph api from javascript</li>
 									<li>The example uses <a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" 
-										target="_blank">MSAL.JS</a> MSAL.JS may not support all modes for oAuth2 or OICD</li>
-									<li>Our back-end only serves the static web pages</li>
+										target="_blank">MSAL.JS</a> (v1). MSAL.JS may not support all modes for oAuth2 or OICD</li>
+									<li>Our back-end serves the static web page</br> (and responds to redirects)(The hybrid)</li>
 									<ul>
-										<li><span style="color:blue">server.js</span> serves the static web pages</li>
+										<li><span style="color:blue">server.js</span> serves the static web page</li>
 									</ul>
 									<li>The application lives in the browser</li>
 									<ul>
@@ -1893,7 +1898,7 @@
 								</li>
 								<li>Replacing impclicit flow for public clients</li>
 								<li>Extension to Authorization code flow</li>
-								<li>Using generated secret to avoid stealing for authorization code</li>
+								<li>Using generated secret to avoid stealing of authorization code</li>
 							</ul>
 						</section>
 						<section>
@@ -2086,7 +2091,8 @@
 						<ul>
 							<li>Security consideratins from <a href="https://tools.ietf.org/html/rfc7636#section-7" target="_blank">
 							RFC 7636</a></li>
-							<li>The implicit flow will most likely be deprecated in the future with oAuth 2.1</li>
+							<li>The implicit grant will most likely be deprecated in the future with oAuth 2.1</li>
+							<li>MSAL.js v2.0 does not suport the implicit grant</li>
 							<li>I assume that using PKCE with code grant becomes mandatory at some point</li>
 						</ul>
 					</section>
@@ -2146,7 +2152,7 @@
 								<ul style="font-size: 80%;">
 									<li>Follow procedure in <a href="#/8/3" target="_blank">earlier exercise</a> to register API </li>
 									<li>Activate "Application developer role" in "Privileged Identiy Management"</li>
-									<li><span style="color:red">Name</span>: (inital)-(aa-api) or something else</li>
+									<li><span style="color:red">Name</span>: (inital)-(aa-echo-api) or something else</li>
 									<li><span style="color:red">Type</span>: Single tenant</li>
 									<li>Select "Expose an API" (app config)</li>
 									<ul>
@@ -2176,6 +2182,7 @@
 										<li>Request an access token to access the Echo API</li>
 										<li>Call Echo with access token and then displays response</li>
 									</ul>
+									<li>Verify the config of the AD application object. It was most likely messed up in the previous exercise</li>
 								</ul>
 							</section>
 
@@ -2183,7 +2190,7 @@
 							<section>
 									<h3>Explore and config the API code</h3>
 									<ul style="font-size:60%">
-										<li>Navigate to the <span style="color: blue">./ex-9/api</span> directory</li>
+										<li>In a separate terminal - Navigate to the <span style="color: blue">./ex-9/api</span> directory</li>
 										<li>Install dependencies <code class="hljs">$ npm install</code></li>
 										<li>Update config in "bin/www (the port if needed)</li>	
 										<li>Update config in "routes/index.js</li>
@@ -2232,6 +2239,7 @@
 										<li>The <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow"
 											target="_blank">On-Behalf-Of</a> flow in the MS Identity Platform</a>
 										</li>
+										<li>Will be covered in the next exercise</li>
 									</ul>
 								</section>
 								<section>
@@ -2289,7 +2297,7 @@
 			<tr>
 				<td>
 					<ol>
-						<li>The Client requests an access token for Echo</li>
+						<li>The Client requests an access token for the Echo Api</li>
 						<li>The Client get an accesstoken for the Echo API - user consent</li>
 						<li>The Client uses access token and requests an Echo</li>
 						<li>The Echo Api validates the request and the access token</li>
@@ -2316,7 +2324,7 @@
 			<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow"
 			target="_blank">Microsoft identity platform and OAuth 2.0 On-Behalf-Of flow</a></li>
 			<li>Supported by Azure AD (MS Identity Platform) on V1 and V2 endpoints. Not for Azure AD B2C</li>
-			<li>May not be supported by other Security Token Services (STS)</li>
+			<li>May not be supported by other Security Token Services (STS) - none Azure AD</li>
 			<li>Framework support will vary</li>
 		</ul>
 	</section>
@@ -2344,7 +2352,7 @@
 								<td>The client (B) secret</td>
 							</tr>
 							<tr>
-								<td>assertion</td>
+								<td style="color:red">assertion</td>
 								<td>The access token that the client (B) got from client A in step 3. Audience in claim must be client_id of client B</td>
 							</tr>
 							<tr>
@@ -2601,15 +2609,15 @@
 							<ul>
 								<li>Fork the project at <span style="color:red">https://github.com/larskaare/sMailandStuff</span>
 								</br> to your own user on github.com</li>
-								<li>Use the instructions in the README.md to configure and run the application locally</li>
+								<li>Use the instructions in the README.md to configure and run the application locally (NodeJs and Docker)</li>
 								<li>Deploy to the cloud using Radix. A good place to start would be <a href="https://www.radix.equinor.com" target="_blank">The Radix Getting Started</a></li>
+								<li>↓</li>
 							</ul>
 						</section>
 						<section>
 							<h2>Traps ...</h2>
 							<ul>
 								<li>The app name in radixconfig</li>
-								<li>Remove SNYK token from radixconfig (or define value in console)</li>
 								<li>Update redirect URL in app registration</li>
 								<li>Update CLIENTID in radixconfig</li>
 							</ul>
