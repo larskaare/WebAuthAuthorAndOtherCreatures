@@ -33,6 +33,6 @@
   "devDependencies": {
     "elliptic": "^6.5.3",
     "eslint": "^6.3.0",
-    "nodemon": "^1.19.2"
+    "nodemon": "^2.0.4"
   }
 }
