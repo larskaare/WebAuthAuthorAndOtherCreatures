@@ -1856,7 +1856,7 @@
 										<li>The redirect GET REQUEST exposes the AccessToken/Id_Token</li>
 										<li>Information - like tokens are available to "everyone" using the browser</li>
 										<li><span style="color:red">Good practice</span>: 
-											Follow advice in OWASP Top 10 for Web application security (<a href="https://owasp.org/www-project-top-ten/" target="_blank">link</a>)</li>
+											Follow advice in OWASP Top 10 for Web application security (<a href="https://www.owasp.org/www-project-top-ten/" target="_blank">link</a>)</li>
 											<li><span style="color:red">Good practice</span>: Always use HTTPS</li>
 											<li><span style="color:red">Good practice</span>: Use Content Security Policy</li>
 											<li><span style="color:red">Good practice</span>: Go with auth code grant flow if you can :)</li>
@@ -1873,7 +1873,8 @@
 						<section>
 							<h1>Exercise 8</h1>
 							<h3>SPA - PKCE</h3>
-							<small>Code flow for public clients using PKCE</small>
+							<small>Code flow for public clients using PKCE</small></br>
+							<small>Lower the risk of stolen the one time code</small>
 						</section>
 
 						<section>
@@ -1896,19 +1897,19 @@
 									<a href="https://tools.ietf.org/html/rfc7636" target="_blank">RFC 7636</a> - <a href="https://oauth.net/2/pkce/" 
 									target="_blank">PKCE at oauth.net</a>
 								</li>
-								<li>Replacing impclicit flow for public clients</li>
+								<li>"Replacing impclicit flow for public clients"</li>
 								<li>Extension to Authorization code flow</li>
-								<li>Using generated secret to avoid stealing of authorization code</li>
+								<li>Using generated secret to avoid stealing of the one time authorization code</li>
 							</ul>
 						</section>
 						<section>
 							<h3>Elements of PCKE</h3>
 							<p>For each request to get a token:</p>
 							<ul>
-								<li>Generate secret known as code verifier</li>
+								<li>Generate secret known as <span style="color:red">code verifier</span></li>
 								<li>Code verifier is random generated secret.
 									(A-Z, a-z, 0-9, and the punctuation characters -._~ (hyphen, period, underscore, and tilde), between 43 and 128 characters long.)</li>
-								<li>Generate a code challenge, SHA256 of code verifier - url encoded</li>
+								<li>Generate a <span style="color:red">code challenge</span>, SHA256 of code verifier - url encoded</li>
 								<li>code_challenge_method to specific method of verifier - plain or s256</li>
 							</ul>						
 						</section>
@@ -2045,7 +2046,8 @@
 							<li> For the app object (clientid) in Azure AD we need to</li>
 							<ul>
 								<li>Treat the web app as a public client (app reg -> Authentication -> Advanced Settings - Default Client Type = Yes), </li>
-								<li>Alter manifest in the "replyUrlsWithType" section, change "type" to "Spa" for the redirect urls that will use PKCE </li>
+								<li>Add new platform "SPA" from "Authorization" - add redirect URI for app (http://localhost:3000/callback</li>
+								<li>(Alternatively: Alter manifest in the "replyUrlsWithType" section, change "type" to "Spa" for the redirect urls that will use PKCE)</li>
 							</ul>
 							<li>The token request must use CORS - origin in the header </li>
 						</ul>
