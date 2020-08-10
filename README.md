@@ -13,6 +13,7 @@
       - [Shell](#shell)
       - [Known challenges](#known-challenges)
   - [Verifying working environment](#verifying-working-environment)
+    - [Testing with the hello app](#testing-with-the-hello-app)
   - [Using docker-compose to provide the developer environment](#using-docker-compose-to-provide-the-developer-environment)
     - [Start](#start)
       - [_Session 1: Build and start the development container_](#session-1-build-and-start-the-development-container)
@@ -46,13 +47,13 @@ Highlights
 
 ## Pre-requisites
 
-These are the pre-requisites that will make the workshop a whole lot more usefull.
+These are the pre-requisites that will make the workshop a whole lot more useful. Verify your development environment (by using the section below) prior to joining the workshop
 
 ### Roles
 
 - Valid Equinor Software Developer On-Boarding
 - Valid role "Application Developer (Azure Active Directory)
-- Optional for deploy to cloud exercise: Access to Radix Playground - role "Radix Playground Users"
+- Optional: for deploy to cloud exercise: Access to Radix Playground - role "Radix Playground Users"
 
 ### Skills
 
@@ -61,7 +62,7 @@ Helpful knowledge and skills:
 - HTTP
 - JavaScript/Node.js
 - Linux command line
-- (Docker)
+- Optional: Docker
 
 ### Software
 
@@ -111,6 +112,9 @@ Most things should work ok with the cmd or powershell - with a few limitations. 
 
 ## Verifying working environment
 
+> Please verify that the tools work properly within your network environment. Typical problems would be related to PROXY settings.
+
+
 ```shell
 $ git --version
 git version 2.24.3
@@ -146,7 +150,16 @@ Docker version 19.03.8
 
 Should produce evidence of an update to date version of docker [Docker](https://www.docker.com/products/docker-desktop)
 
-> Please verify that the tools work properly within your network environment. Typical problems would be related to PROXY settings.
+### Testing with the hello app
+
+To verify your working environment I recommend testing the hello app. Use the following procdure
+
+- Clone this repository
+- Open a terminal and "**cd**" into the "**ex-0**" folder
+- Executing "**npm install**" should install dependencies with no fatal errors.
+- Executing "**npm start**" should provide the name of a Taco recipie with no fatal errors
+- Optional: Executing "**docker build -t hello .**" should build a docker image with no fatal errors
+- Optional: Executing "**docker run hello**" should provide the name of a Taco recipie with no fatal errors
 
 ## Using docker-compose to provide the developer environment
 
