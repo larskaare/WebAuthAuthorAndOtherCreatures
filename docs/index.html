@@ -1842,7 +1842,7 @@
 										<li>Update configuration in <span style="color:blue">javaScriptSPA/index.html:msalConfig</span> (clientid, authority)</li>
 										<li>Configure AD app object (Azure AD)</li>
 											<ul>
-												<li>Redirect URI: http://localhost</li>
+												<li>Redirect URI: http://localhost:3000</li>
 												<li>Authentication:Advances Setting:Implicit grant - allow access token and ID tokens</li>	
 											</ul>
 										<li>Configure environment back-end variables (PORT)</li>
@@ -2100,7 +2100,7 @@
 							<li>Security consideratins from <a href="https://tools.ietf.org/html/rfc7636#section-7" target="_blank">
 							RFC 7636</a></li>
 							<li>The implicit grant will most likely be deprecated in the future with oAuth 2.1</li>
-							<li>MSAL.js v2.0 does not suport the implicit grant</li>
+							<li>MSAL.js v2.0 does not support the implicit grant</li>
 							<li>I assume that using PKCE with code grant becomes mandatory at some point</li>
 						</ul>
 					</section>
@@ -2176,10 +2176,11 @@
 
 							<section>
 								<h3>Explore and config the SPA code</h3>
-								<ul style="font-size: 90%;">
+								<ul style="font-size: 75%;">
 									<li>Navigate to the <span style="color: blue">./ex-9/spa</span> directory</li>
 									<li>Install dependencies <code class="hljs">$ npm install</code></li>
 									<li>Update config in "JavaScriptSPA/index.html</li>	
+									<li>Verify env. variables (PORT) and Azure AD App Config (redirect URI)</li>
 									<ul>
 										<li>msalConfig: clientId, authority(tenant id) (for SPA AD App)</li>
 										<li>getEcho():requestEchoObj:scope (api://..../Echo.Read)</li>
@@ -2383,7 +2384,7 @@
 		</table>	
 	</section>
 
-	<section>
+	<!-- <section>
 		<h3>The On-Behalf-Of (OBO) Flow</h3>
 		<small>The middle-tier access token request (5)</small>
 		<table style="font-size: 50%;">
@@ -2412,7 +2413,7 @@
 				</td>			
 			</tr>
 		</table>	
-	</section>
+	</section> -->
 
 	<section>
 		<h3>The On-Behalf-Of (OBO) Flow</h3>
