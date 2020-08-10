@@ -218,8 +218,12 @@
 						<h3>oAuth2 vs OpenID Connect</h3>
 						<ul>
 							<li>oAuth is for delegation, the goal is to access api's</li>
+							<ul>
+								<li>To get a ticket (token) which gives access to a protected resource</li>
+							</ul>
 							<li>OpenID Connect is an identify layer on top of oAuth</li>
 							<ul>
+								<li>Answering key question: Who is logged in?</li>
 								<li>Defines user authentication metadata</li>
 								<li>Can control authentication</li>
 								<li>Supports federation</li>
@@ -493,6 +497,7 @@
 						<h2>OpenID Connect (<a href="https://openid.net/connect/" target="_blank">OICD</a>)</h2>
 						<ul style="font-size: 80%;">
 							<li><span style="color:red">Identity</span> layer built on-top of oAuth2</li>
+							<li>Answer to the "Who is logged in?" question</li>
 							<li>Defines user authentication meta data</li>
 							<li>Can control authentication</li>
 							<lI>Enables federation</lI><p></p>
@@ -750,6 +755,11 @@
 								</br>Scope offline_access will add refresh_token
 							</li>
 							<li>Discuss claims, optional claims, application manifest and <b>token config</b> in AD app object </li>
+							<ul>
+								<li>Standard claims in JWT tokens (<a href="https://tools.ietf.org/html/rfc7519#section-4" target="_blank">RFC 7519</a>)</li>
+								<li>Registry for public claims to avoid naming conflicts - <a href="https://www.iana.org/assignments/jwt/jwt.xhtml" target="_blank">IANA</a></li>
+								<li>Standard OICD JWT Token claims (<a href="https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims" target="_blank">1.0</a>)</li>
+							</ul>
 							<li>Discuss security considerations (token validation, token storage)</li>
 							<li><span style="color:red">Good practice</span>: Don't uses access tokens as proof of authentication. Access tokens are for the protected resource </li>
 						</ul>
@@ -1860,9 +1870,7 @@
 											<li><span style="color:red">Good practice</span>: Always use HTTPS</li>
 											<li><span style="color:red">Good practice</span>: Use Content Security Policy</li>
 											<li><span style="color:red">Good practice</span>: Go with auth code grant flow if you can :)</li>
-											<li><span style="color:red">Good advice</span>: 
-												Monitor support for PKCE in MSAL.js ( 
-												<a href="https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki" target="_blank">April 2020, Beta release of MSAL 2.0.0</a>)</li>	
+											<li><span style="color:red">Good advice</span>: Use MSAL v2. ADAL (v1) will be deprecated June 30th 2022 </li>	
 										</ul>
 								</section>
 					</section>
@@ -2039,9 +2047,7 @@
 						<h3>Preparing the environment - Azure AD</h3>
 
 						<ul style="font-size:85%">
-							<li>
-								The MS identify platform support PKCE. MSAL library support is in preview. 
-							The user experience for the application registration is not up-to-date.
+							<li>The MS identify platform support PKCE.</br> MSAL.JS v2 supports PKCE.
 							</li>
 							<li> For the app object (clientid) in Azure AD we need to</li>
 							<ul>
