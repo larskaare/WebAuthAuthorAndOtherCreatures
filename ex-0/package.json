@@ -1,0 +1,15 @@
+{
+  "name": "hello",
+  "version": "0.0.1",
+  "description": "A hello to verify working environment",
+  "main": "hello.js",
+  "scripts": {
+    "start": "node ./hello.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "Lars Kåre Skjørestad",
+  "license": "MIT",
+  "dependencies": {
+    "got": "^11.5.2"
+  }
+}
