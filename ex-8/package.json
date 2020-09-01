@@ -8,9 +8,11 @@
     "lint": "node ./node_modules/.bin/eslint . --ext .js"
   },
   "dependencies": {
+    "acorn": "~8.0.1",
     "cookie-parser": "~1.4.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "fecha": "~4.2.0",
     "http-errors": "~1.7.3",
     "moment": "^2.26.0",
     "morgan": "~1.9.1",
