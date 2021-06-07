@@ -1,5 +1,14 @@
 # A Hands-On Introduction to modern web based A&A
 
+****
+
+
+## This project is archived. A new version may emerge. The code will not be updated.
+
+
+****
+
+
 <!-- TOC -->
 
 - [A Hands-On Introduction to modern web based A&A](#a-hands-on-introduction-to-modern-web-based-aa)
